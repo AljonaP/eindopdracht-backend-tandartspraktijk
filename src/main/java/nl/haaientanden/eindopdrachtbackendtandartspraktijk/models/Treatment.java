@@ -1,22 +1,18 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="treatments")
 public class Treatment {
     @Id
-    @GeneratedValue
     private String treatmentCode;
-    private String treatmentfDescription;
+    private String treatmentDescription;
     private Double treatmentRate;
 
-    public Treatment(String treatmentCode, String treatmentfDescription, Double treatmentRate) {
+    public Treatment(String treatmentCode, String treatmentDescription, Double treatmentRate) {
         this.treatmentCode = treatmentCode;
-        this.treatmentfDescription = treatmentfDescription;
+        this.treatmentDescription = treatmentDescription;
         this.treatmentRate = treatmentRate;
     }
 
@@ -31,12 +27,12 @@ public class Treatment {
         this.treatmentCode = treatmentCode;
     }
 
-    public String getTreatmentfDescription() {
-        return treatmentfDescription;
+    public String getTreatmentDescription() {
+        return treatmentDescription;
     }
 
-    public void setTreatmentfDescription(String treatmentfDescription) {
-        this.treatmentfDescription = treatmentfDescription;
+    public void setTreatmentDescription(String treatmentDescription) {
+        this.treatmentDescription = treatmentDescription;
     }
 
     public Double getTreatmentRate() {

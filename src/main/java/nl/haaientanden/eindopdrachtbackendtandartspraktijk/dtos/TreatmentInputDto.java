@@ -3,21 +3,24 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 import javax.validation.constraints.*;
 
 public class TreatmentInputDto {
-    @NotBlank(message = "Veld verplicht invullen")
-    @Size(min=3, max=3)
+//    @NotBlank(message = "Veld verplicht invullen")
+//    @Size(min=3, max=3)
+    @NotBlank
     private String treatmentCode;
 
-    @NotBlank(message = "Veld verplicht invullen")
-    @Size(min=3, max=3)
-    private String treatmentfDescription;
+//    @NotBlank(message = "Veld verplicht invullen")
+//    @Size(min=3, max=500)
+    @NotBlank
+    private String treatmentDescription;
 
-    @NotEmpty(message = "Veld verplicht invullen")
-    @Positive
+//    @NotEmpty(message = "Veld verplicht invullen")
+//    @NotNull
+//    @Positive
     private Double treatmentRate;
 
-    public TreatmentInputDto(String treatmentCode, String treatmentfDescription, Double treatmentRate) {
+    public TreatmentInputDto(String treatmentCode, String treatmentDescription, Double treatmentRate) {
         this.treatmentCode = treatmentCode;
-        this.treatmentfDescription = treatmentfDescription;
+        this.treatmentDescription = treatmentDescription;
         this.treatmentRate = treatmentRate;
     }
 
@@ -32,12 +35,12 @@ public class TreatmentInputDto {
         this.treatmentCode = treatmentCode;
     }
 
-    public String getTreatmentfDescription() {
-        return treatmentfDescription;
+    public String getTreatmentDescription() {
+        return treatmentDescription;
     }
 
-    public void setTreatmentfDescription(String treatmentfDescription) {
-        this.treatmentfDescription = treatmentfDescription;
+    public void setTreatmentDescription(String treatmentDescription) {
+        this.treatmentDescription = treatmentDescription;
     }
 
     public Double getTreatmentRate() {
