@@ -1,4 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories;
 
-public interface TreatmentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TreatmentRepository extends JpaRepository {
 }
