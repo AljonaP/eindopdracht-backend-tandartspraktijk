@@ -30,7 +30,10 @@ public class TreatmentController {
     public ResponseEntity<Object> addTreatment(@Valid @RequestBody TreatmentInputDto treatmentInputDto) {
         TreatmentDto dto = treatmentService.saveTreatment(treatmentInputDto);
         return ResponseEntity.created(null).body(dto);
-
     }
+
+
+
+
 
 }
