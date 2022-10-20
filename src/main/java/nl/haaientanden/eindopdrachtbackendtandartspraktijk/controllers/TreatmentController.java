@@ -20,7 +20,11 @@ public class TreatmentController {
         this.treatmentRepository = treatmentRepository;
         this.treatmentService = treatmentService;
     }
-
+    @PostMapping("")
+    public ResponseEntity<Object> addTreatment(@Valid @RequestBody TreatmentInputDto treatmentInputDto) {
+        TreatmentDto dto = treatmentService.saveTreatment(treatmentInputDto);
+        return ResponseEntity.created(null).body(dto);
+    }
     @GetMapping("")
     public ResponseEntity<List<TreatmentDto>> getAllTreatments() {
         return ResponseEntity.ok().body(treatmentService.getTreatments());
@@ -31,11 +35,7 @@ public class TreatmentController {
         return ResponseEntity.ok(treatmentService.getTreatmentById(id));
     }
 
-    @PostMapping("")
-    public ResponseEntity<Object> addTreatment(@Valid @RequestBody TreatmentInputDto treatmentInputDto) {
-        TreatmentDto dto = treatmentService.saveTreatment(treatmentInputDto);
-        return ResponseEntity.created(null).body(dto);
-    }
+
 
 
 

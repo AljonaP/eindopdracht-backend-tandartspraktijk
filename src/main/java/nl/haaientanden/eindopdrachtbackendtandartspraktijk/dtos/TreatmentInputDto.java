@@ -15,7 +15,7 @@ public class TreatmentInputDto {
 
 //    @NotEmpty(message = "Veld verplicht invullen")
 //    @NotNull
-//    @Positive
+    @Positive
     private Double treatmentRate;
 
     public TreatmentInputDto(String treatmentCode, String treatmentDescription, Double treatmentRate) {
