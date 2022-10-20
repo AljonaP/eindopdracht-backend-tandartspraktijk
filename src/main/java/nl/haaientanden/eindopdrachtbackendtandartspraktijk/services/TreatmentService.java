@@ -2,6 +2,7 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentInputDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.BadRequestException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
@@ -17,6 +18,7 @@ public class TreatmentService {
     public TreatmentService(TreatmentRepository treatmentRepository) {
         this.treatmentRepository = treatmentRepository;
     }
+
 
     public TreatmentDto saveTreatment(TreatmentInputDto dto) {
 
@@ -47,6 +49,7 @@ public class TreatmentService {
     }
 
     public static Treatment transferToTreatment(TreatmentInputDto dto) {
+
         var treatment = new Treatment();
 
         treatment.setTreatmentCode(dto.getTreatmentCode());
@@ -57,6 +60,7 @@ public class TreatmentService {
     }
 
     public static TreatmentDto transferToDto(Treatment treatment) {
+
         TreatmentDto dto = new TreatmentDto();
 
         dto.setTreatmentCode(treatment.getTreatmentCode());
