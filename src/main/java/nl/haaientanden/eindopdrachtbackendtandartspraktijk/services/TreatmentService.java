@@ -7,6 +7,9 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotF
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,10 @@ public class TreatmentService {
         } else {
             throw new RecordNotFoundException("The entered value isn't correct or doesn't exist. Search again with another value.");
         }
+    }
+
+    public void deleteTreatmentById(@RequestBody String id) {
+        treatmentRepository.deleteById(id);
     }
 
     public static Treatment transferToTreatment(TreatmentInputDto dto) {
