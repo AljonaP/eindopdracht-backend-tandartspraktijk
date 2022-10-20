@@ -2,6 +2,7 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentInputDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,16 @@ public class TreatmentService {
         this.treatmentRepository = treatmentRepository;
     }
 
+    public TreatmentDto saveTreatment(TreatmentInputDto dto) {
+
+        Treatment treatment = transferToTreatment(dto);
+        treatmentRepository.save(treatment);
+
+        return transferToDto(treatment);
+    }
+
     public List<TreatmentDto> getTreatments() {
+
         List<Treatment> treatments = treatmentRepository.findAll();
         List<TreatmentDto> dtos = new ArrayList<>();
         for (Treatment treatment : treatments) {
@@ -26,10 +36,14 @@ public class TreatmentService {
         return dtos;
     }
 
-    public TreatmentDto saveTreatment(TreatmentInputDto dto) {
-        Treatment treatment = transferToTreatment(dto);
-        treatmentRepository.save(treatment);
-        return transferToDto(treatment);
+    public TreatmentDto getTreatmentById(String id) {
+
+        if(treatmentRepository.findById(id).isPresent()){
+            Treatment treatment = treatmentRepository.findById(id).get();
+            return transferToDto(treatment);
+        } else {
+            throw new RecordNotFoundException("The entered value isn't correct or doesn't exist. Search again with another value.");
+        }
     }
 
     public static Treatment transferToTreatment(TreatmentInputDto dto) {

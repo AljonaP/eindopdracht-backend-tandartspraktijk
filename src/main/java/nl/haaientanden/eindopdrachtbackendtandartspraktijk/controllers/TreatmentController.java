@@ -26,6 +26,11 @@ public class TreatmentController {
         return ResponseEntity.ok().body(treatmentService.getTreatments());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getTreatment(@PathVariable(name = "id") String id) {
+        return ResponseEntity.ok(treatmentService.getTreatmentById(id));
+    }
+
     @PostMapping("")
     public ResponseEntity<Object> addTreatment(@Valid @RequestBody TreatmentInputDto treatmentInputDto) {
         TreatmentDto dto = treatmentService.saveTreatment(treatmentInputDto);
