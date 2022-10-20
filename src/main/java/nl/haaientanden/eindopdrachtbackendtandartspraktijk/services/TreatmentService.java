@@ -6,6 +6,7 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.BadRequest
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,6 @@ public class TreatmentService {
         this.treatmentRepository = treatmentRepository;
     }
 
-
     public TreatmentDto saveTreatment(TreatmentInputDto dto) {
 
         Treatment treatment = transferToTreatment(dto);
@@ -30,6 +30,7 @@ public class TreatmentService {
 
         return transferToDto(treatment);
     }
+
 
     public List<TreatmentDto> getTreatments() {
 
@@ -48,6 +49,20 @@ public class TreatmentService {
             return transferToDto(treatment);
         } else {
             throw new RecordNotFoundException("The entered value isn't correct or doesn't exist. Search again with another value.");
+        }
+    }
+
+    public TreatmentDto updateTreatment(String id, TreatmentInputDto inputDto) {
+        if(treatmentRepository.findById(id).isPresent()) {
+            Treatment treatment = treatmentRepository.findById(id).get();
+            Treatment treatment1 = transferToTreatment(inputDto);
+            treatment1.setTreatmentCode(treatment.getTreatmentCode());
+
+            treatmentRepository.save(treatment1);
+
+            return transferToDto(treatment1);
+        } else {
+            throw new RecordNotFoundException("geen treatment is gevonden");
         }
     }
 

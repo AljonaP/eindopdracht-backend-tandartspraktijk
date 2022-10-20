@@ -37,10 +37,18 @@ public class TreatmentController {
         return ResponseEntity.ok(treatmentService.getTreatmentById(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateTreatment(@PathVariable(name="id") String id, @RequestBody TreatmentInputDto newTreatment) {
+        TreatmentDto dto = treatmentService.updateTreatment(id, newTreatment);
+
+        return ResponseEntity.ok().body(dto);
+    }
     @DeleteMapping("/{id}")
     public void deleteTreatment(@PathVariable(name = "id") String id) {
         treatmentService.deleteTreatmentById(id);
     }
+
+
 
 
 
