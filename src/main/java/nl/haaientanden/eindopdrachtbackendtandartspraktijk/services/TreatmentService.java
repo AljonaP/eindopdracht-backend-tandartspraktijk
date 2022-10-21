@@ -31,7 +31,6 @@ public class TreatmentService {
         return transferToDto(treatment);
     }
 
-
     public List<TreatmentDto> getTreatments() {
 
         List<Treatment> treatments = treatmentRepository.findAll();
