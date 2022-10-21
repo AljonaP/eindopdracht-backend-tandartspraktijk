@@ -1,6 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentRepository;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.AppointmentService;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
