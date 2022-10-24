@@ -3,12 +3,16 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "patients")
 public class Patient {
+    @Id
+    @GeneratedValue
     private Long id;
     private String namePatient;
     private String surnamePatient;
