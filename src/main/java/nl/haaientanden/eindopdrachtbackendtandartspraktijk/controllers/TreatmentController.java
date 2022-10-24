@@ -54,9 +54,4 @@ public class TreatmentController {
     public void deleteTreatment(@PathVariable(name = "id") String id) {
         treatmentService.deleteTreatmentById(id);
     }
-
-
-
-
-
 }
