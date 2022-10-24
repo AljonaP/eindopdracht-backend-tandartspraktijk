@@ -1,19 +1,17 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
-import java.sql.Time;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AppointmentDto {
     private String nameDentist;
     private String surnameDentist;
-    private LocalDate appointmentDate;
-    private Time appointmentTime;
+    private LocalDateTime appointmentDateTime;
 
-    public AppointmentDto(String nameDentist, String surnameDentist, LocalDate appointmentDate, Time appointmentTime) {
+    public AppointmentDto(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
-        this.appointmentDate = appointmentDate;
-        this.appointmentTime = appointmentTime;
+        this.appointmentDateTime = appointmentDateTime;
+
     }
 
     public AppointmentDto() {
@@ -35,19 +33,11 @@ public class AppointmentDto {
         this.surnameDentist = surnameDentist;
     }
 
-    public LocalDate getAppointmentDate() {
-        return appointmentDate;
+    public LocalDateTime getAppointmentDateTime() {
+        return appointmentDateTime;
     }
 
-    public void setAppointmentDate(LocalDate appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public Time getAppointmentTime() {
-        return appointmentTime;
-    }
-
-    public void setAppointmentTime(Time appointmentTime) {
-        this.appointmentTime = appointmentTime;
+    public void setAppointmentDateTime(LocalDateTime appointmentDateTime) {
+        this.appointmentDateTime = appointmentDateTime;
     }
 }

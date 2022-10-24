@@ -2,20 +2,39 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentInputDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Appointment;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
+
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AppointmentService {
-    public final AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
 
 
     public AppointmentService(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
+    }
+
+    public AppointmentDto saveAppointment(AppointmentInputDto dto) {
+
+        Appointment appointment = transferToAppointment(dto);
+        appointmentRepository.save(appointment);
+
+        return transferToDto(appointment);
+    }
+
+    public List<AppointmentDto> getAppointments() {
+
+        List<Appointment> appointments = appointmentRepository.findAll();
+        List<AppointmentDto> dtos = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            dtos.add(transferToDto(appointment));
+        }
+        return dtos;
     }
 
     public static Appointment transferToAppointment(AppointmentInputDto dto) {
@@ -24,8 +43,7 @@ public class AppointmentService {
 
         appointment.setNameDentist(dto.getNameDentist());
         appointment.setSurnameDentist(dto.getSurnameDentist());
-        appointment.setAppointmentDate(dto.getAppointmentDate());
-        appointment.setAppointmentTime(dto.getAppointmentTime());
+        appointment.setAppointmentDateTime(dto.getAppointmentDateTime());
 
         return appointment;
     }
@@ -36,8 +54,7 @@ public class AppointmentService {
 
         dto.setNameDentist(appointment.getNameDentist());
         dto.setSurnameDentist(appointment.getSurnameDentist());
-        dto.setAppointmentDate(appointment.getAppointmentDate());
-        dto.setAppointmentTime(appointment.getAppointmentTime());
+        dto.setAppointmentDateTime(appointment.getAppointmentDateTime());
 
         return dto;
     }
