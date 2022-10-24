@@ -2,6 +2,8 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentInputDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.AppointmentService;
 
@@ -43,6 +45,27 @@ public class AppointmentController {
     public ResponseEntity<List<AppointmentDto>> getAllAppointments() {
         return ResponseEntity.ok().body(appointmentService.getAppointments());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getAppointment(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(appointmentService.getAppointmentById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateAppointment(@PathVariable(name="id") Long id, @RequestBody AppointmentInputDto newAppointment) {
+        AppointmentDto dto = appointmentService.updateAppointment(id, newAppointment);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAppointment(@PathVariable(name = "id") Long id) {
+        appointmentService.deleteAppointmentById(id);
+    }
+
+
+
+
 
 }
 
