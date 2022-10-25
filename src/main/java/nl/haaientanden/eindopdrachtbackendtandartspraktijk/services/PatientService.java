@@ -6,6 +6,9 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Patient;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.PatientRepository;
 import org.springframework.stereotype.Service;
 
+import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.checkPostcode;
+
+
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
@@ -14,23 +17,36 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-    static int lengthDutchZipCode = 6;
+    public PatientDto savePatient(PatientInputDto dto) {
+
+        Patient patient = transferToPatient(dto);
+        patientRepository.save(patient);
+
+        return transferToDto(patient);
+    }
 
     public static Patient transferToPatient(PatientInputDto dto) {
 
         var patient = new Patient();
         String zipCode = dto.getZipCode();
+        String inputPhoneNumber = dto.getPhoneNumber();
 
         patient.setNamePatient(dto.getNamePatient());
         patient.setSurnamePatient(dto.getSurnamePatient());
         patient.setDob(dto.getDob());
-        if (checkPostcode((zipCode)) == true){
+        if (checkPostcode(zipCode)){
             patient.setZipCode(dto.getZipCode());
         }
-        patient.setZipCode(dto.getZipCode());
         patient.setHomeNumber(dto.getHomeNumber());
         patient.setEmail(dto.getEmail());
-        patient.setPhoneNumber(dto.getPhoneNumber());
+//        if (validPhoneNumber(inputPhoneNumber)) {
+//            patient.setPhoneNumber(dto.getPhoneNumber());
+//        }
+//
+        if (validPhoneNumber(dto.getPhoneNumber())) {
+            patient.setPhoneNumber(dto.getPhoneNumber());
+        }
+//        patient.setPhoneNumber(dto.getPhoneNumber());
         patient.setReimburseByInsurancePercentage(dto.getReimburseByInsurancePercentage());
 
         return patient;
@@ -39,37 +55,34 @@ public class PatientService {
     public static PatientDto transferToDto(Patient patient) {
         PatientDto dto = new PatientDto();
 
-        String zipCode = dto.getZipCode();
+        String zipCode = patient.getZipCode();
+        String inputPhoneNumber = patient.getPhoneNumber();
 
         dto.setNamePatient(patient.getNamePatient());
         dto.setSurnamePatient(patient.getSurnamePatient());
         dto.setDob(patient.getDob());
-        if (checkPostcode((zipCode)) == true){
+        if (checkPostcode(zipCode)){
             dto.setZipCode(patient.getZipCode());
         }
-        dto.setZipCode(patient.getZipCode());
         dto.setHomeNumber(patient.getHomeNumber());
         dto.setEmail(patient.getEmail());
-        dto.setPhoneNumber(patient.getPhoneNumber());
+//        if (validPhoneNumber(inputPhoneNumber)) {
+//            dto.setPhoneNumber(patient.getPhoneNumber());
+//        }
+        if (validPhoneNumber(patient.getPhoneNumber())) {
+            dto.setPhoneNumber(patient.getPhoneNumber());
+        }
+//        dto.setPhoneNumber(patient.getPhoneNumber());
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
 
         return dto;
     }
 
-    public static boolean checkPostcode(String zipCode) {
-        if (zipCode.length() != lengthDutchZipCode || zipCode.charAt(0) == '0') {
-            return false;
-        }
-        if (zipCode.length() == lengthDutchZipCode) {
-            for (int i = 0; i < zipCode.length(); i++) {
-                if (i < 4 && Character.isLetter(zipCode.charAt(i))) {
-                    return false;
-                }
-                if (i > 3 && Character.isDigit(zipCode.charAt(i))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    public static boolean validPhoneNumber(String inputPhoneNumber) {
+        return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("0-9]+");
     }
+
+
+
+
 }

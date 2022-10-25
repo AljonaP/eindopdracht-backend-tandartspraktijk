@@ -20,10 +20,10 @@ public class Patient {
     private String zipCode;
     private Integer homeNumber;
     private String email;
-    private Long phoneNumber;
+    private String phoneNumber;
     private Integer reimburseByInsurancePercentage;
 
-    public Patient(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, Long phoneNumber, Integer reimburseByInsurancePercentage) {
+    public Patient(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage) {
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;
@@ -94,11 +94,11 @@ public class Patient {
         this.email = email;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

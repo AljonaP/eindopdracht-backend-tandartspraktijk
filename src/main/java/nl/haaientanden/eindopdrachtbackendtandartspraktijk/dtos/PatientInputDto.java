@@ -19,19 +19,20 @@ public class PatientInputDto {
     @Size(min=6, max=6)
     private String zipCode;
 
-    @NotBlank
+    @NotNull
     private Integer homeNumber;
 
     @Email
     private String email;
 
     @NotBlank
-    private Long phoneNumber;
+    @Size(min = 10, max = 10)
+    private String phoneNumber;
 
-    @NotBlank
+    @NotNull
     private Integer reimburseByInsurancePercentage;
 
-    public PatientInputDto(String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, Long phoneNumber, Integer reimburseByInsurancePercentage) {
+    public PatientInputDto(String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage) {
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;
@@ -94,11 +95,11 @@ public class PatientInputDto {
         this.email = email;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
