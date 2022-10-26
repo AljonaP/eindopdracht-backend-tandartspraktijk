@@ -2,9 +2,16 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientInputDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Patient;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.PatientRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.checkPostcode;
 
@@ -25,6 +32,43 @@ public class PatientService {
         return transferToDto(patient);
     }
 
+    public List<PatientDto> getPatients() {
+
+        List<Patient> patients = patientRepository.findAll();
+        List<PatientDto> dtos = new ArrayList<>();
+        for (Patient patient : patients) {
+            dtos.add(transferToDto(patient));
+        }
+        return dtos;
+    }
+
+    public PatientDto getPatientById(Long id) {
+        if(patientRepository.findById(id).isPresent()) {
+            Patient patient = patientRepository.findById(id).get();
+            return transferToDto(patient);
+        } else {
+            throw new RecordNotFoundException("De ingevoerde value is niet juist. Zoek opnieuw.");
+        }
+    }
+
+    public PatientDto updatePatient(Long id, PatientInputDto inputDto) {
+        if(patientRepository.findById(id).isPresent()) {
+            Patient patient = patientRepository.findById(id).get();
+            Patient patient1 = transferToPatient(inputDto);
+            patient1.setId(patient.getId());
+
+            patientRepository.save(patient1);
+
+            return transferToDto(patient1);
+        } else {
+            throw new RecordNotFoundException("geen patient is gevonden");
+        }
+    }
+
+    public void deletePatientById(@RequestBody Long id) {
+        patientRepository.deleteById(id);
+    }
+
     public static Patient transferToPatient(PatientInputDto dto) {
 
         var patient = new Patient();
@@ -39,14 +83,12 @@ public class PatientService {
         }
         patient.setHomeNumber(dto.getHomeNumber());
         patient.setEmail(dto.getEmail());
-//        if (validPhoneNumber(inputPhoneNumber)) {
-//            patient.setPhoneNumber(dto.getPhoneNumber());
-//        }
-//
-        if (validPhoneNumber(dto.getPhoneNumber())) {
+
+        if (validPhoneNumber(inputPhoneNumber)) {
             patient.setPhoneNumber(dto.getPhoneNumber());
         }
-//        patient.setPhoneNumber(dto.getPhoneNumber());
+
+        patient.setPhoneNumber(dto.getPhoneNumber());
         patient.setReimburseByInsurancePercentage(dto.getReimburseByInsurancePercentage());
 
         return patient;
@@ -58,6 +100,7 @@ public class PatientService {
         String zipCode = patient.getZipCode();
         String inputPhoneNumber = patient.getPhoneNumber();
 
+        dto.setId(patient.getId());
         dto.setNamePatient(patient.getNamePatient());
         dto.setSurnamePatient(patient.getSurnamePatient());
         dto.setDob(patient.getDob());
@@ -66,23 +109,20 @@ public class PatientService {
         }
         dto.setHomeNumber(patient.getHomeNumber());
         dto.setEmail(patient.getEmail());
-//        if (validPhoneNumber(inputPhoneNumber)) {
-//            dto.setPhoneNumber(patient.getPhoneNumber());
-//        }
-        if (validPhoneNumber(patient.getPhoneNumber())) {
+
+        if (validPhoneNumber(inputPhoneNumber)) {
             dto.setPhoneNumber(patient.getPhoneNumber());
         }
-//        dto.setPhoneNumber(patient.getPhoneNumber());
+
+        dto.setPhoneNumber(patient.getPhoneNumber());
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
 
         return dto;
     }
 
     public static boolean validPhoneNumber(String inputPhoneNumber) {
-        return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("0-9]+");
+        return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("[0-9]+");
     }
 
-
-
-
 }
+
