@@ -2,7 +2,10 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
