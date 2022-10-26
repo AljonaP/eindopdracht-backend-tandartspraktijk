@@ -1,5 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.PatientRepository;
@@ -7,11 +9,12 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.PatientServi
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
-import java.util.List;
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
 
@@ -34,27 +37,4 @@ public class PatientController {
         PatientDto dto = patientService.savePatient(patientInputDto);
         return ResponseEntity.created(null).body(dto);
     }
-
-    @GetMapping("")
-    public ResponseEntity<List<PatientDto>> getAllPatients() {
-        return ResponseEntity.ok().body(patientService.getPatients());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getPatient(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(patientService.getPatientById(id));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updatePatient(@PathVariable(name = "id") Long id, @RequestBody PatientInputDto newPatient) {
-        PatientDto dto = patientService.updatePatient(id, newPatient);
-
-        return ResponseEntity.ok().body(dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletePatient(@PathVariable(name = "id") Long id) {
-        patientService.deletePatientById(id);
-    }
-
 }
