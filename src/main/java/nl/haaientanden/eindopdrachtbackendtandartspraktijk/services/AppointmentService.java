@@ -85,6 +85,7 @@ public class AppointmentService {
 
         AppointmentDto dto = new AppointmentDto();
 
+        dto.setId(appointment.getId());
         dto.setNameDentist(appointment.getNameDentist());
         dto.setSurnameDentist(appointment.getSurnameDentist());
         dto.setAppointmentDateTime(appointment.getAppointmentDateTime());

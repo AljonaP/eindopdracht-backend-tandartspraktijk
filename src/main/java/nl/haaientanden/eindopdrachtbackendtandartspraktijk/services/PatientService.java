@@ -78,11 +78,4 @@ public class PatientService {
         return dto;
     }
 
-    public static boolean validPhoneNumber(String inputPhoneNumber) {
-        return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("0-9]+");
-    }
-
-
-
-
 }
