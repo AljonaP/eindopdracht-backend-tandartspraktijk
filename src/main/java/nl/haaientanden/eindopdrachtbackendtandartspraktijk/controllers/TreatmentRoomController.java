@@ -1,5 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRoomRepository;
@@ -7,12 +9,11 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.TreatmentRoo
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
 
@@ -35,6 +36,20 @@ public class TreatmentRoomController {
         TreatmentRoomDto dto = treatmentRoomService.saveTreatmentRoom(treatmentRoomInputDto);
         return ResponseEntity.created(null).body(dto);
     }
+
+    @GetMapping("")
+    public ResponseEntity<List<TreatmentRoomDto>> getAllTreatmentRooms() {
+        return ResponseEntity.ok().body(treatmentRoomService.getTreatmentRooms());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getTreatmentRoom(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(treatmentRoomService.getTreatmentRoomById(id));
+    }
+
+
+
+
 
 
 }

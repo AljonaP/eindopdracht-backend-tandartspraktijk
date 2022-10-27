@@ -44,6 +44,6 @@ public class TreatmentRoom {
     }
 
     public void setRoomColor(String roomColor) {
-        this.roomColor = roomColor;
+        this.roomColor = roomColor.toLowerCase();
     }
 }
