@@ -29,5 +29,7 @@ public class TreatmentRoomService {
         dto.setId(treatmentRoom.getId());
         dto.setRoomNumber(treatmentRoom.getRoomNumber());
         dto.setRoomColor(treatmentRoom.getRoomColor());
+
+        return dto;
     }
 }
