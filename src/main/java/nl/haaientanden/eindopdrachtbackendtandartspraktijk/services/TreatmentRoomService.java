@@ -14,6 +14,14 @@ public class TreatmentRoomService {
         this.treatmentRoomRepository = treatmentRoomRepository;
     }
 
+    public TreatmentRoomDto saveTreatmentRoom(TreatmentRoomInputDto dto) {
+
+        TreatmentRoom treatmentRoom = transferToTreatmentRoom(dto);
+        treatmentRoomRepository.save(treatmentRoom);
+
+        return transferToDto(treatmentRoom);
+    }
+
     public static TreatmentRoom transferToTreatmentRoom(TreatmentRoomInputDto dto) {
         var treatmentRoom = new TreatmentRoom();
 

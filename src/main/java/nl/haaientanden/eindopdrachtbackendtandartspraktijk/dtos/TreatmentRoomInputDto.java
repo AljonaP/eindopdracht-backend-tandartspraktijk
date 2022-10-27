@@ -1,19 +1,18 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class TreatmentRoomInputDto {
     @NotNull
-    @Size(min = 1, max = 2)
-    private int roomNumber;
+    @Min(value = 1)
+    @Max(value = 99)
+    private Integer roomNumber;
 
     @NotBlank
     @Size(min = 3, max = 25)
     private String roomColor;
 
-    public TreatmentRoomInputDto(Long id, int roomNumber, String roomColor) {
+    public TreatmentRoomInputDto(Long id, Integer roomNumber, String roomColor) {
 
         this.roomNumber = roomNumber;
         this.roomColor = roomColor;

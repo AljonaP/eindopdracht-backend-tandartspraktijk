@@ -11,10 +11,10 @@ public class TreatmentRoom {
     @Id
     @GeneratedValue
     private Long id;
-    private int roomNumber;
+    private Integer roomNumber;
     private String roomColor;
 
-    public TreatmentRoom(Long id, int roomNumber, String roomColor) {
+    public TreatmentRoom(Long id, Integer roomNumber, String roomColor) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.roomColor = roomColor;
