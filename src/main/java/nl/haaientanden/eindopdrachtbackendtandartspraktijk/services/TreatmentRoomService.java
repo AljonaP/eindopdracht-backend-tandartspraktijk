@@ -1,14 +1,13 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
+
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Appointment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.TreatmentRoom;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRoomRepository;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +45,24 @@ public class TreatmentRoomService {
         } else {
             throw new RecordNotFoundException("The entered value isn't correct or doesn't exist. Search again with another value.");
         }
+    }
+
+    public TreatmentRoomDto updateTreatmentRoom(Long id, TreatmentRoomInputDto inputDto) {
+        if(treatmentRoomRepository.findById(id).isPresent()) {
+            TreatmentRoom treatmentRoom = treatmentRoomRepository.findById(id).get();
+            TreatmentRoom treatmentRoom1 = transferToTreatmentRoom(inputDto);
+            treatmentRoom1.setId(treatmentRoom.getId());
+
+            treatmentRoomRepository.save(treatmentRoom1);
+
+            return transferToDto(treatmentRoom1);
+        } else {
+            throw new RecordNotFoundException("geen treatment is gevonden");
+        }
+    }
+
+    public void deleteTreatmentRoomById(@RequestBody Long id) {
+        treatmentRoomRepository.deleteById(id);
     }
 
     public static TreatmentRoom transferToTreatmentRoom(TreatmentRoomInputDto dto) {

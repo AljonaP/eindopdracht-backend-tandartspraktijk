@@ -12,7 +12,7 @@ public class TreatmentRoomInputDto {
     @Size(min = 3, max = 25)
     private String roomColor;
 
-    public TreatmentRoomInputDto(Long id, Integer roomNumber, String roomColor) {
+    public TreatmentRoomInputDto(Integer roomNumber, String roomColor) {
 
         this.roomNumber = roomNumber;
         this.roomColor = roomColor;

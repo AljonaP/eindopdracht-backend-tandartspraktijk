@@ -1,7 +1,5 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRoomRepository;
@@ -45,6 +43,18 @@ public class TreatmentRoomController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getTreatmentRoom(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(treatmentRoomService.getTreatmentRoomById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateTreatmentRoom(@PathVariable(name="id") Long id, @RequestBody TreatmentRoomInputDto newTreatmentRoom) {
+        TreatmentRoomDto dto = treatmentRoomService.updateTreatmentRoom(id, newTreatmentRoom);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTreatmentRoom(@PathVariable(name = "id") Long id) {
+        treatmentRoomService.deleteTreatmentRoomById(id);
     }
 
 
