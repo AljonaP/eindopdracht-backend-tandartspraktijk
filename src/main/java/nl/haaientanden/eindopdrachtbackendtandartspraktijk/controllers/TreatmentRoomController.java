@@ -2,6 +2,7 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRoomRepository;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.TreatmentRoomService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
