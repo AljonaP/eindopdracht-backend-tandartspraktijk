@@ -25,7 +25,7 @@ public class PatientInputDto {
     @Email
     private String email;
 
-    @NotBlank
+    @NotNull
     @Size(min = 10, max = 10)
     private String phoneNumber;
 
