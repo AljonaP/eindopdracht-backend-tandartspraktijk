@@ -3,6 +3,7 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class InvoiceInputDto {
@@ -10,6 +11,7 @@ public class InvoiceInputDto {
     private LocalDate invoiceDate;
 
     @NotBlank
+    @Size(min = 7, max = 7)
     private String invoiceNumber;
 
 

@@ -7,12 +7,11 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.InvoiceServi
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
 
@@ -34,5 +33,15 @@ public class InvoiceController {
         }
         InvoiceDto dto = invoiceService.saveInvoice(invoiceInputDto);
         return ResponseEntity.created(null).body(dto);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<InvoiceDto>> getAllInvoices() {
+        return ResponseEntity.ok().body(invoiceService.getInvoices());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getInvoice(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(invoiceService.getInvoiceById(id));
     }
 }
