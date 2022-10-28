@@ -44,4 +44,16 @@ public class InvoiceController {
     public ResponseEntity<Object> getInvoice(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(invoiceService.getInvoiceById(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateInvoice(@PathVariable(name="id") Long id, @RequestBody InvoiceInputDto newInvoice) {
+        InvoiceDto dto = invoiceService.updateInvoice(id, newInvoice);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteInvoice(@PathVariable(name = "id") Long id) {
+        invoiceService.deleteInvoiceById(id);
+    }
 }

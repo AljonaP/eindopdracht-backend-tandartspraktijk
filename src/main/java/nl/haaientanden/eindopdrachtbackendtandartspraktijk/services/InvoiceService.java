@@ -6,6 +6,7 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotF
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Invoice;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.InvoiceRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,24 @@ public class InvoiceService {
         } else {
             throw new RecordNotFoundException("The entered value isn't correct or doesn't exist. Search again with another value.");
         }
+    }
+
+    public InvoiceDto updateInvoice(Long id, InvoiceInputDto inputDto) {
+        if(invoiceRepository.findById(id).isPresent()) {
+            Invoice invoice = invoiceRepository.findById(id).get();
+            Invoice invoice1 = transferToInvoice(inputDto);
+            invoice1.setId(invoice.getId());
+
+            invoiceRepository.save(invoice1);
+
+            return transferToDto(invoice1);
+        } else {
+            throw new RecordNotFoundException("geen treatment is gevonden");
+        }
+    }
+
+    public void deleteInvoiceById(@RequestBody Long id) {
+        invoiceRepository.deleteById(id);
     }
 
 
