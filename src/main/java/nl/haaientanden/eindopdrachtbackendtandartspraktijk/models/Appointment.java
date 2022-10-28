@@ -1,5 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ public class Appointment {
     private String nameDentist;
     private String surnameDentist;
     private LocalDateTime appointmentDateTime;
+
 
 
     public Appointment(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {

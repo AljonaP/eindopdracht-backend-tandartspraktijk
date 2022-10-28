@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TreatmentService {
+public class    TreatmentService {
     private final TreatmentRepository treatmentRepository;
 
     public TreatmentService(TreatmentRepository treatmentRepository) {

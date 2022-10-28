@@ -1,9 +1,8 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -30,6 +29,9 @@ public class Invoice {
     private Double totalToPayByPatientPerTreatmentAmount;
     private Double totalInvoiceAmountToPayByPatient;
 
+
+
+
     public Invoice(Long id,
                    LocalDate invoiceDate,
                    Long invoiceNumber,
@@ -48,6 +50,9 @@ public class Invoice {
 
     public Invoice() {
     }
+
+
+
 
     public Long getId() {
         return id;
