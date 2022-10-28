@@ -6,11 +6,11 @@ public class InvoiceDto {
     private Long id;
 
     private LocalDate invoiceDate;
-    private Long invoiceNumber;
+    private String invoiceNumber;
 
     public InvoiceDto(Long id,
                    LocalDate invoiceDate,
-                   Long invoiceNumber
+                   String invoiceNumber
                    ) {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
@@ -35,11 +35,11 @@ public class InvoiceDto {
         this.invoiceDate = invoiceDate;
     }
 
-    public Long getInvoiceNumber() {
+    public String getInvoiceNumber() {
         return invoiceNumber;
     }
 
-    public void setInvoiceNumber(Long invoiceNumber) {
+    public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
 }

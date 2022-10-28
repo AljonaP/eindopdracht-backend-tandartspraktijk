@@ -14,6 +14,15 @@ public class InvoiceService {
         this.invoiceRepository = invoiceRepository;
     }
 
+    public InvoiceDto saveInvoice(InvoiceInputDto dto) {
+
+        Invoice invoice = transferToInvoice(dto);
+        invoiceRepository.save(invoice);
+
+        return transferToDto(invoice);
+    }
+
+
     public static Invoice transferToInvoice(InvoiceInputDto dto) {
 
         var invoice = new Invoice();
@@ -28,6 +37,7 @@ public class InvoiceService {
 
         InvoiceDto dto = new InvoiceDto();
 
+        dto.setId(invoice.getId());
         dto.setInvoiceDate(invoice.getInvoiceDate());
         dto.setInvoiceNumber(invoice.getInvoiceNumber());
 
