@@ -1,11 +1,17 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public class InvoiceInputDto {
+    @PastOrPresent
     private LocalDate invoiceDate;
+
+    @NotNull
     private Long invoiceNumber;
-    private String invoiceTextTemplate;
+
     private Double totalTreatmentAmount;
     private Double totalReimbursedByInsuranceCompanyAmount;
     private Double totalToPayByPatientPerTreatmentAmount;
@@ -13,14 +19,14 @@ public class InvoiceInputDto {
 
     public InvoiceInputDto(LocalDate invoiceDate,
                            Long invoiceNumber,
-                           String invoiceTextTemplate,
+
                            Double totalTreatmentAmount,
                            Double totalReimbursedByInsuranceCompanyAmount,
                            Double totalToPayByPatientPerTreatmentAmount,
                            Double totalInvoiceAmountToPayByPatient) {
         this.invoiceDate = invoiceDate;
         this.invoiceNumber = invoiceNumber;
-        this.invoiceTextTemplate = invoiceTextTemplate;
+
         this.totalTreatmentAmount = totalTreatmentAmount;
         this.totalReimbursedByInsuranceCompanyAmount = totalReimbursedByInsuranceCompanyAmount;
         this.totalToPayByPatientPerTreatmentAmount = totalToPayByPatientPerTreatmentAmount;
@@ -43,13 +49,8 @@ public class InvoiceInputDto {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public String getInvoiceTextTemplate() {
-        return invoiceTextTemplate;
-    }
 
-    public void setInvoiceTextTemplate(String invoiceTextTemplate) {
-        this.invoiceTextTemplate = invoiceTextTemplate;
-    }
+
 
     public Double getTotalTreatmentAmount() {
         return totalTreatmentAmount;

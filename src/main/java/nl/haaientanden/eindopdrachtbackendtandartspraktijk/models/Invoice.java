@@ -21,7 +21,10 @@ public class Invoice {
     private final String chamberOfCommerceNumber ="1235467";
     private LocalDate invoiceDate;
     private Long invoiceNumber;
-    private String invoiceTextTemplate;
+    private final String invoiceTextTemplate = "Deze rekening is al naar uw zorgverzekeraar gestuurd. Als uw zorgverzekeraar een gedeelte heeft vergoed, ziet u dat achter\n" +
+            "“Betaald door uw zorgverzekeraar”. Het bedrag dat u nog moet betalen vindt onder in deze factuur achter “Nog door u te betalen”.\n" +
+            "Wij vragen u vriendelijk het bedrag binnen 30 dagen aan ons over te maken.";
+
     private Double totalTreatmentAmount;
     private Double totalReimbursedByInsuranceCompanyAmount;
     private Double totalToPayByPatientPerTreatmentAmount;
@@ -30,14 +33,12 @@ public class Invoice {
     public Invoice(Long id,
                    LocalDate invoiceDate,
                    Long invoiceNumber,
-                   String invoiceTextTemplate,
                    Double totalTreatmentAmount,
                    Double totalReimbursedByInsuranceCompanyAmount,
                    Double totalToPayByPatientPerTreatmentAmount,
                    Double totalInvoiceAmountToPayByPatient) {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
-        this.invoiceTextTemplate = invoiceTextTemplate;
         this.totalTreatmentAmount = totalTreatmentAmount;
         this.totalReimbursedByInsuranceCompanyAmount = totalReimbursedByInsuranceCompanyAmount;
         this.totalToPayByPatientPerTreatmentAmount = totalToPayByPatientPerTreatmentAmount;
@@ -58,6 +59,10 @@ public class Invoice {
 
     public String getNameDentalPractice() {
         return nameDentalPractice;
+    }
+
+    public String getInvoiceTextTemplate() {
+        return invoiceTextTemplate;
     }
 
     public String getZipCodeDentalPractice() {
@@ -98,14 +103,6 @@ public class Invoice {
 
     public void setInvoiceNumber(Long invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
-    }
-
-    public String getInvoiceTextTemplate() {
-        return invoiceTextTemplate;
-    }
-
-    public void setInvoiceTextTemplate(String invoiceTextTemplate) {
-        this.invoiceTextTemplate = invoiceTextTemplate;
     }
 
     public Double getTotalTreatmentAmount() {
