@@ -1,8 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 public class AppointmentInputDto {
@@ -14,7 +12,7 @@ public class AppointmentInputDto {
     @Size(min=1, max=30)
     private String surnameDentist;
 
-    @Future
+   @NotNull
     private LocalDateTime appointmentDateTime;
 
     public AppointmentInputDto(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
