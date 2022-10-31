@@ -1,7 +1,5 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 import javax.persistence.Entity;
@@ -18,6 +16,8 @@ public class Appointment {
     private String surnameDentist;
     private LocalDateTime appointmentDateTime;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    TreatmentRoom treatmentRoom;
 
     public Appointment(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
         this.nameDentist = nameDentist;
@@ -58,5 +58,13 @@ public class Appointment {
 
     public void setAppointmentDateTime(LocalDateTime appointmentDateTime) {
         this.appointmentDateTime = appointmentDateTime;
+    }
+
+    public TreatmentRoom getTreatmentRoom() {
+        return treatmentRoom;
+    }
+
+    public void setTreatmentRoom(TreatmentRoom treatmentRoom) {
+        this.treatmentRoom = treatmentRoom;
     }
 }

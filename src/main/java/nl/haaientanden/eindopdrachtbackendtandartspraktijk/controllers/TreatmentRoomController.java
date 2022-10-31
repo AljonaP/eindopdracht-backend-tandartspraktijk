@@ -56,10 +56,4 @@ public class TreatmentRoomController {
     public void deleteTreatmentRoom(@PathVariable(name = "id") Long id) {
         treatmentRoomService.deleteTreatmentRoomById(id);
     }
-
-
-
-
-
-
 }

@@ -1,5 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.time.LocalDateTime;
 
 public class AppointmentDto {
@@ -8,11 +10,22 @@ public class AppointmentDto {
     private String surnameDentist;
     private LocalDateTime appointmentDateTime;
 
+    @JsonSerialize
+    private TreatmentRoomDto treatmentRoomDto;
+
     public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
         this.appointmentDateTime = appointmentDateTime;
 
+    }
+
+    public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime, TreatmentRoomDto treatmentRoomDto) {
+        this.id = id;
+        this.nameDentist = nameDentist;
+        this.surnameDentist = surnameDentist;
+        this.appointmentDateTime = appointmentDateTime;
+        this.treatmentRoomDto = treatmentRoomDto;
     }
 
     public AppointmentDto() {
@@ -48,5 +61,13 @@ public class AppointmentDto {
 
     public void setAppointmentDateTime(LocalDateTime appointmentDateTime) {
         this.appointmentDateTime = appointmentDateTime;
+    }
+
+    public TreatmentRoomDto getTreatmentRoomDto() {
+        return treatmentRoomDto;
+    }
+
+    public void setTreatmentRoomDto(TreatmentRoomDto treatmentRoomDto) {
+        this.treatmentRoomDto = treatmentRoomDto;
     }
 }

@@ -1,9 +1,8 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "treatment_rooms")
@@ -13,6 +12,9 @@ public class TreatmentRoom {
     private Long id;
     private Integer roomNumber;
     private String roomColor;
+
+    @OneToOne(mappedBy = "treatmentRoom")
+    Appointment appointment;
 
     public TreatmentRoom(Long id, Integer roomNumber, String roomColor) {
         this.id = id;
@@ -45,5 +47,13 @@ public class TreatmentRoom {
 
     public void setRoomColor(String roomColor) {
         this.roomColor = roomColor.toLowerCase();
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 }
