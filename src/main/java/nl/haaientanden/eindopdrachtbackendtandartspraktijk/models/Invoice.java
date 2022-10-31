@@ -14,7 +14,7 @@ public class Invoice {
     private String nameDentalPractice = "Haaientanden B.V.";
     private String zipCodeDentalPractice = "1234AB";
     private Integer houseNumberDentalPractice = 22;
-    private String phoneNumberDentalPractice = "0172 465 4985";
+    private String phoneNumberDentalPractice = "01724654985";
     private String emailDentalPractice = "info@haaientanden.nl";
     private String ibanDentalPractice = "NL68ABNA0390075470";
     private String chamberOfCommerceNumber ="1235467";
