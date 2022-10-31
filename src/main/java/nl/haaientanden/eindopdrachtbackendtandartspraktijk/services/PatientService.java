@@ -81,10 +81,10 @@ public class PatientService {
         }
         patient.setHomeNumber(dto.getHomeNumber());
         patient.setEmail(dto.getEmail());
-//        if (validPhoneNumber(inputPhoneNumber)) {
-//            patient.setPhoneNumber(dto.getPhoneNumber());
-//        }
-        patient.setPhoneNumber(dto.getPhoneNumber());
+        if (validPhoneNumber(inputPhoneNumber)) {
+            patient.setPhoneNumber(dto.getPhoneNumber());
+        }
+//        patient.setPhoneNumber(dto.getPhoneNumber());
         patient.setReimburseByInsurancePercentage(dto.getReimburseByInsurancePercentage());
 
         return patient;
@@ -105,17 +105,17 @@ public class PatientService {
         }
         dto.setHomeNumber(patient.getHomeNumber());
         dto.setEmail(patient.getEmail());
-//        if (validPhoneNumber(inputPhoneNumber)) {
-////            dto.setPhoneNumber(patient.getPhoneNumber());
-//        }
-        dto.setPhoneNumber(patient.getPhoneNumber());
+        if (validPhoneNumber(inputPhoneNumber)) {
+            dto.setPhoneNumber(patient.getPhoneNumber());
+        }
+//        dto.setPhoneNumber(patient.getPhoneNumber());
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
 
         return dto;
     }
 
-//    public static boolean validPhoneNumber(String inputPhoneNumber) {
-//        return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("^[0]([0-9]{1,9}$)");
-//    }
+    public static boolean validPhoneNumber(String inputPhoneNumber) {
+        return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("^[0]([0-9]{1,9}$)");
+    }
 
 }
