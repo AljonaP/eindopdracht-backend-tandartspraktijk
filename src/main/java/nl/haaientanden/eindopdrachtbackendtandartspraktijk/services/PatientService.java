@@ -84,7 +84,6 @@ public class PatientService {
         if (validPhoneNumber(inputPhoneNumber)) {
             patient.setPhoneNumber(dto.getPhoneNumber());
         }
-//        patient.setPhoneNumber(dto.getPhoneNumber());
         patient.setReimburseByInsurancePercentage(dto.getReimburseByInsurancePercentage());
 
         return patient;
@@ -108,7 +107,6 @@ public class PatientService {
         if (validPhoneNumber(inputPhoneNumber)) {
             dto.setPhoneNumber(patient.getPhoneNumber());
         }
-//        dto.setPhoneNumber(patient.getPhoneNumber());
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
 
         return dto;
