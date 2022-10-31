@@ -19,7 +19,6 @@ public class Appointment {
     private LocalDateTime appointmentDateTime;
 
 
-
     public Appointment(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;

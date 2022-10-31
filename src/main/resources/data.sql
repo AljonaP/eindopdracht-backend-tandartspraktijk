@@ -61,6 +61,25 @@ INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_ti
 INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1016, 'Femke', 'Mittelberg', '2023-03-18T09:30');
 INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1017, 'Femke', 'Mittelberg', '2023-03-15T11:30');
 INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1018, 'Femke', 'Mittelberg', '2023-03-15T15:15');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1001, 'Piet', 'Janssen', '2022-10-15T14:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1002, 'Piet', 'Janssen', '2023-10-15T13:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1003, 'Piet', 'Janssen', '2023-10-15T15:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1004, 'Piet', 'Janssen', '2023-10-15T15:45');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1005, 'Piet', 'Janssen', '2023-10-15T16:00');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1006, 'Piet', 'Janssen', '2023-10-16T08:00');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1007, 'Annette', 'Huis', '2023-10-15T08:00');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1008, 'Annette', 'Huis', '2023-10-15T08:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1009, 'Annette', 'Huis', '2023-10-15T09:45');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1010, 'Annette', 'Huis', '2023-10-15T10:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1011, 'Annette', 'Huis', '2023-10-15T11:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1012, 'Annette', 'Huis', '2023-10-17T15:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1013, 'Femke', 'Mittelberg', '2023-10-25T11:00');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1014, 'Femke', 'Mittelberg', '2023-10-25T13:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1015, 'Femke', 'Mittelberg', '2023-10-25T15:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1016, 'Femke', 'Mittelberg', '2023-10-25T09:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1017, 'Femke', 'Mittelberg', '2023-10-25T11:30');
+INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1018, 'Femke', 'Mittelberg', '2023-10-25T15:15');
+
 
 INSERT INTO patients (id, name_patient, surname_patient, dob, zip_code, home_number, email, phone_number, reimburse_by_insurance_percentage) VALUES (1001, 'Milo', 'Verhoeven', '2000-12-14', '1334JK', 10, 'testemail1 @gmail.com', '0525821298', 80);
 INSERT INTO patients (id, name_patient, surname_patient, dob, zip_code, home_number, email, phone_number, reimburse_by_insurance_percentage) VALUES (1002, 'Tijs', 'Groen', '1997-01-12', '1335JK', 11, 'testemail2@gmail.com', '0525415679', 80);
