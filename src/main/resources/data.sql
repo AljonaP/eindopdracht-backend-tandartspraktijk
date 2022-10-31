@@ -131,5 +131,17 @@ INSERT INTO patients (id, name_patient, surname_patient, dob, zip_code, home_num
 INSERT INTO patients (id, name_patient, surname_patient, dob, zip_code, home_number, email, phone_number, reimburse_by_insurance_percentage) VALUES (1048, 'Leonie', 'Dekker', '1949-12-05', '1381JK', 57, 'testemail48@gmail.com', '0628908905', 0);
 INSERT INTO patients (id, name_patient, surname_patient, dob, zip_code, home_number, email, phone_number, reimburse_by_insurance_percentage) VALUES (1049, 'Samara', 'Dongen', '1994-05-19', '1382JK', 58, 'testemail49@gmail.com', '0205090483', 0);
 
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1001, 1, 'geel');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1002, 2, 'groen');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1003, 3, 'groen');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1004, 4, 'geel');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1005, 5, 'blauw');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1006, 6, 'blauw');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1007, 7, 'groen');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1008, 8, 'geel');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1009, 9, 'blauw');
+INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1010, 10, 'blauw');
+
+
 
 
