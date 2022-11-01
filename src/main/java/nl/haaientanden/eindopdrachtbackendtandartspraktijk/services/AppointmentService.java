@@ -105,17 +105,21 @@ public class AppointmentService {
         return dto;
     }
 
-    public AppointmentDto assignTreatmentRoomToAppointment(Long treatmentRoomId, Long appointmentId){
+    public AppointmentDto assignTreatmentRoomToAppointment(Long appointmentId, Long treatmentRoomId){
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
         Optional<TreatmentRoom> optionalTreatmentRoom = treatmentRoomRepository.findById(treatmentRoomId);
 
-        if(optionalAppointment.isPresent() && optionalTreatmentRoom.isPresent()){
+        if(optionalAppointment.isPresent() && optionalTreatmentRoom.isPresent()) {
+
             Appointment appointment = optionalAppointment.get();
             TreatmentRoom treatmentRoom = optionalTreatmentRoom.get();
-            appointment.setTreatmentRoom(treatmentRoom);
-            appointmentRepository.save(appointment);
+            if (appointment.getTreatmentRoom() == null) {
+                appointment.setTreatmentRoom(treatmentRoom);
+                appointmentRepository.save(appointment);
 
-            return transferToDto(appointment);
+                return transferToDto(appointment);
+            }
+            throw new RuntimeException("There is another room with Id " + appointment.getTreatmentRoom().getId() + " already connected to this appointment");
 
         } else {
             throw new RuntimeException("The requested Appointment isn't found");
