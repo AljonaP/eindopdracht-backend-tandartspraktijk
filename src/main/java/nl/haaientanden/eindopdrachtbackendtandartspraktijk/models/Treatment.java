@@ -9,7 +9,6 @@ public class Treatment {
     private String treatmentCode;
     private String treatmentDescription;
     private Double treatmentRate;
-
     public Treatment(String treatmentCode, String treatmentDescription, Double treatmentRate) {
         this.treatmentCode = treatmentCode;
         this.treatmentDescription = treatmentDescription;

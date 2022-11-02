@@ -113,17 +113,28 @@ public class AppointmentService {
 
             Appointment appointment = optionalAppointment.get();
             TreatmentRoom treatmentRoom = optionalTreatmentRoom.get();
-            if (appointment.getTreatmentRoom() == null) {
+            if ((appointment.getTreatmentRoom() == null) && (!getConnectedToAppointmentTreatmentRoomIds().contains(treatmentRoomId))) {
                 appointment.setTreatmentRoom(treatmentRoom);
                 appointmentRepository.save(appointment);
 
                 return transferToDto(appointment);
+            } else {
+                throw new RuntimeException("There is another room already connected to this appointment or chosen room Id is already connected to this or another appointment");
             }
-            throw new RuntimeException("There is another room with Id " + appointment.getTreatmentRoom().getId() + " already connected to this appointment");
 
         } else {
             throw new RuntimeException("The requested Appointment isn't found");
         }
-    }
+   }
 
+   public ArrayList<Long> getConnectedToAppointmentTreatmentRoomIds() {
+       List<Appointment> allAppointments = appointmentRepository.findAll();
+       ArrayList<Long> connectedTreatmentRoomIds = new ArrayList<>();
+       for (Appointment appointment : allAppointments) {
+           if (appointment.getTreatmentRoom() != null) {
+               connectedTreatmentRoomIds.add(appointment.getTreatmentRoom().getId());
+           }
+       }
+       return connectedTreatmentRoomIds;
+   }
 }
