@@ -1,11 +1,14 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -25,6 +28,11 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     Patient patient;
+
+    @OneToMany(mappedBy = "appointment")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    Collection<AppointmentTreatment> appointmentTreatment;
 
 
     public Appointment(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
