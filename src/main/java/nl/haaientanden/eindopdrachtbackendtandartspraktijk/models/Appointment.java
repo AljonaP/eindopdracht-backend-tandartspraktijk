@@ -22,6 +22,11 @@ public class Appointment {
     @OneToOne(cascade = CascadeType.ALL)
     TreatmentRoom treatmentRoom;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "patient_id")
+    Patient patient;
+
+
     public Appointment(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
@@ -69,5 +74,13 @@ public class Appointment {
 
     public void setTreatmentRoom(TreatmentRoom treatmentRoom) {
         this.treatmentRoom = treatmentRoom;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

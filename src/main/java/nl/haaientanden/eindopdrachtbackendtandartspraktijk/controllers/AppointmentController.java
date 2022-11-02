@@ -56,15 +56,15 @@ public class AppointmentController {
         return ResponseEntity.ok().body(dto);
     }
 
-    //werkende code
-//    @PutMapping("/{appointmentId}/behandelkamers/{behandelKamerId}")
-//    public ResponseEntity<Object> assignTreatmentRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long behandelKamerId ){
-//        AppointmentDto appointmentDto = appointmentService.assignTreatmentRoomToAppointment(appointmentId, behandelKamerId);
-//        return ResponseEntity.ok(appointmentDto);
-//    }
     @PutMapping("/{appointmentId}/behandelkamers/{behandelKamerId}")
     public ResponseEntity<Object> assignTreatmentRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long behandelKamerId ){
         AppointmentDto appointmentDto = appointmentService.assignTreatmentRoomToAppointment(appointmentId, behandelKamerId);
+        return ResponseEntity.ok(appointmentDto);
+    }
+
+    @PutMapping("/{appointmentId}/patienten/{patientId}")
+    public ResponseEntity<Object> assignPatientToAppointment(@PathVariable Long appointmentId, @PathVariable Long patientId) {
+        AppointmentDto appointmentDto = appointmentService.assignPatientToAppointment(appointmentId, patientId);
         return ResponseEntity.ok(appointmentDto);
     }
 

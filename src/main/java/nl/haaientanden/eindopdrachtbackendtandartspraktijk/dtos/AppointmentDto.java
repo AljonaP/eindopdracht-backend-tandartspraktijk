@@ -13,6 +13,9 @@ public class AppointmentDto {
     @JsonSerialize
     private TreatmentRoomDto treatmentRoomDto;
 
+    @JsonSerialize
+    private PatientDto patientDto;
+
     public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
@@ -20,12 +23,13 @@ public class AppointmentDto {
 
     }
 
-    public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime, TreatmentRoomDto treatmentRoomDto) {
+    public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime, TreatmentRoomDto treatmentRoomDto, PatientDto patientDto) {
         this.id = id;
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
         this.appointmentDateTime = appointmentDateTime;
         this.treatmentRoomDto = treatmentRoomDto;
+        this.patientDto = patientDto;
     }
 
     public AppointmentDto() {
@@ -69,5 +73,13 @@ public class AppointmentDto {
 
     public void setTreatmentRoomDto(TreatmentRoomDto treatmentRoomDto) {
         this.treatmentRoomDto = treatmentRoomDto;
+    }
+
+    public PatientDto getPatientDto() {
+        return patientDto;
+    }
+
+    public void setPatientDto(PatientDto patientDto) {
+        this.patientDto = patientDto;
     }
 }
