@@ -7,11 +7,11 @@ import java.util.Objects;
 @Embeddable
 public class AppointmentTreatmentKey implements Serializable {
     private Long appointmentId;
-    private String treatmentId;
+    private Long treatmentId;
 
     public AppointmentTreatmentKey() {}
 
-    public AppointmentTreatmentKey(Long appointmentId, String treatmentId) {
+    public AppointmentTreatmentKey(Long appointmentId, Long treatmentId) {
         this.appointmentId = appointmentId;
         this.treatmentId = treatmentId;
     }
@@ -24,11 +24,11 @@ public class AppointmentTreatmentKey implements Serializable {
         this.appointmentId = appointmentId;
     }
 
-    public String getTreatmentId() {
+    public Long getTreatmentId() {
         return treatmentId;
     }
 
-    public void setTreatmentId(String treatmentId) {
+    public void setTreatmentId(Long treatmentId) {
         this.treatmentId = treatmentId;
     }
 

@@ -8,5 +8,5 @@ import java.util.Collection;
 
 public interface AppointmentTreatmentRepository extends JpaRepository<AppointmentTreatment, AppointmentTreatmentKey> {
     Collection<AppointmentTreatment> findAllByAppointmentId(Long Id);
-    Collection<AppointmentTreatment> findAllByTreatmentId(String Id);
+    Collection<AppointmentTreatment> findAllByTreatmentId(Long Id);
 }

@@ -11,9 +11,11 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.Appointm
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentTreatmentRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class AppointmentTreatmentService {
@@ -29,41 +31,7 @@ public class AppointmentTreatmentService {
         this.appointmentTreatmentRepository = appointmentTreatmentRepository;
     }
 
-    public Collection<AppointmentDto> getAppointmentTreatmentsByTreatmentId(String treatmentId) {
-        Collection<AppointmentDto> dtos = new HashSet<>();
-        Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByTreatmentId(treatmentId);
-        for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
-            Appointment appointment = appointmentTreatment.getAppointment();
-            AppointmentDto dto = new AppointmentDto();
-
-            appointment.setId(dto.getId());
-            appointment.setNameDentist(dto.getNameDentist());
-            appointment.setSurnameDentist(dto.getSurnameDentist());
-            appointment.setAppointmentDateTime(dto.getAppointmentDateTime());
-
-            dtos.add(dto);
-        }
-        return dtos;
-    }
-
-    public Collection<TreatmentDto> getAppointmentTreatmentByAppointmentId(Long appointmentId) {
-        Collection<TreatmentDto> dtos = new HashSet<>();
-        Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByAppointmentId(appointmentId);
-        for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
-            Treatment treatment = appointmentTreatment.getTreatment();
-
-            var dto = new TreatmentDto();
-
-            dto.setTreatmentCode(treatment.getTreatmentCode());
-            dto.setTreatmentfDescription(treatment.getTreatmentDescription());
-            dto.setTreatmentRate(treatment.getTreatmentRate());
-
-            dtos.add(dto);
-        }
-        return dtos;
-    }
-
-    public AppointmentTreatmentKey addAppointmentTreatment(Long appointmentId, String treatmentId) {
+    public AppointmentTreatmentKey addAppointmentTreatment(Long appointmentId, Long treatmentId) {
         var appointmentTreatment = new AppointmentTreatment();
         if(!appointmentRepository.existsById(appointmentId)) {
             throw new RecordNotFoundException();
@@ -80,5 +48,41 @@ public class AppointmentTreatmentService {
         appointmentTreatmentRepository.save(appointmentTreatment);
 
         return id;
+    }
+
+    public Collection<AppointmentDto> getAppointmentTreatmentsByTreatmentId(Long treatmentId) {
+        Collection<AppointmentDto> dtos = new HashSet<>();
+        Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByTreatmentId(treatmentId);
+        for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
+            Appointment appointment = appointmentTreatment.getAppointment();
+
+            var dto = new AppointmentDto();
+
+            dto.setId(appointment.getId());;
+            dto.setNameDentist(appointment.getNameDentist());
+            dto.setSurnameDentist(appointment.getSurnameDentist());
+            dto.setAppointmentDateTime(appointment.getAppointmentDateTime());
+
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+    public Collection<TreatmentDto> getAppointmentTreatmentByAppointmentId(Long appointmentId) {
+        Collection<TreatmentDto> dtos = new HashSet<>();
+        Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByAppointmentId(appointmentId);
+        for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
+            Treatment treatment = appointmentTreatment.getTreatment();
+
+            var dto = new TreatmentDto();
+
+            dto.setId(treatment.getId());
+            dto.setTreatmentCode(treatment.getTreatmentCode());
+            dto.setTreatmentfDescription(treatment.getTreatmentDescription());
+            dto.setTreatmentRate(treatment.getTreatmentRate());
+
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
