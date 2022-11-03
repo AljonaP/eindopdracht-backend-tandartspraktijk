@@ -1,0 +1,2 @@
+package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;public class AppointmentTreatmentController {
+}
