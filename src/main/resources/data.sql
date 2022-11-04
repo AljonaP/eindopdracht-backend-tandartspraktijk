@@ -143,7 +143,6 @@ INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1008, 8, 'geel
 INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1009, 9, 'blauw');
 INSERT INTO treatment_rooms (id, room_number, room_color) VALUES (1010, 10, 'blauw');
 
-
 INSERT INTO invoices (id, name_dental_practice, zip_code_dental_practice, house_number_dental_practice, phone_number_dental_practice, email_dental_practice, iban_dental_practice, chamber_of_commerce_number, invoice_date, invoice_number) VALUES (1001, 'Haaientanden B.V.', '1234AB', 22, '1724654985', 'info@haaientanden.nl', 'NL68ABNA0390075470', '1235467', '2022-10-16', 1000001);
 INSERT INTO invoices (id, name_dental_practice, zip_code_dental_practice, house_number_dental_practice, phone_number_dental_practice, email_dental_practice, iban_dental_practice, chamber_of_commerce_number, invoice_date, invoice_number) VALUES (1002, 'Haaientanden B.V.', '1234AB', 22, '1724654985', 'info@haaientanden.nl', 'NL68ABNA0390075470', '1235467', '2022-10-16', 1000002);
 INSERT INTO invoices (id, name_dental_practice, zip_code_dental_practice, house_number_dental_practice, phone_number_dental_practice, email_dental_practice, iban_dental_practice, chamber_of_commerce_number, invoice_date, invoice_number) VALUES (1003, 'Haaientanden B.V.', '1234AB', 22, '1724654985', 'info@haaientanden.nl', 'NL68ABNA0390075470', '1235467', '2022-10-16', 1000003);
@@ -161,6 +160,46 @@ INSERT INTO invoices (id, name_dental_practice, zip_code_dental_practice, house_
 INSERT INTO invoices (id, name_dental_practice, zip_code_dental_practice, house_number_dental_practice, phone_number_dental_practice, email_dental_practice, iban_dental_practice, chamber_of_commerce_number, invoice_date, invoice_number) VALUES (1015, 'Haaientanden B.V.', '1234AB', 22, '1724654985', 'info@haaientanden.nl', 'NL68ABNA0390075470', '1235467', '2022-10-26', 1000015);
 INSERT INTO invoices (id, name_dental_practice, zip_code_dental_practice, house_number_dental_practice, phone_number_dental_practice, email_dental_practice, iban_dental_practice, chamber_of_commerce_number, invoice_date, invoice_number) VALUES (1016, 'Haaientanden B.V.', '1234AB', 22, '1724654985', 'info@haaientanden.nl', 'NL68ABNA0390075470', '1235467', '2022-10-26', 1000016);
 INSERT INTO invoices (id, name_dental_practice, zip_code_dental_practice, house_number_dental_practice, phone_number_dental_practice, email_dental_practice, iban_dental_practice, chamber_of_commerce_number, invoice_date, invoice_number) VALUES (1017, 'Haaientanden B.V.', '1234AB', 22, '1724654985', 'info@haaientanden.nl', 'NL68ABNA0390075470', '1235467', '2022-10-26', 1000017);
+
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1019, 1001);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1019, 1011);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1019, 1033);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1020, 1039);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1020, 1042);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1021, 1008);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1021, 1015);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1021, 1002);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1021, 1004);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1022, 1001);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1022, 1004);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1022, 1028);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1023, 1033);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1023, 1015);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1024, 1001);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1025, 1009);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1025, 1024);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1026, 1026);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1026, 1009);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1026, 1014);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1027, 1040);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1027, 1030);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1027, 1004);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1027, 1005);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1028, 1013);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1028, 1026);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1029, 1029);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1029, 1005);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1029, 1032);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1029, 1014);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1030, 1019);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1031, 1007);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1031, 1001);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1032, 1024);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1032, 1033);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1032, 1003);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1033, 1010);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1034, 1043);
+INSERT INTO appointment_treatment (appointment_id, treatment_id) VALUES (1034, 1041);
 
 
 

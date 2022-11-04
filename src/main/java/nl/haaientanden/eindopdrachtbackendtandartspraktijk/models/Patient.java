@@ -112,4 +112,16 @@ public class Patient {
     public void setReimburseByInsurancePercentage(Integer reimburseByInsurancePercentage) {
         this.reimburseByInsurancePercentage = reimburseByInsurancePercentage;
     }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
 }

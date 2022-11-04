@@ -1,8 +1,10 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Appointment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Patient;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -108,6 +110,14 @@ public class PatientService {
             dto.setPhoneNumber(patient.getPhoneNumber());
         }
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
+
+        // in bewerking (Pr.2: to get all existing appointments for a specific patient {by Id}
+
+//        if(!(patient.getAppointments() == null)) {
+//            List<Appointment> appointments = patient.getAppointments();
+//            List<AppointmentDto> appointmentDtoList = AppointmentService.transferAppointmentListToDtoList(appointments);
+//            dto.setAppointmentDto(appointmentDtoList);
+//        }
 
         return dto;
     }

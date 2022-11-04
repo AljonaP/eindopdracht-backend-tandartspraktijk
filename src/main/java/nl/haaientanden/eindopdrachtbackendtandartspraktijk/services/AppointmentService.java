@@ -167,4 +167,23 @@ public class AppointmentService {
        }
        return connectedTreatmentRoomIds;
    }
+
+   //in bewerking (Pr.3: to get all the existing appointments for a specific dentist (by surnameDentist)
+
+//   public List<AppointmentDto> getAllAppointmentsBySurnameDentist(String surnameDentist) {
+//       List<Appointment> appointmentList = appointmentRepository.findAll(surnameDentist);
+//
+//       return transferAppointmentListToDtoList(appointmentList);
+//   }
+//
+//   public List<AppointmentDto> transferAppointmentListToDtoList(List<Appointment> appointments){
+//       List<AppointmentDto> appointmentDtoList = new ArrayList<>();
+//
+//       for(Appointment appointment : appointments) {
+//           AppointmentDto dto = transferToDto(appointment);
+//           appointmentDtoList.add(dto);
+//       }
+//       return appointmentDtoList;
+//   }
+   //
 }

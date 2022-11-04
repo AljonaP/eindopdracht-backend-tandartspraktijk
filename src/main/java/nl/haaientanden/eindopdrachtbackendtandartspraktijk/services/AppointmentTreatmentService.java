@@ -13,6 +13,8 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.Treatmen
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -85,4 +87,18 @@ public class AppointmentTreatmentService {
         }
         return dtos;
     }
+
+//    public Collection<AppointmentDto> getAllAppointmentsWithoutTreatments() {
+//        Collection<AppointmentDto> appointments = appointmentRepository.findAll();
+//
+//        if (appointmentRepository.findAll().getA < makeDateToday() )
+//        Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAll();
+//        return Collection
+//
+//    }
+//
+//    public LocalDateTime makeDateToday() {
+//        return LocalDateTime.now();
+//    }
+
 }
