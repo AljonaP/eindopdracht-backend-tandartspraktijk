@@ -1,5 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDate;
@@ -17,7 +18,8 @@ public class PatientDto {
     private Integer reimburseByInsurancePercentage;
 
     @JsonSerialize
-    private AppointmentDto appointmentDto;
+    @JsonIgnore
+    private List<AppointmentDto> appointmentDto;
 
     public PatientDto(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage) {
         this.namePatient = namePatient;
@@ -31,7 +33,7 @@ public class PatientDto {
         this.id = id;
     }
 
-    public PatientDto(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage, AppointmentDto appointmentDto) {
+    public PatientDto(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage, List<AppointmentDto> appointmentDto) {
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;
@@ -120,11 +122,11 @@ public class PatientDto {
         this.reimburseByInsurancePercentage = reimburseByInsurancePercentage;
     }
 
-    public AppointmentDto getAppointmentDto() {
+    public List<AppointmentDto> getAppointmentDto() {
         return appointmentDto;
     }
 
-    public void setAppointmentDto(AppointmentDto appointmentDto) {
+    public void setAppointmentDto(List<AppointmentDto> appointmentDto) {
         this.appointmentDto = appointmentDto;
     }
 

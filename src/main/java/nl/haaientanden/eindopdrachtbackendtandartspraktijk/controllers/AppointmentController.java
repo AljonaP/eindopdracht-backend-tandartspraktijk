@@ -5,6 +5,7 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentInput
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.AppointmentService;
 
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import java.util.List;
+import java.util.Optional;
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
 
@@ -49,6 +51,17 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAppointmentById(id));
     }
 
+    @GetMapping("/tandartsen/{surnameDentist}")
+    public ResponseEntity<List<AppointmentDto>> getAllAppointmentsBySurnameDentist(@PathVariable(name = "surnameDentist") String surnameDentist) {
+        List<AppointmentDto> dtos;
+        dtos = appointmentService.getAllAppointmentsBySurnameDentist(surnameDentist);
+        if (dtos.isEmpty()) {
+            throw new RuntimeException("No Dentist with this surname has been found. Try again with another surname of dentist.");
+        }
+
+        return ResponseEntity.ok().body(dtos);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateAppointment(@PathVariable(name="id") Long id, @RequestBody AppointmentInputDto newAppointment) {
         AppointmentDto dto = appointmentService.updateAppointment(id, newAppointment);
@@ -72,11 +85,6 @@ public class AppointmentController {
     public void deleteAppointment(@PathVariable(name = "id") Long id) {
         appointmentService.deleteAppointmentById(id);
     }
-
-
-
-
-
 }
 
 

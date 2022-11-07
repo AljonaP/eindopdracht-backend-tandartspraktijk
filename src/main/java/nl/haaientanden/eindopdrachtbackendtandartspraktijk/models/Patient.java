@@ -22,6 +22,9 @@ public class Patient {
     private String phoneNumber;
     private Integer reimburseByInsurancePercentage;
 
+    @Transient
+    private boolean setAppointment = true;
+
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
     List<Appointment> appointments;
@@ -36,6 +39,14 @@ public class Patient {
         this.phoneNumber = phoneNumber;
         this.reimburseByInsurancePercentage = reimburseByInsurancePercentage;
         this.id = id;
+    }
+
+    public boolean isSetAppointment() {
+        return setAppointment;
+    }
+
+    public void setSetAppointment(boolean setAppointment) {
+        this.setAppointment = setAppointment;
     }
 
     public Patient() {

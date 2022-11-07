@@ -93,7 +93,6 @@ public class PatientService {
 
     public static PatientDto transferToDto(Patient patient) {
         PatientDto dto = new PatientDto();
-
         String zipCode = patient.getZipCode();
         String inputPhoneNumber = patient.getPhoneNumber();
 
@@ -110,14 +109,11 @@ public class PatientService {
             dto.setPhoneNumber(patient.getPhoneNumber());
         }
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
-
-        // in bewerking (Pr.2: to get all existing appointments for a specific patient {by Id}
-
-//        if(!(patient.getAppointments() == null)) {
-//            List<Appointment> appointments = patient.getAppointments();
-//            List<AppointmentDto> appointmentDtoList = AppointmentService.transferAppointmentListToDtoList(appointments);
-//            dto.setAppointmentDto(appointmentDtoList);
-//        }
+        if((patient.isSetAppointment()) && !(patient.getAppointments() == null)) {
+            List<Appointment> appointments = patient.getAppointments();
+            List<AppointmentDto> appointmentDtoList = AppointmentService.transferAppointmentListToDtoList(appointments);
+            dto.setAppointmentDto(appointmentDtoList);
+        }
 
         return dto;
     }
@@ -125,5 +121,4 @@ public class PatientService {
     public static boolean validPhoneNumber(String inputPhoneNumber) {
         return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("^[0]([0-9]{1,9}$)");
     }
-
 }
