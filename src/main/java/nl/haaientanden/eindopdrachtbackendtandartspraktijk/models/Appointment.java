@@ -25,6 +25,9 @@ public class Appointment {
     @OneToOne(cascade = CascadeType.ALL)
     TreatmentRoom treatmentRoom;
 
+    @OneToOne(mappedBy = "appointment")
+    Invoice invoice;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     Patient patient;
@@ -33,6 +36,7 @@ public class Appointment {
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     Collection<AppointmentTreatment> appointmentTreatment;
+
 
 
     public Appointment(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
@@ -90,5 +94,9 @@ public class Appointment {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Collection<AppointmentTreatment> getAppointmentTreatment() {
+        return appointmentTreatment;
     }
 }

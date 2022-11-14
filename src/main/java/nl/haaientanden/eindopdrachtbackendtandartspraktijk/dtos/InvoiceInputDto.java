@@ -1,9 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class InvoiceInputDto {
@@ -13,12 +10,14 @@ public class InvoiceInputDto {
     @NotBlank
     @Size(min = 7, max = 7)
     private String invoiceNumber;
-
+    @NotNull
+    private Long appointmentId;
 
     public InvoiceInputDto(LocalDate invoiceDate,
                            String invoiceNumber) {
         this.invoiceDate = invoiceDate;
         this.invoiceNumber = invoiceNumber;
+
     }
 
     public LocalDate getInvoiceDate() {
@@ -35,5 +34,13 @@ public class InvoiceInputDto {
 
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
+    }
+
+    public Long getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
     }
 }

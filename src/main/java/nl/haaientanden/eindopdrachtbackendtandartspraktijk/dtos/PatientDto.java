@@ -17,7 +17,7 @@ public class PatientDto {
     private String phoneNumber;
     private Integer reimburseByInsurancePercentage;
 
-    @JsonSerialize
+    //@JsonSerialize
     @JsonIgnore
     private List<AppointmentDto> appointmentDto;
 

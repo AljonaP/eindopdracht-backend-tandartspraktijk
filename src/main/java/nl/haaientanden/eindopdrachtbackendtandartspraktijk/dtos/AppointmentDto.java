@@ -1,6 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDateTime;
@@ -11,10 +12,9 @@ public class AppointmentDto {
     private String surnameDentist;
     private LocalDateTime appointmentDateTime;
 
-    @JsonSerialize
+    @JsonIgnore
     private TreatmentRoomDto treatmentRoomDto;
 
-    @JsonSerialize
     @JsonIgnore
     private PatientDto patientDto;
 

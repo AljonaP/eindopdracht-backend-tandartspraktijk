@@ -1,27 +1,65 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.InvoiceDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.InvoiceInputDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Invoice;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.*;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentRepository;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentTreatmentRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.InvoiceRepository;
+import java.util.Collection;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final AppointmentService appointmentService;
 
-    public InvoiceService(InvoiceRepository invoiceRepository) {
+    private final AppointmentTreatmentRepository appointmentTreatmentRepository;
+    private final AppointmentTreatmentService appointmentTreatmentService;
+
+    public InvoiceService(InvoiceRepository invoiceRepository, AppointmentRepository appointmentRepository, AppointmentService appointmentService, AppointmentTreatmentRepository appointmentTreatmentRepository, AppointmentTreatmentService appointmentTreatmentService) {
         this.invoiceRepository = invoiceRepository;
+        this.appointmentRepository = appointmentRepository;
+        this.appointmentService = appointmentService;
+        this.appointmentTreatmentRepository = appointmentTreatmentRepository;
+        this.appointmentTreatmentService = appointmentTreatmentService;
     }
 
     public InvoiceDto saveInvoice(InvoiceInputDto dto) {
 
         Invoice invoice = transferToInvoice(dto);
+        Optional<Appointment> appointmentOptional = appointmentRepository.findById(dto.getAppointmentId());
+        if (appointmentOptional.isPresent()) {
+            Appointment appointment = appointmentOptional.get();
+            invoice.setAppointment(appointment);
+            Collection<AppointmentTreatment> appointmentTreatmentCollection = appointment.getAppointmentTreatment();
+
+            List<Treatment> treatmentList = new ArrayList<>();
+            Double totalAmount = 0.0;
+            for (AppointmentTreatment appointmentTreatment : appointmentTreatmentCollection) {
+                Treatment treatment = appointmentTreatment.getTreatment();
+
+                treatmentList.add(treatment);
+                totalAmount += treatment.getTreatmentRate();
+            }
+            invoice.setTotalInvoiceAmount(totalAmount);
+            invoice.setTreatments(treatmentList);
+
+//            invoice.setTotalReimbursedByInsuranceCompanyAmount
+            // invoice.setTotalInvoiceAmountToPayByPatient
+        } else {
+            throw new RecordNotFoundException("Appointment isn't found.");
+        }
+
         invoiceRepository.save(invoice);
 
         return transferToDto(invoice);
@@ -65,7 +103,6 @@ public class InvoiceService {
         invoiceRepository.deleteById(id);
     }
 
-
     public static Invoice transferToInvoice(InvoiceInputDto dto) {
 
         var invoice = new Invoice();
@@ -83,6 +120,19 @@ public class InvoiceService {
         dto.setId(invoice.getId());
         dto.setInvoiceDate(invoice.getInvoiceDate());
         dto.setInvoiceNumber(invoice.getInvoiceNumber());
+        if(!(invoice.getTreatments() == null)) {
+            List<Treatment> treatments = invoice.getTreatments();
+            List<TreatmentDto> treatmentDtoList = TreatmentService.transferTreatmentListToDtoList(treatments);
+            dto.setTreatmentDtos(treatmentDtoList);
+        }
+        if(!(invoice.getAppointment() == null)) {
+            Appointment appointment = invoice.getAppointment();
+            AppointmentDto appointmentDto = AppointmentService.transferToDto(appointment);
+            dto.setAppointmentDto(appointmentDto);
+        }
+//        dto.setTreatmentDtos(invoice.getTreatmentDtos());
+//        dto.setAppointmentTreatment(invoice.getAppointmentTreatment());
+//        dto.setAppointment(invoice.getAppointment());
 
         return dto;
     }

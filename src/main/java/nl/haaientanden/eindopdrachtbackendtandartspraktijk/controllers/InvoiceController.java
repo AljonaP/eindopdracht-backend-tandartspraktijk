@@ -1,5 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.InvoiceDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.InvoiceInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.InvoiceRepository;

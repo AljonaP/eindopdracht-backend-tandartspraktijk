@@ -88,4 +88,15 @@ public class    TreatmentService {
 
         return dto;
     }
+
+
+    public static List<TreatmentDto> transferTreatmentListToDtoList(List<Treatment> treatments) {
+        List<TreatmentDto> treatmentDtoList = new ArrayList<>();
+
+        for(Treatment treatment : treatments) {
+            TreatmentDto dto = transferToDto(treatment);
+            treatmentDtoList.add(dto);
+        }
+        return treatmentDtoList;
+    }
 }

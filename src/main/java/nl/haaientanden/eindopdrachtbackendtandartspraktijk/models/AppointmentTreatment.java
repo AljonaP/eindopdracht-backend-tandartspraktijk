@@ -18,6 +18,7 @@ public class AppointmentTreatment {
     @JoinColumn(name = "treatment_id")
     private Treatment treatment;
 
+
     public AppointmentTreatmentKey getId() {
         return id;
     }

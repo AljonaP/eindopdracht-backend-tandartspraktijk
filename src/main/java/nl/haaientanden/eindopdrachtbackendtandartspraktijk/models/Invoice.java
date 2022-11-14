@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "invoices")
@@ -20,11 +21,18 @@ public class Invoice {
     private String chamberOfCommerceNumber ="1235467";
     private LocalDate invoiceDate;
     private String invoiceNumber;
+    //
 
-//    private Double totalTreatmentAmount;
-//    private Double totalReimbursedByInsuranceCompanyAmount;
-//    private Double totalToPayByPatientPerTreatmentAmount;
-//    private Double totalInvoiceAmountToPayByPatient;
+    private Double totalInvoiceAmount;
+    private Double totalReimbursedByInsuranceCompanyAmount;
+    private Double totalInvoiceAmountToPayByPatient;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    Appointment appointment;
+
+    @OneToMany(mappedBy = "invoice")
+    @JsonIgnore
+    private List<Treatment> treatments;
 
     public Invoice() {
     }
@@ -39,6 +47,11 @@ public class Invoice {
         this.chamberOfCommerceNumber = getChamberOfCommerceNumber();
         this.invoiceDate = invoiceDate;
         this.invoiceNumber = invoiceNumber;
+        this.appointment = appointment;
+        this.totalInvoiceAmount = totalInvoiceAmount;
+        this.totalReimbursedByInsuranceCompanyAmount = totalReimbursedByInsuranceCompanyAmount;
+        this.totalInvoiceAmountToPayByPatient = totalInvoiceAmountToPayByPatient;
+
     }
 
     public Long getId() {
@@ -93,35 +106,47 @@ public class Invoice {
         this.invoiceNumber = invoiceNumber;
     }
 
-//    public Double getTotalTreatmentAmount() {
-//        return totalTreatmentAmount;
-//    }
+    public Double getTotalInvoiceAmount() {
+        return totalInvoiceAmount;
+    }
 
-//    public void setTotalTreatmentAmount(Double totalTreatmentAmount) {
-//        this.totalTreatmentAmount = totalTreatmentAmount;
-//    }
-//
-//    public Double getTotalReimbursedByInsuranceCompanyAmount() {
-//        return totalReimbursedByInsuranceCompanyAmount;
-//    }
-//
-//    public void setTotalReimbursedByInsuranceCompanyAmount(Double totalReimbursedByInsuranceCompanyAmount) {
-//        this.totalReimbursedByInsuranceCompanyAmount = totalReimbursedByInsuranceCompanyAmount;
-//    }
-//
-//    public Double getTotalToPayByPatientPerTreatmentAmount() {
-//        return totalToPayByPatientPerTreatmentAmount;
-//    }
-//
-//    public void setTotalToPayByPatientPerTreatmentAmount(Double totalToPayByPatientPerTreatmentAmount) {
-//        this.totalToPayByPatientPerTreatmentAmount = totalToPayByPatientPerTreatmentAmount;
-//    }
-//
-//    public Double getTotalInvoiceAmountToPayByPatient() {
-//        return totalInvoiceAmountToPayByPatient;
-//    }
-//
-//    public void setTotalInvoiceAmountToPayByPatient(Double totalInvoiceAmountToPayByPatient) {
-//        this.totalInvoiceAmountToPayByPatient = totalInvoiceAmountToPayByPatient;
-//    }
+    public void setTotalInvoiceAmount(Double totalInvoiceAmount) {
+        this.totalInvoiceAmount = totalInvoiceAmount;
+    }
+
+    public Double getTotalReimbursedByInsuranceCompanyAmount() {
+        return totalReimbursedByInsuranceCompanyAmount;
+    }
+
+    public void setTotalReimbursedByInsuranceCompanyAmount(Double totalReimbursedByInsuranceCompanyAmount) {
+        this.totalReimbursedByInsuranceCompanyAmount = totalReimbursedByInsuranceCompanyAmount;
+    }
+
+    public Double getTotalInvoiceAmountToPayByPatient() {
+        return totalInvoiceAmountToPayByPatient;
+    }
+
+    public void setTotalInvoiceAmountToPayByPatient(Double totalInvoiceAmountToPayByPatient) {
+        this.totalInvoiceAmountToPayByPatient = totalInvoiceAmountToPayByPatient;
+    }
+
+    public void setNameDentalPractice(String nameDentalPractice) {
+        this.nameDentalPractice = nameDentalPractice;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+
+    public List<Treatment> getTreatments() {
+        return treatments;
+    }
+
+    public void setTreatments(List<Treatment> treatments) {
+        this.treatments = treatments;
+    }
 }

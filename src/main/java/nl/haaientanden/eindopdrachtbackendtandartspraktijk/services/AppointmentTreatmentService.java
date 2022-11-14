@@ -60,7 +60,7 @@ public class AppointmentTreatmentService {
 
             var dto = new AppointmentDto();
 
-            dto.setId(appointment.getId());;
+            dto.setId(appointment.getId());
             dto.setNameDentist(appointment.getNameDentist());
             dto.setSurnameDentist(appointment.getSurnameDentist());
             dto.setAppointmentDateTime(appointment.getAppointmentDateTime());
