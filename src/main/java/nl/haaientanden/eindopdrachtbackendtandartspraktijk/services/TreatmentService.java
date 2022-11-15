@@ -2,15 +2,12 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentInputDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.BadRequestException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +38,7 @@ public class    TreatmentService {
         return dtos;
     }
 
-    public TreatmentDto getTreatmentById(String id) {
+    public TreatmentDto getTreatmentById(Long id) {
 
         if(treatmentRepository.findById(id).isPresent()){
             Treatment treatment = treatmentRepository.findById(id).get();
@@ -51,7 +48,7 @@ public class    TreatmentService {
         }
     }
 
-    public TreatmentDto updateTreatment(String id, TreatmentInputDto inputDto) {
+    public TreatmentDto updateTreatment(Long id, TreatmentInputDto inputDto) {
         if(treatmentRepository.findById(id).isPresent()) {
             Treatment treatment = treatmentRepository.findById(id).get();
             Treatment treatment1 = transferToTreatment(inputDto);
@@ -65,7 +62,7 @@ public class    TreatmentService {
         }
     }
 
-    public void deleteTreatmentById(@RequestBody String id) {
+    public void deleteTreatmentById(@RequestBody Long id) {
         treatmentRepository.deleteById(id);
     }
 
@@ -84,10 +81,22 @@ public class    TreatmentService {
 
         TreatmentDto dto = new TreatmentDto();
 
+        dto.setId(treatment.getId());
         dto.setTreatmentCode(treatment.getTreatmentCode());
         dto.setTreatmentfDescription(treatment.getTreatmentDescription());
         dto.setTreatmentRate(treatment.getTreatmentRate());
 
         return dto;
+    }
+
+
+    public static List<TreatmentDto> transferTreatmentListToDtoList(List<Treatment> treatments) {
+        List<TreatmentDto> treatmentDtoList = new ArrayList<>();
+
+        for(Treatment treatment : treatments) {
+            TreatmentDto dto = transferToDto(treatment);
+            treatmentDtoList.add(dto);
+        }
+        return treatmentDtoList;
     }
 }

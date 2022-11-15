@@ -6,17 +6,32 @@ import javax.persistence.*;
 @Table(name="treatments")
 public class Treatment {
     @Id
+    @GeneratedValue
+    private Long id;
     private String treatmentCode;
     private String treatmentDescription;
     private Double treatmentRate;
 
-    public Treatment(String treatmentCode, String treatmentDescription, Double treatmentRate) {
+    public Treatment(Long id, String treatmentCode, String treatmentDescription, Double treatmentRate) {
+        this.id = id;
         this.treatmentCode = treatmentCode;
         this.treatmentDescription = treatmentDescription;
         this.treatmentRate = treatmentRate;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
+
     public Treatment() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTreatmentCode() {
@@ -41,6 +56,14 @@ public class Treatment {
 
     public void setTreatmentRate(Double treatmentRate) {
         this.treatmentRate = treatmentRate;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 }
 

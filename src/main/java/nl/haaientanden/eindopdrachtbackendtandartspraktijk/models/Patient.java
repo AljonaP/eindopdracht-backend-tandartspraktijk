@@ -1,12 +1,11 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -23,6 +22,13 @@ public class Patient {
     private String phoneNumber;
     private Integer reimburseByInsurancePercentage;
 
+    @Transient
+    private boolean setAppointment = true;
+
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnore
+    List<Appointment> appointments;
+
     public Patient(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage) {
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
@@ -33,6 +39,14 @@ public class Patient {
         this.phoneNumber = phoneNumber;
         this.reimburseByInsurancePercentage = reimburseByInsurancePercentage;
         this.id = id;
+    }
+
+    public boolean isSetAppointment() {
+        return setAppointment;
+    }
+
+    public void setSetAppointment(boolean setAppointment) {
+        this.setAppointment = setAppointment;
     }
 
     public Patient() {
@@ -108,5 +122,17 @@ public class Patient {
 
     public void setReimburseByInsurancePercentage(Integer reimburseByInsurancePercentage) {
         this.reimburseByInsurancePercentage = reimburseByInsurancePercentage;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }
