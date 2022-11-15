@@ -42,7 +42,6 @@ public class InvoiceDto {
         this.totalInvoiceAmountToPayByPatient = totalInvoiceAmountToPayByPatient;
 
         this.appointmentDto = appointmentDto;
-//        this.appointmentTreatment = appointmentTreatment;
     }
 
     public InvoiceDto(Long id,
@@ -51,9 +50,7 @@ public class InvoiceDto {
                    Double totalInvoiceAmount,
                    Double totalReimbursedByInsuranceCompanyAmount,
                    Double totalInvoiceAmountToPayByPatient,
-                   AppointmentDto appointmentDto
-//                   AppointmentTreatment appointmentTreatment
-            ,
+                   AppointmentDto appointmentDto,
                    List<TreatmentDto> treatmentDtos) {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
@@ -61,9 +58,7 @@ public class InvoiceDto {
         this.totalInvoiceAmount = totalInvoiceAmount;
         this.totalReimbursedByInsuranceCompanyAmount = totalReimbursedByInsuranceCompanyAmount;
         this.totalInvoiceAmountToPayByPatient = totalInvoiceAmountToPayByPatient;
-
         this.appointmentDto = appointmentDto;
-//        this.appointmentTreatment = appointmentTreatment;
         this.treatmentDtos =treatmentDtos;
     }
 

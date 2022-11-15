@@ -9,13 +9,14 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.*;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentTreatmentRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.InvoiceRepository;
-import java.util.Collection;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.util.*;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class InvoiceService {
@@ -41,8 +42,8 @@ public class InvoiceService {
         if (appointmentOptional.isPresent()) {
             Appointment appointment = appointmentOptional.get();
             invoice.setAppointment(appointment);
-            Collection<AppointmentTreatment> appointmentTreatmentCollection = appointment.getAppointmentTreatment();
 
+            Collection<AppointmentTreatment> appointmentTreatmentCollection = appointment.getAppointmentTreatment();
             List<Treatment> treatmentList = new ArrayList<>();
             Double totalAmount = 0.0;
             for (AppointmentTreatment appointmentTreatment : appointmentTreatmentCollection) {
@@ -51,11 +52,16 @@ public class InvoiceService {
                 treatmentList.add(treatment);
                 totalAmount += treatment.getTreatmentRate();
             }
-            invoice.setTotalInvoiceAmount(totalAmount);
-            invoice.setTreatments(treatmentList);
+            invoice.setTotalInvoiceAmount(Math.round(totalAmount * 100) / 100.0);
 
-//            invoice.setTotalReimbursedByInsuranceCompanyAmount
-            // invoice.setTotalInvoiceAmountToPayByPatient
+            Patient patient = appointment.getPatient();
+            Integer reimburseByInsurancePercentage = patient.getReimburseByInsurancePercentage();
+            Double totalReimbursedByInsuranceCompanyAmount = ((totalAmount) / 100) * reimburseByInsurancePercentage;
+            invoice.setTotalReimbursedByInsuranceCompanyAmount(Math.round(totalReimbursedByInsuranceCompanyAmount * 100) / 100.0);
+
+            Double totalInvoiceAmountToPayByPatient = (totalAmount - totalReimbursedByInsuranceCompanyAmount);
+            invoice.setTotalInvoiceAmountToPayByPatient(Math.round(totalInvoiceAmountToPayByPatient * 100) / 100.0);
+
         } else {
             throw new RecordNotFoundException("Appointment isn't found.");
         }
@@ -130,9 +136,9 @@ public class InvoiceService {
             AppointmentDto appointmentDto = AppointmentService.transferToDto(appointment);
             dto.setAppointmentDto(appointmentDto);
         }
-//        dto.setTreatmentDtos(invoice.getTreatmentDtos());
-//        dto.setAppointmentTreatment(invoice.getAppointmentTreatment());
-//        dto.setAppointment(invoice.getAppointment());
+        dto.setTotalInvoiceAmount(invoice.getTotalInvoiceAmount());
+        dto.setTotalReimbursedByInsuranceCompanyAmount(invoice.getTotalReimbursedByInsuranceCompanyAmount());
+        dto.setTotalInvoiceAmountToPayByPatient(invoice.getTotalInvoiceAmountToPayByPatient());
 
         return dto;
     }
