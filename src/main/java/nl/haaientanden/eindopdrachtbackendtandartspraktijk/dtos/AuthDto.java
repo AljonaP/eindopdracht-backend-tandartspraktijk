@@ -1,9 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
-public class UserDto {
+public class AuthDto {
     public String username;
 
     public String password;
-
-    public String[] roles;
 }

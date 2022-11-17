@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
 
@@ -69,9 +69,9 @@ public class AppointmentController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping("/{appointmentId}/behandelkamers/{behandelKamerId}")
-    public ResponseEntity<Object> assignTreatmentRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long behandelKamerId ){
-        AppointmentDto appointmentDto = appointmentService.assignTreatmentRoomToAppointment(appointmentId, behandelKamerId);
+    @PutMapping("/{appointmentId}/behandelkamers/{treatmentRoomId}")
+    public ResponseEntity<Object> assignTreatmentRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long treatmentRoomId ){
+        AppointmentDto appointmentDto = appointmentService.assignTreatmentRoomToAppointment(appointmentId, treatmentRoomId);
         return ResponseEntity.ok(appointmentDto);
     }
 
