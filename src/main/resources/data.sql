@@ -1,4 +1,8 @@
-INSERT INTO roles(rolename) values ('ADMIN'), ('TANDARTS'), ('PATIENT');
+INSERT INTO roles (rolename) VALUES ('ADMIN'), ('TANDARTS'), ('PATIENT');
+
+-- INSERT INTO users (username, password) VALUES ('piet', '$2a$10$mHk5rO1caWXQ3hB6JcPFhuqNzX2xAcQ.ypOvPR7Sh0357zHuFgKDe');
+-- INSERT INTO users_roles (users_username, roles_rolename) VALUES ('piet', 'TANDARTS');
+-- INSERT INTO users (username, password, roles) VALUES ('henk', 'dGFuZGVuMDI=', ['ADMIN']);
 
 INSERT INTO treatments (id, treatment_code, treatment_description, treatment_rate) VALUES (1001, 'C11', 'Periodieke controle', 22.91);
 INSERT INTO treatments (id, treatment_code, treatment_description, treatment_rate) VALUES (1002, 'C13', 'Probleemgericht consult', 22.91);
@@ -82,7 +86,6 @@ INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_ti
 INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1034, 'Femke', 'Mittelberg', '2022-10-25T09:30');
 INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1035, 'Femke', 'Mittelberg', '2022-10-25T11:30');
 INSERT INTO appointments (id, name_dentist, surname_dentist, appointment_date_time) VALUES (1036, 'Femke', 'Mittelberg', '2022-10-25T15:15');
-
 
 INSERT INTO patients (id, name_patient, surname_patient, dob, zip_code, home_number, email, phone_number, reimburse_by_insurance_percentage) VALUES (1001, 'Milo', 'Verhoeven', '2000-12-14', '1334JK', 10, 'testemail1 @gmail.com', '0525821298', 80);
 INSERT INTO patients (id, name_patient, surname_patient, dob, zip_code, home_number, email, phone_number, reimburse_by_insurance_percentage) VALUES (1002, 'Tijs', 'Groen', '1997-01-12', '1335JK', 11, 'testemail2@gmail.com', '0525415679', 80);

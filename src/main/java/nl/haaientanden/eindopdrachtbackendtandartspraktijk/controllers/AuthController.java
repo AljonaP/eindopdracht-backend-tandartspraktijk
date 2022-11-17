@@ -27,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/haaientanden/auth")
-    public ResponseEntity<Object> signIn(@RequestBody AuthDto authDto) throws Exception {
+    public ResponseEntity<Object> signIn(@RequestBody AuthDto authDto) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(authDto.username, authDto.password);
 
         try {
