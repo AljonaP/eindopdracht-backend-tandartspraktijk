@@ -57,6 +57,11 @@ public class SecurityConfig {
         http
                 .httpBasic().disable()
                 .authorizeRequests()
+
+                .antMatchers(HttpMethod.POST, "/haaientanden/roles").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/haaientanden/roles").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/haaientanden/roles/{rolename}").hasAuthority("ADMIN")
+
                 .antMatchers(HttpMethod.POST,"/haaientanden/users").permitAll()
                 .antMatchers(HttpMethod.POST,"/haaientanden/auth").permitAll()
 

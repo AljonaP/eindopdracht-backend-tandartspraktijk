@@ -1,27 +1,48 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.RoleDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Role;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.RoleRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.RoleService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+import java.util.List;
+
+import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
 
 @RestController
+@RequestMapping("/haaientanden/roles")
 public class RoleController {
 
-    private final RoleRepository repos;
+    private final RoleRepository roleRepository;
 
-    public RoleController(RoleRepository repos) {
-        this.repos = repos;
+    private final RoleService roleService;
+
+    public RoleController(RoleRepository roleRepository, RoleService roleService) {
+        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
-    @PostMapping("/haaientanden/roles")
-    public String createRole(@RequestBody RoleDto role) {
-        Role newRole = new Role();
-        newRole.setRolename(role.rolename);
-        repos.save(newRole);
+    @PostMapping("")
+    public ResponseEntity<Object> addRole(@Valid @RequestBody RoleDto roleDto, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
+        }
 
-        return "Done";
+        return ResponseEntity.created(null).body(roleService.saveRole(roleDto));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<RoleDto>> getAllRoles() {
+        return ResponseEntity.ok().body(roleService.getRoles());
+    }
+
+    @DeleteMapping("/{rolename}")
+    public void deleteRole(@PathVariable(name = "rolename") String rolename) {
+        roleService.deleteRoleByIdRolename(rolename);
     }
 }
