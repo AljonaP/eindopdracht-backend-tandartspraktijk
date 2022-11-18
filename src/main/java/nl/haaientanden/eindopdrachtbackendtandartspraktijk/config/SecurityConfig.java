@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -57,12 +56,12 @@ public class SecurityConfig {
         http
                 .httpBasic().disable()
                 .authorizeRequests()
-
-                .antMatchers(HttpMethod.POST, "/haaientanden/roles").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/haaientanden/roles").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/haaientanden/roles/{rolename}").hasAuthority("ADMIN")
-
                 .antMatchers(HttpMethod.POST,"/haaientanden/users").permitAll()
+//                .antMatchers(HttpMethod.GET, "/haaientanden/users").hasAuthority("ADMIN")
+
+//                .antMatchers(HttpMethod.POST, "/haaientanden/roles").hasAuthority("ADMIN")
+//                .antMatchers(HttpMethod.GET, "/haaientanden/roles").hasAuthority("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "/haaientanden/roles/{rolename}").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,"/haaientanden/auth").permitAll()
 
                 .antMatchers(HttpMethod.POST,"/haaientanden/behandelingen").hasAuthority("ADMIN")

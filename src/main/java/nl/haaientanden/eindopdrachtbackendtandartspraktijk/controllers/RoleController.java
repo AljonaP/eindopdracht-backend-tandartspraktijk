@@ -32,7 +32,6 @@ public class RoleController {
         if(bindingResult.hasErrors()) {
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
         }
-
         return ResponseEntity.created(null).body(roleService.saveRole(roleDto));
     }
 

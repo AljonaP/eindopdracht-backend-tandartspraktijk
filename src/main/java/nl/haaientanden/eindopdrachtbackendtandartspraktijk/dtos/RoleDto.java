@@ -3,7 +3,7 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 import javax.validation.constraints.Pattern;
 
 public class RoleDto {
-//    @Pattern(regexp = "[A-Z]")
+    @Pattern(regexp = "[A-Z]")
     private String rolename;
 
     public String getRolename() {

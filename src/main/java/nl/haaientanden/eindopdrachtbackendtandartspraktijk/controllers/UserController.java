@@ -1,47 +1,69 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.UserDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Role;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.User;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.RoleRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
+import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
 
 @RestController
+@RequestMapping("/haaientanden/users")
 public class UserController {
 
-    private final UserRepository userRepos;
-    private final RoleRepository roleRepos;
-    private final PasswordEncoder encoder;
+//    private final UserRepository userRepos;
+//    private final RoleRepository roleRepos;
+//    private final PasswordEncoder encoder;
+//
+//    private final UserService userService;
+//
+//    public UserController(UserRepository userRepos, RoleRepository roleRepos, PasswordEncoder encoder, UserService userService) {
+//        this.userRepos = userRepos;
+//        this.roleRepos = roleRepos;
+//        this.encoder = encoder;
+//        this.userService = userService;
+//    }
+    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepos, RoleRepository roleRepos, PasswordEncoder encoder) {
-        this.userRepos = userRepos;
-        this.roleRepos = roleRepos;
-        this.encoder = encoder;
+    public UserController(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
-    @PostMapping("/haaientanden/users")
-    public String createUser(@RequestBody UserDto userDto) {
-        User newUser = new User();
-        newUser.setUsername(userDto.username);
-        newUser.setPassword(encoder.encode(userDto.password));
 
-        List<Role> userRoles = new ArrayList<>();
-        for (String rolename : userDto.roles) {
-            Optional<Role> or = roleRepos.findById(rolename);
-
-            userRoles.add(or.get());
+    @PostMapping("")
+    public ResponseEntity<Object> addUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
         }
-        newUser.setRoles(userRoles);
+        return ResponseEntity.created(null).body(userService.saveUser(userDto));
+    }
 
-        userRepos.save(newUser);
+    @GetMapping("")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok().body(userService.getUsers());
+    }
 
-        return "Done";
+    @GetMapping("/{username}")
+    public ResponseEntity<Object> getUser(@PathVariable(name = "username") String username) {
+        return ResponseEntity.ok(userService.getUserById(username));
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<Object> updateUser(@PathVariable(name="username") String username, @RequestBody UserDto newUser) {
+        UserDto dto = userService.updateUser(username, newUser);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping("/{username}")
+    public void deleteUser(@PathVariable(name = "username") String username) {
+        userService.deleteUserByIdUsername(username);
     }
 }
