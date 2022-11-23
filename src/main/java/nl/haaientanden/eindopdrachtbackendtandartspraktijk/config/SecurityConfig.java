@@ -56,31 +56,42 @@ public class SecurityConfig {
         http
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/haaientanden/users").permitAll()
-//                .antMatchers(HttpMethod.GET, "/haaientanden/users").hasAuthority("ADMIN")
 
-//                .antMatchers(HttpMethod.POST, "/haaientanden/roles").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.GET, "/haaientanden/roles").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/haaientanden/roles/{rolename}").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST,"/haaientanden/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/haaientanden/single/uploadDb").hasAnyAuthority("ADMIN", "TANDARTS") // DONE
+                .antMatchers(HttpMethod.GET, "/haaientanden/downloadFromDB/{fileName}").hasAnyAuthority("ADMIN", "TANDARTS") // DONE
+                .antMatchers(HttpMethod.GET, "/haaientanden/getAll/db").hasAnyAuthority("ADMIN", "TANDARTS") // DONE
+//                .antMatchers(HttpMethod.GET, "/haaientanden/zipDownload/db").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/haaientanden/multiple/upload/db").hasAnyAuthority("ADMIN", "TANDARTS") // DONE
 
-                .antMatchers(HttpMethod.POST,"/haaientanden/behandelingen").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/haaientanden/behandelingen").hasAnyAuthority("ADMIN", "TANDARTS", "PATIENT")
-                .antMatchers(HttpMethod.GET,        "/haaientanden/behandelingen/{id}").hasAnyAuthority("ADMIN", "TANDARTS")
-                .antMatchers(HttpMethod.PUT,"/haaientanden/behandelingen/{id}").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/haaientanden/behandelingen/{id}").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/haaientanden/users").permitAll() // DONE
+                .antMatchers(HttpMethod.GET, "/haaientanden/users").hasAuthority("ADMIN") //DONE
+                .antMatchers(HttpMethod.GET, "/haaientanden/users/{username}").hasAnyAuthority("ADMIN", "TANDARTS", "PATIENT") //DONE
+                .antMatchers(HttpMethod.PUT, "/haaientanden/users/{username}").hasAnyAuthority("ADMIN", "TANDARTS") //DONE
+                .antMatchers(HttpMethod.DELETE, "/haaientanden/users/{username}").hasAuthority("ADMIN") // DONE
 
-                .antMatchers(HttpMethod.POST,"/haaientanden/patienten").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET,"/haaientanden/patienten").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET,"/haaientanden/patienten/{id}").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PUT,"/haaientanden/patienten/{id}").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/haaientanden/patienten/{id}").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/haaientanden/roles").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.GET, "/haaientanden/roles").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.DELETE, "/haaientanden/roles/{rolename}").hasAuthority("ADMIN") // DONE
 
-                .antMatchers(HttpMethod.POST,"/haaientanden/behandelkamers").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET,"/haaientanden/behandelkamers").hasAnyAuthority("ADMIN", "TANDARTS")
-                .antMatchers(HttpMethod.GET,        "/haaientanden/behandelkamers/{id}").hasAnyAuthority("ADMIN", "TANDARTS")
-                .antMatchers(HttpMethod.PUT,"/haaientanden/behandelkamers/{id}").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/haaientanden/behandelkamers/{id}").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/haaientanden/auth").permitAll() // DONE
+
+                .antMatchers(HttpMethod.POST,"/haaientanden/behandelingen").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.GET, "/haaientanden/behandelingen").hasAnyAuthority("ADMIN", "TANDARTS", "PATIENT") // DONE
+                .antMatchers(HttpMethod.GET,        "/haaientanden/behandelingen/{id}").hasAnyAuthority("ADMIN", "TANDARTS") // DONE
+                .antMatchers(HttpMethod.PUT,"/haaientanden/behandelingen/{id}").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.DELETE,"/haaientanden/behandelingen/{id}").hasAuthority("ADMIN") // DONE
+
+                .antMatchers(HttpMethod.POST,"/haaientanden/patienten").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.GET,"/haaientanden/patienten").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.GET,"/haaientanden/patienten/{id}").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.PUT,"/haaientanden/patienten/{id}").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.DELETE,"/haaientanden/patienten/{id}").hasAuthority("ADMIN") // DONE
+
+                .antMatchers(HttpMethod.POST,"/haaientanden/behandelkamers").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.GET,"/haaientanden/behandelkamers").hasAnyAuthority("ADMIN", "TANDARTS") // DONE
+                .antMatchers(HttpMethod.GET,        "/haaientanden/behandelkamers/{id}").hasAnyAuthority("ADMIN", "TANDARTS") // DONE
+                .antMatchers(HttpMethod.PUT,"/haaientanden/behandelkamers/{id}").hasAuthority("ADMIN") // DONE
+                .antMatchers(HttpMethod.DELETE,"/haaientanden/behandelkamers/{id}").hasAuthority("ADMIN") // DONE
 
                 .antMatchers(HttpMethod.POST,"/haaientanden/afspraken").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET,"/haaientanden/afspraken").hasAuthority("ADMIN")

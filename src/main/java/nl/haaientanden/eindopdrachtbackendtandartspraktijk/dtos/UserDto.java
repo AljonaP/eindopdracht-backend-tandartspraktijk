@@ -1,13 +1,12 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 public class UserDto {
-    @Size(min = 5, max = 10)
+    @Pattern(regexp = "^[A-Z][A-Z,a-z]*[0-9]{0,2}$", message = "Entered value isn't correct. The username should: \n 1) begin with a capital letter;\n 2) then uppercase and lowercase letters may be used;\n 3) last two signs should be digits.")
     public String username;
-//    ((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,15}")"
+
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,20}$")
     public String password;
     public List<String> roles;

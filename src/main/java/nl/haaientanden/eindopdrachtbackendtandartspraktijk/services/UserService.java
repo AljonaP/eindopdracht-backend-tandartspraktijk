@@ -7,6 +7,8 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Role;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.User;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.RoleRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,36 +41,36 @@ public class UserService {
 
     public List<UserDto> getUsers() {
         return transferUserListToDtoList(userRepository.findAll());
-//        List<User> users = userRepository.findAll();
-//        List<UserDto> userDtos = new ArrayList<>();
-//        for (User user : users) {
-//            userDtos.add(transferToDto(user));
-//        }
-//        return userDtos;
     }
 
     public UserDto getUserById(String username) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(userRepository.findById(username).isPresent()){
-            User user = userRepository.findById(username).get();
-            return transferToDto(user);
-        } else {
-            throw new RecordNotFoundException("The entered username isn't correct or doesn't exist. Search again with another value.");
+            if (username.equals(authentication.getName())) {
+                User user = userRepository.findById(username).get();
+                return transferToDto(user);
+            }
+
         }
+        throw new RecordNotFoundException("The entered username '" + username + "' isn't correct, doesn't exist or you have used not right credentials. Search again with another username or credentials.");
     }
 
     public UserDto updateUser(String username, UserDto userDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         if(userRepository.findById(username).isPresent()) {
             User user = userRepository.findById(username).get();
-            User user1 = transferToUser(userDto);
-            user1.setUsername(user.getUsername());
+            if (userDto.getUsername().equals(authentication.getName())) {
+                User user1 = transferToUser(userDto);
+                user1.setUsername(user.getUsername());
 
-            userRepository.save(user1);
+                userRepository.save(user1);
 
-            return transferToDto(user1);
-        } else {
-            throw new RecordNotFoundException("geen user is gevonden");
+                return transferToDto(user1);
+            }
         }
+        throw new RecordNotFoundException("Used Token is from another user with another username. Try again with own credentials for username '" + username + "'.");
     }
 
     public void deleteUserByIdUsername(@RequestBody String username) {
@@ -95,7 +97,9 @@ public class UserService {
 
     public static UserDto transferToDto(User user) {
         UserDto userDto = new UserDto();
+
         userDto.setUsername(user.getUsername());
+        userDto.setPassword(user.getPassword());
 
         List<String> userRoles = new ArrayList<>();
         for (Role role : user.getRoles()) {

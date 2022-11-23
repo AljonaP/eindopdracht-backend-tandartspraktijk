@@ -1,12 +1,14 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.RoleDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.BadRequestException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Role;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.RoleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class RoleService {
@@ -17,10 +19,14 @@ public class RoleService {
     }
 
     public RoleDto saveRole(RoleDto roleDto) {
-        Role role = transferToRole(roleDto);
-        roleRepository.save(role);
+        if (roleRepository.findById(roleDto.getRolename()).isEmpty()) {
+            Role role = transferToRole(roleDto);
+            roleRepository.save(role);
 
-        return transferToDto(role);
+            return transferToDto(role);
+        }  else {
+            throw new BadRequestException("Entered rolename already exists. Try another rolename.");
+        }
     }
 
     public List<RoleDto> getRoles() {
