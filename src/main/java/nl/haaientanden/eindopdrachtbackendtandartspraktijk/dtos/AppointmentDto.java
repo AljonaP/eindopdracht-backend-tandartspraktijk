@@ -10,10 +10,7 @@ public class AppointmentDto {
     private String surnameDentist;
     private LocalDateTime appointmentDateTime;
 
-    @JsonIgnore
     private TreatmentRoomDto treatmentRoomDto;
-
-    @JsonIgnore
     private PatientDto patientDto;
 
     public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {

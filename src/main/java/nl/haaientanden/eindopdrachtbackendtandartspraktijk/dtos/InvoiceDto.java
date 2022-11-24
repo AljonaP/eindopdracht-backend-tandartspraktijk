@@ -19,11 +19,11 @@ public class InvoiceDto {
     private Double totalReimbursedByInsuranceCompanyAmount;
     private Double totalInvoiceAmountToPayByPatient;
 
-    @JsonIgnore
+//    @JsonIgnore
     private AppointmentDto appointmentDto;
 //    private AppointmentTreatment appointmentTreatment;
 
-    @JsonIgnore
+//    @JsonIgnore
     private List<TreatmentDto> treatmentDtos;
     public InvoiceDto(Long id,
                       LocalDate invoiceDate,
