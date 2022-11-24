@@ -6,7 +6,6 @@ import java.time.LocalDate;
 public class InvoiceInputDto {
     @PastOrPresent
     private LocalDate invoiceDate;
-
     @NotBlank
     @Size(min = 7, max = 7)
     private String invoiceNumber;

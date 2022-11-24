@@ -85,6 +85,8 @@ public class PatientService {
         patient.setEmail(dto.getEmail());
         if (validPhoneNumber(inputPhoneNumber)) {
             patient.setPhoneNumber(dto.getPhoneNumber());
+        } else {
+            throw new RuntimeException("The entered phone number isn't correct. The phone number should: begin from '0';\n exist only from digits;\n total quantity of digits should be 10 (including first '0').");
         }
         patient.setReimburseByInsurancePercentage(dto.getReimburseByInsurancePercentage());
 
@@ -107,6 +109,8 @@ public class PatientService {
         dto.setEmail(patient.getEmail());
         if (validPhoneNumber(inputPhoneNumber)) {
             dto.setPhoneNumber(patient.getPhoneNumber());
+        } else {
+            throw new RuntimeException("The entered phone number isn't correct. The phone number should:\n begin from '0';\n exist only from digits;\n total quantity of digits should be 10 (including first '0').");
         }
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
         if((patient.isSetAppointment()) && !(patient.getAppointments() == null)) {

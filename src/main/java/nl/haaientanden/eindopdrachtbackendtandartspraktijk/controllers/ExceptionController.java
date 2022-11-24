@@ -1,6 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.BadRequestException;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.FileAlreadyExistsException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,11 @@ public class ExceptionController {
 
     @ExceptionHandler(value = BadRequestException.class)
     public ResponseEntity<Object> exception(BadRequestException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(value = FileAlreadyExistsException.class)
+    public ResponseEntity<Object> exception(FileAlreadyExistsException exception) {
 
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }

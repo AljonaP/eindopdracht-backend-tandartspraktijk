@@ -21,8 +21,6 @@ public class Invoice {
     private String chamberOfCommerceNumber ="1235467";
     private LocalDate invoiceDate;
     private String invoiceNumber;
-    //
-
     private Double totalInvoiceAmount;
     private Double totalReimbursedByInsuranceCompanyAmount;
     private Double totalInvoiceAmountToPayByPatient;

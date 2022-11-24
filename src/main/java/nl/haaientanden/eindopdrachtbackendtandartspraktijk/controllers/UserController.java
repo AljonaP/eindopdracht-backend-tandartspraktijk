@@ -1,79 +1,69 @@
-//package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
+package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
+
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.UserDto;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.UserRepository;
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
+
+@RestController
+@RequestMapping("/haaientanden/users")
+public class UserController {
+
+//    private final UserRepository userRepos;
+//    private final RoleRepository roleRepos;
+//    private final PasswordEncoder encoder;
 //
-//import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.UserDto;
-//import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.BadRequestException;
-//import nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.UserService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+//    private final UserService userService;
 //
-//import java.net.URI;
-//import java.util.List;
-//import java.util.Map;
-//
-//@CrossOrigin
-//@RestController
-//@RequestMapping(value = "/users")
-//public class UserController {
-//    @Autowired
-//    private UserService userService;
-//
-//    @GetMapping(value = "")
-//    public ResponseEntity<List<UserDto>> getUsers() {
-//        List<UserDto> userDtos = userService.getUsers();
-//        return ResponseEntity.ok().body(userDtos);
+//    public UserController(UserRepository userRepos, RoleRepository roleRepos, PasswordEncoder encoder, UserService userService) {
+//        this.userRepos = userRepos;
+//        this.roleRepos = roleRepos;
+//        this.encoder = encoder;
+//        this.userService = userService;
 //    }
-//
-//    @GetMapping(value = "/{username}")
-//    public ResponseEntity<UserDto> getUser(@PathVariable("username") String username) {
-//        UserDto optionalUser = userService.getUser(username);
-//        return ResponseEntity.ok().body(optionalUser);
-//    }
-//
-//    @PostMapping(value = "")
-//    public ResponseEntity<UserDto> createKlant(@RequestBody UserDto dto) {;
-//        String newUsername = userService.createUser(dto);
-//        userService.addAuthority(newUsername, "ROLE_USER");
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
-//                .buildAndExpand(newUsername).toUri();
-//
-//        return ResponseEntity.created(location).build();
-//    }
-//
-//    @PutMapping(value = "/{username}")
-//    public ResponseEntity<UserDto> updateKlant(@PathVariable("username") String username, @RequestBody UserDto dto) {
-//        userService.updateUser(username, dto);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    @DeleteMapping(value = "/{username}")
-//    public ResponseEntity<Object> deleteKlant(@PathVariable("username") String username) {
-//        userService.deleteUser(username);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    @GetMapping(value = "/{username}/authorities")
-//    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
-//        return ResponseEntity.ok().body(userService.getAuthorities(username));
-//    }
-//
-//    @PostMapping(value = "/{username}/authorities")
-//    public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
-//        try {
-//            String authorityName = (String) fields.get("authority");
-//            userService.addAuthority(username, authorityName);
-//            return ResponseEntity.noContent().build();
-//        }
-//        catch (Exception ex) {
-//            throw new BadRequestException();
-//        }
-//    }
-//
-//    @DeleteMapping(value = "/{username}/authorities/{authority}")
-//    public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
-//        userService.removeAuthority(username, authority);
-//        return ResponseEntity.noContent().build();
-//    }
-//}
+    private final UserRepository userRepository;
+    private final UserService userService;
+
+    public UserController(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Object> addUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.created(null).body(userService.saveUser(userDto));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok().body(userService.getUsers());
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<Object> getUser(@PathVariable(name = "username") String username) {
+        return ResponseEntity.ok(userService.getUserById(username));
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<Object> updateUser(@PathVariable(name="username") String username, @RequestBody UserDto newUser) {
+        UserDto dto = userService.updateUser(username, newUser);
+
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping("/{username}")
+    public void deleteUser(@PathVariable(name = "username") String username) {
+        userService.deleteUserByIdUsername(username);
+    }
+}

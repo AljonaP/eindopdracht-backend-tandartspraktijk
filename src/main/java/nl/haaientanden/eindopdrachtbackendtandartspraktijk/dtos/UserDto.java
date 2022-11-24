@@ -1,67 +1,37 @@
-//package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
-//
-//import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-//import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Authority;
-//
-//
-//import java.util.Set;
-//
-//public class UserDto {
-//
-//    public String username;
-//    public String password;
-//    public Boolean enabled;
-//    public String apikey;
-//    public String email;
-//    @JsonSerialize
-//    public Set<Authority> authorities;
-//
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public Boolean getEnabled() {
-//        return enabled;
-//    }
-//
-//    public String getApikey() {
-//        return apikey;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public Set<Authority> getAuthorities() {
-//        return authorities;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public void setEnabled(Boolean enabled) {
-//        this.enabled = enabled;
-//    }
-//
-//    public void setApikey(String apikey) {
-//        this.apikey = apikey;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//    public void setAuthorities(Set<Authority> authorities) {
-//        this.authorities = authorities;
-//    }
-//}
-//
+package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
+
+import javax.validation.constraints.Pattern;
+import java.util.List;
+
+public class UserDto {
+    @Pattern(regexp = "^[A-Z][A-Z,a-z]*[0-9]{0,2}$", message = "Entered value isn't correct. The username should: \n 1) begin with a capital letter;\n 2) then uppercase and lowercase letters may be used;\n 3) last two signs should be digits.")
+    public String username;
+
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,20}$")
+    public String password;
+    public List<String> roles;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+}
