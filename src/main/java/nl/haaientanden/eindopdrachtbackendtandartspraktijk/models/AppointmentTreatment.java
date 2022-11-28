@@ -1,10 +1,10 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
-
 import javax.persistence.*;
 
 @Entity
 public class AppointmentTreatment {
+
     @EmbeddedId
     private AppointmentTreatmentKey id;
 

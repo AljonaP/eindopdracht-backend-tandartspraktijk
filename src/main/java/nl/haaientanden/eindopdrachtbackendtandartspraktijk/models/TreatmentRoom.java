@@ -1,22 +1,23 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "treatment_rooms")
 public class TreatmentRoom {
+
     @Id
     @GeneratedValue
     private Long id;
     private Integer roomNumber;
     private String roomColor;
-
     @OneToOne(mappedBy = "treatmentRoom")
     Appointment appointment;
 
-    public TreatmentRoom(Long id, Integer roomNumber, String roomColor) {
+    public TreatmentRoom(Long id,
+                         Integer roomNumber,
+                         String roomColor) {
+
         this.id = id;
         this.roomNumber = roomNumber;
         this.roomColor = roomColor;

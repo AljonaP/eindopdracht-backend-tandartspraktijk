@@ -6,12 +6,15 @@ import java.util.Objects;
 
 @Embeddable
 public class AppointmentTreatmentKey implements Serializable {
+
     private Long appointmentId;
     private Long treatmentId;
 
-    public AppointmentTreatmentKey() {}
+    public AppointmentTreatmentKey() {
+    }
 
     public AppointmentTreatmentKey(Long appointmentId, Long treatmentId) {
+
         this.appointmentId = appointmentId;
         this.treatmentId = treatmentId;
     }
@@ -41,6 +44,7 @@ public class AppointmentTreatmentKey implements Serializable {
             return false;
         }
         AppointmentTreatmentKey that = (AppointmentTreatmentKey) object;
+
         return appointmentId.equals(that.appointmentId) && treatmentId.equals(that.treatmentId);
     }
 
