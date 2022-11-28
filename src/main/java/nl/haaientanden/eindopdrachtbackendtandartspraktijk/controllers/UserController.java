@@ -17,46 +17,46 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 @RequestMapping("/haaientanden/users")
 public class UserController {
 
-//    private final UserRepository userRepos;
-//    private final RoleRepository roleRepos;
-//    private final PasswordEncoder encoder;
-//
-//    private final UserService userService;
-//
-//    public UserController(UserRepository userRepos, RoleRepository roleRepos, PasswordEncoder encoder, UserService userService) {
-//        this.userRepos = userRepos;
-//        this.roleRepos = roleRepos;
-//        this.encoder = encoder;
-//        this.userService = userService;
-//    }
     private final UserRepository userRepository;
     private final UserService userService;
 
     public UserController(UserRepository userRepository, UserService userService) {
+
         this.userRepository = userRepository;
         this.userService = userService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors()) {
+
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.created(null).body(userService.saveUser(userDto));
+        UserDto dto = userService.saveUser(userDto);
+
+        return ResponseEntity.created(null).body(dto);
     }
 
     @GetMapping("")
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        return ResponseEntity.ok().body(userService.getUsers());
+
+        List<UserDto> dtos = userService.getUsers();
+
+        return ResponseEntity.ok().body(dtos);
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<Object> getUser(@PathVariable(name = "username") String username) {
-        return ResponseEntity.ok(userService.getUserById(username));
+
+        UserDto dto = userService.getUserById(username);
+
+        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Object> updateUser(@PathVariable(name="username") String username, @RequestBody UserDto newUser) {
+    public ResponseEntity<Object> updateUser(@PathVariable(name = "username") String username, @RequestBody UserDto newUser) {
+
         UserDto dto = userService.updateUser(username, newUser);
 
         return ResponseEntity.ok().body(dto);
@@ -64,6 +64,7 @@ public class UserController {
 
     @DeleteMapping("/{username}")
     public void deleteUser(@PathVariable(name = "username") String username) {
+
         userService.deleteUserByIdUsername(username);
     }
 }

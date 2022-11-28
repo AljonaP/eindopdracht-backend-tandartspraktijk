@@ -68,7 +68,7 @@ public class TreatmentRoomService {
     public static TreatmentRoom transferToTreatmentRoom(TreatmentRoomInputDto dto) {
         var treatmentRoom = new TreatmentRoom();
 
-        treatmentRoom.setRoomNumber(dto.getRoomNumber());;
+        treatmentRoom.setRoomNumber(dto.getRoomNumber());
         treatmentRoom.setRoomColor(dto.getRoomColor());
 
         return treatmentRoom;

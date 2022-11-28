@@ -23,25 +23,32 @@ public class RoleController {
     private final RoleService roleService;
 
     public RoleController(RoleRepository roleRepository, RoleService roleService) {
+
         this.roleRepository = roleRepository;
         this.roleService = roleService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addRole(@Valid @RequestBody RoleDto roleDto, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.created(null).body(roleService.saveRole(roleDto));
+        RoleDto dto = roleService.saveRole(roleDto);
+        return ResponseEntity.created(null).body(dto);
     }
 
     @GetMapping("")
     public ResponseEntity<List<RoleDto>> getAllRoles() {
-        return ResponseEntity.ok().body(roleService.getRoles());
+
+        List<RoleDto> dtos = roleService.getRoles();
+
+        return ResponseEntity.ok().body(dtos);
     }
 
     @DeleteMapping("/{rolename}")
     public void deleteRole(@PathVariable(name = "rolename") String rolename) {
+
         roleService.deleteRoleByIdRolename(rolename);
     }
 }

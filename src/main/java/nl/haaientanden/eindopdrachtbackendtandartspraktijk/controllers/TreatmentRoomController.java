@@ -18,35 +18,47 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 @RestController
 @RequestMapping("haaientanden/behandelkamers")
 public class TreatmentRoomController {
+
     private final TreatmentRoomRepository treatmentRoomRepository;
     private final TreatmentRoomService treatmentRoomService;
 
     public TreatmentRoomController(TreatmentRoomRepository treatmentRoomRepository, TreatmentRoomService treatmentRoomService) {
+
         this.treatmentRoomRepository = treatmentRoomRepository;
         this.treatmentRoomService = treatmentRoomService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addTreatmentRoom(@Valid @RequestBody TreatmentRoomInputDto treatmentRoomInputDto, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors()) {
+
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
         }
         TreatmentRoomDto dto = treatmentRoomService.saveTreatmentRoom(treatmentRoomInputDto);
+
         return ResponseEntity.created(null).body(dto);
     }
 
     @GetMapping("")
     public ResponseEntity<List<TreatmentRoomDto>> getAllTreatmentRooms() {
-        return ResponseEntity.ok().body(treatmentRoomService.getTreatmentRooms());
+
+        List<TreatmentRoomDto> dtos = treatmentRoomService.getTreatmentRooms();
+
+        return ResponseEntity.ok().body(dtos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getTreatmentRoom(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(treatmentRoomService.getTreatmentRoomById(id));
+
+        TreatmentRoomDto dto = treatmentRoomService.getTreatmentRoomById(id);
+
+        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateTreatmentRoom(@PathVariable(name="id") Long id, @RequestBody TreatmentRoomInputDto newTreatmentRoom) {
+    public ResponseEntity<Object> updateTreatmentRoom(@PathVariable(name = "id") Long id, @RequestBody TreatmentRoomInputDto newTreatmentRoom) {
+
         TreatmentRoomDto dto = treatmentRoomService.updateTreatmentRoom(id, newTreatmentRoom);
 
         return ResponseEntity.ok().body(dto);
@@ -54,6 +66,7 @@ public class TreatmentRoomController {
 
     @DeleteMapping("/{id}")
     public void deleteTreatmentRoom(@PathVariable(name = "id") Long id) {
+
         treatmentRoomService.deleteTreatmentRoomById(id);
     }
 }

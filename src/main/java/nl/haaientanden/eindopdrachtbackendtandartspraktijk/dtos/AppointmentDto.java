@@ -1,26 +1,34 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.time.LocalDateTime;
 
 public class AppointmentDto {
+
     private Long id;
     private String nameDentist;
     private String surnameDentist;
     private LocalDateTime appointmentDateTime;
-
     private TreatmentRoomDto treatmentRoomDto;
     private PatientDto patientDto;
 
-    public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
+    public AppointmentDto(Long id,
+                          String nameDentist,
+                          String surnameDentist,
+                          LocalDateTime appointmentDateTime) {
+
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
         this.appointmentDateTime = appointmentDateTime;
 
     }
 
-    public AppointmentDto(Long id, String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime, TreatmentRoomDto treatmentRoomDto, PatientDto patientDto) {
+    public AppointmentDto(Long id,
+                          String nameDentist,
+                          String surnameDentist,
+                          LocalDateTime appointmentDateTime,
+                          TreatmentRoomDto treatmentRoomDto,
+                          PatientDto patientDto) {
+
         this.id = id;
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;

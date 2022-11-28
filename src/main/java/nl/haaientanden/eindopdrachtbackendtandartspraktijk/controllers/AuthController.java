@@ -20,14 +20,15 @@ public class AuthController {
     private final AuthenticationManager authManager;
     private final JwtService jwtService;
 
-
     public AuthController(AuthenticationManager man, JwtService service) {
+
         this.authManager = man;
         this.jwtService = service;
     }
 
     @PostMapping("/haaientanden/auth")
     public ResponseEntity<Object> signIn(@RequestBody AuthDto authDto) {
+
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(authDto.username, authDto.password);
 
         try {
@@ -38,8 +39,8 @@ public class AuthController {
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                     .body("Token generated");
-        }
-        catch (AuthenticationException authenticationException) {
+        } catch (AuthenticationException authenticationException) {
+
             return new ResponseEntity(authenticationException.getMessage(), HttpStatus.UNAUTHORIZED);
         }
     }

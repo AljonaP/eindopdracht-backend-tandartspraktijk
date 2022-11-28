@@ -1,7 +1,5 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers;
 
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.AppointmentInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.PatientInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.PatientRepository;
@@ -12,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.util.List;
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.getErrorMessage;
@@ -20,35 +17,47 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 @RestController
 @RequestMapping("/haaientanden/patienten")
 public class PatientController {
+
     private final PatientRepository patientRepository;
     private final PatientService patientService;
 
     public PatientController(PatientRepository patientRepository, PatientService patientService) {
+
         this.patientRepository = patientRepository;
         this.patientService = patientService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addPatient(@Valid @RequestBody PatientInputDto patientInputDto, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors()) {
+
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
         }
         PatientDto dto = patientService.savePatient(patientInputDto);
+
         return ResponseEntity.created(null).body(dto);
     }
 
     @GetMapping("")
     public ResponseEntity<List<PatientDto>> getAllPatients() {
-        return ResponseEntity.ok().body(patientService.getPatients());
+
+        List<PatientDto> dtos = patientService.getPatients();
+
+        return ResponseEntity.ok().body(dtos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getPatient(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok(patientService.getPatientById(id));
+
+        PatientDto dto = patientService.getPatientById(id);
+
+        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updatePatient(@PathVariable(name = "id") Long id, @RequestBody PatientInputDto newPatient) {
+
         PatientDto dto = patientService.updatePatient(id, newPatient);
 
         return ResponseEntity.ok().body(dto);

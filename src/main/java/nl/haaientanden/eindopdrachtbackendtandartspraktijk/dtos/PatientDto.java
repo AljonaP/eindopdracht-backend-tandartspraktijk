@@ -1,12 +1,12 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class PatientDto {
+
     private Long id;
     private String namePatient;
     private String surnamePatient;
@@ -17,11 +17,19 @@ public class PatientDto {
     private String phoneNumber;
     private Integer reimburseByInsurancePercentage;
 
-    //@JsonSerialize
     @JsonIgnore
     private List<AppointmentDto> appointmentDto;
 
-    public PatientDto(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage) {
+    public PatientDto(Long id,
+                      String namePatient,
+                      String surnamePatient,
+                      LocalDate dob,
+                      String zipCode,
+                      Integer homeNumber,
+                      String email,
+                      String phoneNumber,
+                      Integer reimburseByInsurancePercentage) {
+
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;
@@ -33,7 +41,17 @@ public class PatientDto {
         this.id = id;
     }
 
-    public PatientDto(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage, List<AppointmentDto> appointmentDto) {
+    public PatientDto(Long id,
+                      String namePatient,
+                      String surnamePatient,
+                      LocalDate dob,
+                      String zipCode,
+                      Integer homeNumber,
+                      String email,
+                      String phoneNumber,
+                      Integer reimburseByInsurancePercentage,
+                      List<AppointmentDto> appointmentDto) {
+
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;
@@ -45,7 +63,6 @@ public class PatientDto {
         this.id = id;
         this.appointmentDto = appointmentDto;
     }
-
 
     public PatientDto() {
     }
@@ -129,6 +146,4 @@ public class PatientDto {
     public void setAppointmentDto(List<AppointmentDto> appointmentDto) {
         this.appointmentDto = appointmentDto;
     }
-
-
 }
