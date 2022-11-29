@@ -19,11 +19,15 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     public final UserRepository userRepository;
     private final PasswordEncoder encoder;
     public final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder encoder, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder encoder,
+                       RoleRepository roleRepository) {
+
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.roleRepository = roleRepository;
@@ -46,7 +50,7 @@ public class UserService {
     public UserDto getUserById(String username) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(userRepository.findById(username).isPresent()){
+        if (userRepository.findById(username).isPresent()) {
             if (username.equals(authentication.getName())) {
                 User user = userRepository.findById(username).get();
                 return transferToDto(user);
@@ -59,7 +63,7 @@ public class UserService {
     public UserDto updateUser(String username, UserDto userDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(userRepository.findById(username).isPresent()) {
+        if (userRepository.findById(username).isPresent()) {
             User user = userRepository.findById(username).get();
             if (userDto.getUsername().equals(authentication.getName())) {
                 User user1 = transferToUser(userDto);

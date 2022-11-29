@@ -21,14 +21,19 @@ import java.util.Optional;
 
 @Service
 public class AppointmentService {
+
     private final AppointmentRepository appointmentRepository;
     private final TreatmentRoomRepository treatmentRoomRepository;
     private final TreatmentRoomService treatmentRoomService;
-
     private final PatientRepository patientRepository;
     private final PatientService patientService;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, TreatmentRoomRepository treatmentRoomRepository, TreatmentRoomService treatmentRoomService, PatientRepository patientRepository, PatientService patientService) {
+    public AppointmentService(AppointmentRepository appointmentRepository,
+                              TreatmentRoomRepository treatmentRoomRepository,
+                              TreatmentRoomService treatmentRoomService,
+                              PatientRepository patientRepository,
+                              PatientService patientService) {
+
         this.appointmentRepository = appointmentRepository;
         this.treatmentRoomRepository = treatmentRoomRepository;
         this.treatmentRoomService = treatmentRoomService;
@@ -51,13 +56,15 @@ public class AppointmentService {
         for (Appointment appointment : appointments) {
             dtos.add(transferToDto(appointment));
         }
+
         return dtos;
     }
 
     public AppointmentDto getAppointmentById(Long id) {
 
-        if(appointmentRepository.findById(id).isPresent()){
+        if (appointmentRepository.findById(id).isPresent()) {
             Appointment appointment = appointmentRepository.findById(id).get();
+
             return transferToDto(appointment);
         } else {
             throw new RecordNotFoundException("The entered value isn't correct or doesn't exist. Search again with another value.");
@@ -65,7 +72,8 @@ public class AppointmentService {
     }
 
     public AppointmentDto updateAppointment(Long id, AppointmentInputDto inputDto) {
-        if(appointmentRepository.findById(id).isPresent()) {
+
+        if (appointmentRepository.findById(id).isPresent()) {
             Appointment appointment = appointmentRepository.findById(id).get();
             Appointment appointment1 = transferToAppointment(inputDto);
             appointment1.setId(appointment.getId());
@@ -74,55 +82,13 @@ public class AppointmentService {
 
             return transferToDto(appointment1);
         } else {
-            throw new RecordNotFoundException("geen treatment is gevonden");
+            throw new RecordNotFoundException("No treatment has been found.");
         }
     }
 
     public void deleteAppointmentById(@RequestBody Long id) {
+
         appointmentRepository.deleteById(id);
-    }
-
-    public AppointmentDto assignTreatmentRoomToAppointment(Long appointmentId, Long treatmentRoomId){
-        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
-        Optional<TreatmentRoom> optionalTreatmentRoom = treatmentRoomRepository.findById(treatmentRoomId);
-
-        if(optionalAppointment.isPresent() && optionalTreatmentRoom.isPresent()) {
-
-            Appointment appointment = optionalAppointment.get();
-            TreatmentRoom treatmentRoom = optionalTreatmentRoom.get();
-            if ((appointment.getTreatmentRoom() == null) && (!getConnectedToAppointmentTreatmentRoomIds().contains(treatmentRoomId))) {
-                appointment.setTreatmentRoom(treatmentRoom);
-                appointmentRepository.save(appointment);
-
-                return transferToDto(appointment);
-            } else {
-                throw new RuntimeException("There is another room already connected to this appointment or chosen room Id is already connected to this or another appointment");
-            }
-
-        } else {
-            throw new RuntimeException("The requested Appointment isn't found");
-        }
-    }
-
-    public AppointmentDto assignPatientToAppointment(Long appointmentId, Long patientId) {
-        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
-        Optional<Patient> optionalPatient = patientRepository.findById(patientId);
-
-        if(optionalAppointment.isPresent() && optionalPatient.isPresent()) {
-
-            Appointment appointment = optionalAppointment.get();
-            Patient patient = optionalPatient.get();
-            if (appointment.getPatient() == null) {
-                appointment.setPatient(patient);
-                appointmentRepository.save(appointment);
-
-                return transferToDto(appointment);
-            } else {
-                throw new RuntimeException("There is another patient already connected to this appointment");
-            }
-        } else {
-            throw new RuntimeException("The requested appointment isn't found.");
-        }
     }
 
     public static Appointment transferToAppointment(AppointmentInputDto dto) {
@@ -139,14 +105,18 @@ public class AppointmentService {
     public static AppointmentDto transferToDto(Appointment appointment) {
 
         AppointmentDto dto = new AppointmentDto();
-        if(!(appointment.getTreatmentRoom() == null)) {
+
+        if (!(appointment.getTreatmentRoom() == null)) {
+
             TreatmentRoom treatmentRoom = appointment.getTreatmentRoom();
             TreatmentRoomDto treatmentRoomDto = TreatmentRoomService.transferToDto(treatmentRoom);
             dto.setTreatmentRoomDto(treatmentRoomDto);
         }
-        if(!(appointment.getPatient() == null)) {
+        if (!(appointment.getPatient() == null)) {
+
             Patient patient = appointment.getPatient();
             patient.setSetAppointment(false);
+
             PatientDto patientDto = PatientService.transferToDto(patient);
             dto.setPatientDto(patientDto);
         }
@@ -158,31 +128,85 @@ public class AppointmentService {
         return dto;
     }
 
-   public ArrayList<Long> getConnectedToAppointmentTreatmentRoomIds() {
-       List<Appointment> allAppointments = appointmentRepository.findAll();
-       ArrayList<Long> connectedTreatmentRoomIds = new ArrayList<>();
-       for (Appointment appointment : allAppointments) {
-           if (appointment.getTreatmentRoom() != null) {
-               connectedTreatmentRoomIds.add(appointment.getTreatmentRoom().getId());
-           }
-       }
-       return connectedTreatmentRoomIds;
-   }
+    public AppointmentDto assignTreatmentRoomToAppointment(Long appointmentId, Long treatmentRoomId) {
 
-   public List<AppointmentDto> getAllAppointmentsBySurnameDentist(String surnameDentist) {
-       List<Appointment> appointmentList;
-       appointmentList = appointmentRepository.findAllAppointmentsBySurnameDentistEqualsIgnoreCase(surnameDentist);
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+        Optional<TreatmentRoom> optionalTreatmentRoom = treatmentRoomRepository.findById(treatmentRoomId);
 
-       return transferAppointmentListToDtoList(appointmentList);
-   }
+        if (optionalAppointment.isPresent() && optionalTreatmentRoom.isPresent()) {
 
-   public static List<AppointmentDto> transferAppointmentListToDtoList(List<Appointment> appointments){
-       List<AppointmentDto> appointmentDtoList = new ArrayList<>();
+            Appointment appointment = optionalAppointment.get();
+            TreatmentRoom treatmentRoom = optionalTreatmentRoom.get();
 
-       for(Appointment appointment : appointments) {
-           AppointmentDto dto = transferToDto(appointment);
-           appointmentDtoList.add(dto);
-       }
-       return appointmentDtoList;
-   }
+            if ((appointment.getTreatmentRoom() == null) && (!getConnectedToAppointmentTreatmentRoomIds().contains(treatmentRoomId))) {
+                appointment.setTreatmentRoom(treatmentRoom);
+                appointmentRepository.save(appointment);
+
+                return transferToDto(appointment);
+            } else {
+                throw new RuntimeException("There is another room already connected to this appointment or chosen room Id is already connected to this or another appointment");
+            }
+
+        } else {
+            throw new RuntimeException("The requested appointment isn't found");
+        }
+    }
+
+    public AppointmentDto assignPatientToAppointment(Long appointmentId, Long patientId) {
+
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+        Optional<Patient> optionalPatient = patientRepository.findById(patientId);
+
+        if (optionalAppointment.isPresent() && optionalPatient.isPresent()) {
+
+            Appointment appointment = optionalAppointment.get();
+            Patient patient = optionalPatient.get();
+
+            if (appointment.getPatient() == null) {
+                appointment.setPatient(patient);
+                appointmentRepository.save(appointment);
+
+                return transferToDto(appointment);
+            } else {
+                throw new RuntimeException("There is another patient already connected to this appointment");
+            }
+        } else {
+            throw new RuntimeException("The requested appointment isn't found.");
+        }
+    }
+
+
+    public ArrayList<Long> getConnectedToAppointmentTreatmentRoomIds() {
+
+        List<Appointment> allAppointments = appointmentRepository.findAll();
+        ArrayList<Long> connectedTreatmentRoomIds = new ArrayList<>();
+
+        for (Appointment appointment : allAppointments) {
+            if (appointment.getTreatmentRoom() != null) {
+                connectedTreatmentRoomIds.add(appointment.getTreatmentRoom().getId());
+            }
+        }
+
+        return connectedTreatmentRoomIds;
+    }
+
+    public List<AppointmentDto> getAllAppointmentsBySurnameDentist(String surnameDentist) {
+
+        List<Appointment> appointmentList;
+        appointmentList = appointmentRepository.findAllAppointmentsBySurnameDentistEqualsIgnoreCase(surnameDentist);
+
+        return transferAppointmentListToDtoList(appointmentList);
+    }
+
+    public static List<AppointmentDto> transferAppointmentListToDtoList(List<Appointment> appointments) {
+
+        List<AppointmentDto> appointmentDtoList = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            AppointmentDto dto = transferToDto(appointment);
+            appointmentDtoList.add(dto);
+        }
+
+        return appointmentDtoList;
+    }
 }

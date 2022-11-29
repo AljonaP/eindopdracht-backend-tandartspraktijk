@@ -15,10 +15,12 @@ public class MyUserDetails implements UserDetails {
     private final User user;
 
     public MyUserDetails(User user) {
+
         this.user = user;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         for (Role role : user.getRoles()) {

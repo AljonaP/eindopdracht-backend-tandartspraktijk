@@ -18,9 +18,11 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 
 @Service
 public class PatientService {
+
     private final PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {
+
         this.patientRepository = patientRepository;
     }
 
@@ -36,23 +38,27 @@ public class PatientService {
 
         List<Patient> patients = patientRepository.findAll();
         List<PatientDto> dtos = new ArrayList<>();
+
         for (Patient patient : patients) {
             dtos.add(transferToDto(patient));
         }
+
         return dtos;
     }
 
     public PatientDto getPatientById(Long id) {
-        if(patientRepository.findById(id).isPresent()) {
+        if (patientRepository.findById(id).isPresent()) {
             Patient patient = patientRepository.findById(id).get();
+
             return transferToDto(patient);
         } else {
-            throw new RecordNotFoundException("De ingevoerde value is niet juist. Zoek opnieuw.");
+            throw new RecordNotFoundException("Patient with the used Id isn't found.");
         }
     }
 
     public PatientDto updatePatient(Long id, PatientInputDto inputDto) {
-        if(patientRepository.findById(id).isPresent()) {
+
+        if (patientRepository.findById(id).isPresent()) {
             Patient patient = patientRepository.findById(id).get();
             Patient patient1 = transferToPatient(inputDto);
             patient1.setId(patient.getId());
@@ -61,11 +67,12 @@ public class PatientService {
 
             return transferToDto(patient1);
         } else {
-            throw new RecordNotFoundException("geen patient is gevonden");
+            throw new RecordNotFoundException("Patient with the used Id isn't found.");
         }
     }
 
     public void deletePatientById(@RequestBody Long id) {
+
         patientRepository.deleteById(id);
     }
 
@@ -78,7 +85,7 @@ public class PatientService {
         patient.setNamePatient(dto.getNamePatient());
         patient.setSurnamePatient(dto.getSurnamePatient());
         patient.setDob(dto.getDob());
-        if (checkPostcode(zipCode)){
+        if (checkPostcode(zipCode)) {
             patient.setZipCode(dto.getZipCode());
         }
         patient.setHomeNumber(dto.getHomeNumber());
@@ -86,7 +93,7 @@ public class PatientService {
         if (validPhoneNumber(inputPhoneNumber)) {
             patient.setPhoneNumber(dto.getPhoneNumber());
         } else {
-            throw new RuntimeException("The entered phone number isn't correct. The phone number should: begin from '0';\n exist only from digits;\n total quantity of digits should be 10 (including first '0').");
+            throw new RuntimeException("The entered phone number isn't correct. The phone number should: \n begin from '0';\n exist only from digits;\n total quantity of digits should be 10 (including first '0').");
         }
         patient.setReimburseByInsurancePercentage(dto.getReimburseByInsurancePercentage());
 
@@ -94,6 +101,7 @@ public class PatientService {
     }
 
     public static PatientDto transferToDto(Patient patient) {
+
         PatientDto dto = new PatientDto();
         String zipCode = patient.getZipCode();
         String inputPhoneNumber = patient.getPhoneNumber();
@@ -102,7 +110,7 @@ public class PatientService {
         dto.setNamePatient(patient.getNamePatient());
         dto.setSurnamePatient(patient.getSurnamePatient());
         dto.setDob(patient.getDob());
-        if (checkPostcode(zipCode)){
+        if (checkPostcode(zipCode)) {
             dto.setZipCode(patient.getZipCode());
         }
         dto.setHomeNumber(patient.getHomeNumber());
@@ -113,7 +121,7 @@ public class PatientService {
             throw new RuntimeException("The entered phone number isn't correct. The phone number should:\n begin from '0';\n exist only from digits;\n total quantity of digits should be 10 (including first '0').");
         }
         dto.setReimburseByInsurancePercentage(patient.getReimburseByInsurancePercentage());
-        if((patient.isSetAppointment()) && !(patient.getAppointments() == null)) {
+        if ((patient.isSetAppointment()) && !(patient.getAppointments() == null)) {
             List<Appointment> appointments = patient.getAppointments();
             List<AppointmentDto> appointmentDtoList = AppointmentService.transferAppointmentListToDtoList(appointments);
             dto.setAppointmentDto(appointmentDtoList);
@@ -123,6 +131,7 @@ public class PatientService {
     }
 
     public static boolean validPhoneNumber(String inputPhoneNumber) {
+
         return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("^[0]([0-9]{1,9}$)");
     }
 }

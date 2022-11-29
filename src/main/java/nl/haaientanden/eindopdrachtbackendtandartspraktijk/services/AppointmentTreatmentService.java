@@ -11,16 +11,13 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.Appointm
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.AppointmentTreatmentRepository;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 @Service
 public class AppointmentTreatmentService {
+
     private final AppointmentRepository appointmentRepository;
     private final TreatmentRepository treatmentRepository;
     private final AppointmentTreatmentRepository appointmentTreatmentRepository;
@@ -28,18 +25,22 @@ public class AppointmentTreatmentService {
     public AppointmentTreatmentService(AppointmentRepository appointmentRepository,
                                        TreatmentRepository treatmentRepository,
                                        AppointmentTreatmentRepository appointmentTreatmentRepository) {
+
         this.appointmentRepository = appointmentRepository;
         this.treatmentRepository = treatmentRepository;
         this.appointmentTreatmentRepository = appointmentTreatmentRepository;
     }
 
     public AppointmentTreatmentKey addAppointmentTreatment(Long appointmentId, Long treatmentId) {
+
         var appointmentTreatment = new AppointmentTreatment();
-        if(!appointmentRepository.existsById(appointmentId)) {
+
+        if (!appointmentRepository.existsById(appointmentId)) {
             throw new RecordNotFoundException();
         }
         Appointment appointment = appointmentRepository.findById(appointmentId).orElse(null);
-        if(!treatmentRepository.existsById(treatmentId)) {
+
+        if (!treatmentRepository.existsById(treatmentId)) {
             throw new RecordNotFoundException();
         }
         Treatment treatment = treatmentRepository.findById(treatmentId).orElse(null);
@@ -53,8 +54,10 @@ public class AppointmentTreatmentService {
     }
 
     public Collection<AppointmentDto> getAppointmentTreatmentsByTreatmentId(Long treatmentId) {
+
         Collection<AppointmentDto> dtos = new HashSet<>();
         Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByTreatmentId(treatmentId);
+
         for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
             Appointment appointment = appointmentTreatment.getAppointment();
 
@@ -67,12 +70,15 @@ public class AppointmentTreatmentService {
 
             dtos.add(dto);
         }
+
         return dtos;
     }
 
     public Collection<TreatmentDto> getAppointmentTreatmentByAppointmentId(Long appointmentId) {
+
         Collection<TreatmentDto> dtos = new HashSet<>();
         Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByAppointmentId(appointmentId);
+
         for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
             Treatment treatment = appointmentTreatment.getTreatment();
 
@@ -85,20 +91,7 @@ public class AppointmentTreatmentService {
 
             dtos.add(dto);
         }
+
         return dtos;
     }
-
-//    public Collection<AppointmentDto> getAllAppointmentsWithoutTreatments() {
-//        Collection<AppointmentDto> appointments = appointmentRepository.findAll();
-//
-//        if (appointmentRepository.findAll().getA < makeDateToday() )
-//        Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAll();
-//        return Collection
-//
-//    }
-//
-//    public LocalDateTime makeDateToday() {
-//        return LocalDateTime.now();
-//    }
-
 }
