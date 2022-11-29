@@ -4,6 +4,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 public class AppointmentInputDto {
+
     @NotBlank(message = "Veld verplicht invullen")
     @Size(min=1, max=30)
     private String nameDentist;
@@ -15,11 +16,13 @@ public class AppointmentInputDto {
    @NotNull
     private LocalDateTime appointmentDateTime;
 
-    public AppointmentInputDto(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
+    public AppointmentInputDto(String nameDentist,
+                               String surnameDentist,
+                               LocalDateTime appointmentDateTime) {
+
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
         this.appointmentDateTime = appointmentDateTime;
-
     }
 
     public AppointmentInputDto() {
@@ -48,5 +51,4 @@ public class AppointmentInputDto {
     public void setAppointmentDateTime(LocalDateTime appointmentDateTime) {
         this.appointmentDateTime = appointmentDateTime;
     }
-
 }

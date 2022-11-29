@@ -1,7 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.FileUploadResponse;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.FileAlreadyExistsException;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.FileDocument;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.FileDocumentRepository;
 import org.springframework.core.io.Resource;
@@ -10,29 +9,29 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+
 
 @Service
 public class DatabaseService {
+
     private final FileDocumentRepository fileDocumentRepository;
 
-    public DatabaseService(FileDocumentRepository fileDocumentRepository){
+    public DatabaseService(FileDocumentRepository fileDocumentRepository) {
+
         this.fileDocumentRepository = fileDocumentRepository;
     }
 
 
     public Collection<FileDocument> getALlFromDB() {
+
         return fileDocumentRepository.findAll();
     }
 
@@ -53,16 +52,16 @@ public class DatabaseService {
         throw new RuntimeException("The file is already exist in the Database.");
     }
 
-    public ResponseEntity<byte[]> singleFileDownload(String fileName, HttpServletRequest request){
+    public ResponseEntity<byte[]> singleFileDownload(String fileName, HttpServletRequest request) {
 
         FileDocument document = fileDocumentRepository.findByFileName(fileName);
         String mimeType = request.getServletContext().getMimeType(document.getFileName());
 
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mimeType)).header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + document.getFileName()).body(document.getDocFile());
-
     }
 
-    public List<FileUploadResponse> createMultipleUpload(MultipartFile[] files){
+    public List<FileUploadResponse> createMultipleUpload(MultipartFile[] files) {
+
         List<FileUploadResponse> uploadResponseList = new ArrayList<>();
         Arrays.stream(files).forEach(file -> {
 
@@ -85,6 +84,7 @@ public class DatabaseService {
 
             uploadResponseList.add(response);
         });
+
         return uploadResponseList;
     }
 
@@ -98,7 +98,8 @@ public class DatabaseService {
             throw new RuntimeException("Issue in reading the file", e);
         }
 
-        if(resource.exists()&& resource.isReadable()) {
+        if (resource.exists() && resource.isReadable()) {
+
             return resource;
         } else {
             throw new RuntimeException("the file doesn't exist or not readable");

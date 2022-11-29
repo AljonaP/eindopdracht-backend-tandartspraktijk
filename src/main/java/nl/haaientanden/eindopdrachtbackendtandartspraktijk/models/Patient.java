@@ -1,7 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "patients")
 public class Patient {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -29,7 +29,16 @@ public class Patient {
     @JsonIgnore
     List<Appointment> appointments;
 
-    public Patient(Long id, String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage) {
+    public Patient(Long id,
+                   String namePatient,
+                   String surnamePatient,
+                   LocalDate dob,
+                   String zipCode,
+                   Integer homeNumber,
+                   String email,
+                   String phoneNumber,
+                   Integer reimburseByInsurancePercentage) {
+
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;

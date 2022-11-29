@@ -1,11 +1,10 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class PatientInputDto {
+
     @NotBlank(message = "Veld verplicht invullen")
     @Size(min=1, max=30)
     private String namePatient;
@@ -34,7 +33,15 @@ public class PatientInputDto {
     @NotNull
     private Integer reimburseByInsurancePercentage;
 
-    public PatientInputDto(String namePatient, String surnamePatient, LocalDate dob, String zipCode, Integer homeNumber, String email, String phoneNumber, Integer reimburseByInsurancePercentage) {
+    public PatientInputDto(String namePatient,
+                           String surnamePatient,
+                           LocalDate dob,
+                           String zipCode,
+                           Integer homeNumber,
+                           String email,
+                           String phoneNumber,
+                           Integer reimburseByInsurancePercentage) {
+
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;

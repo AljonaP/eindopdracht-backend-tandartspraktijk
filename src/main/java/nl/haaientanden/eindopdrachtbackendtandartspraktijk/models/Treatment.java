@@ -3,25 +3,28 @@ package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="treatments")
+@Table(name = "treatments")
 public class Treatment {
+
     @Id
     @GeneratedValue
     private Long id;
     private String treatmentCode;
     private String treatmentDescription;
     private Double treatmentRate;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
 
-    public Treatment(Long id, String treatmentCode, String treatmentDescription, Double treatmentRate) {
+    public Treatment(Long id,
+                     String treatmentCode,
+                     String treatmentDescription,
+                     Double treatmentRate) {
         this.id = id;
         this.treatmentCode = treatmentCode;
         this.treatmentDescription = treatmentDescription;
         this.treatmentRate = treatmentRate;
     }
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "invoice_id")
-    private Invoice invoice;
 
     public Treatment() {
     }

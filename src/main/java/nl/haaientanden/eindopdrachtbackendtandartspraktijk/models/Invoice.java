@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "invoices")
 public class Invoice {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -34,7 +35,9 @@ public class Invoice {
 
     public Invoice() {
     }
-    public Invoice(Long id, LocalDate invoiceDate, String invoiceNumber) {
+    public Invoice(Long id,
+                   LocalDate invoiceDate,
+                   String invoiceNumber) {
         this.id = id;
         this.nameDentalPractice = getNameDentalPractice();
         this.zipCodeDentalPractice = getZipCodeDentalPractice();

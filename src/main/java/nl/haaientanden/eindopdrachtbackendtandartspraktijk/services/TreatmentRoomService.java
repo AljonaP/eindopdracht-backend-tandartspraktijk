@@ -8,14 +8,17 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.TreatmentRoom;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TreatmentRoomService {
+
     private final TreatmentRoomRepository treatmentRoomRepository;
 
     public TreatmentRoomService(TreatmentRoomRepository treatmentRoomRepository) {
+
         this.treatmentRoomRepository = treatmentRoomRepository;
     }
 
@@ -34,21 +37,24 @@ public class TreatmentRoomService {
         for (TreatmentRoom treatmentRoom : treatmentRooms) {
             dtos.add(transferToDto(treatmentRoom));
         }
+
         return dtos;
     }
 
     public TreatmentRoomDto getTreatmentRoomById(Long id) {
 
-        if(treatmentRoomRepository.findById(id).isPresent()){
+        if (treatmentRoomRepository.findById(id).isPresent()) {
             TreatmentRoom treatmentRoom = treatmentRoomRepository.findById(id).get();
+
             return transferToDto(treatmentRoom);
         } else {
-            throw new RecordNotFoundException("The entered value isn't correct or doesn't exist. Search again with another value.");
+            throw new RecordNotFoundException("The entered treatment room Id isn't correct or doesn't exist. Search again with another treatment room Id.");
         }
     }
 
     public TreatmentRoomDto updateTreatmentRoom(Long id, TreatmentRoomInputDto inputDto) {
-        if(treatmentRoomRepository.findById(id).isPresent()) {
+
+        if (treatmentRoomRepository.findById(id).isPresent()) {
             TreatmentRoom treatmentRoom = treatmentRoomRepository.findById(id).get();
             TreatmentRoom treatmentRoom1 = transferToTreatmentRoom(inputDto);
             treatmentRoom1.setId(treatmentRoom.getId());
@@ -57,24 +63,27 @@ public class TreatmentRoomService {
 
             return transferToDto(treatmentRoom1);
         } else {
-            throw new RecordNotFoundException("geen treatment is gevonden");
+            throw new RecordNotFoundException("Treatment isn't found.");
         }
     }
 
     public void deleteTreatmentRoomById(@RequestBody Long id) {
+
         treatmentRoomRepository.deleteById(id);
     }
 
     public static TreatmentRoom transferToTreatmentRoom(TreatmentRoomInputDto dto) {
+
         var treatmentRoom = new TreatmentRoom();
 
-        treatmentRoom.setRoomNumber(dto.getRoomNumber());;
+        treatmentRoom.setRoomNumber(dto.getRoomNumber());
         treatmentRoom.setRoomColor(dto.getRoomColor());
 
         return treatmentRoom;
     }
 
     public static TreatmentRoomDto transferToDto(TreatmentRoom treatmentRoom) {
+
         TreatmentRoomDto dto = new TreatmentRoomDto();
 
         dto.setId(treatmentRoom.getId());

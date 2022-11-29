@@ -9,10 +9,9 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
-@Table(name="appointments")
+@Table(name = "appointments")
 public class Appointment {
 
     @Id
@@ -27,19 +26,17 @@ public class Appointment {
 
     @OneToOne(mappedBy = "appointment")
     Invoice invoice;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     Patient patient;
-
     @OneToMany(mappedBy = "appointment")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     Collection<AppointmentTreatment> appointmentTreatment;
 
-
-
-    public Appointment(String nameDentist, String surnameDentist, LocalDateTime appointmentDateTime) {
+    public Appointment(String nameDentist,
+                       String surnameDentist,
+                       LocalDateTime appointmentDateTime) {
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
         this.appointmentDateTime = appointmentDateTime;

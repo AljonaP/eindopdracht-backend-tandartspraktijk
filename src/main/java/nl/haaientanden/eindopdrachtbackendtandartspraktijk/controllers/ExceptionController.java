@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionController {
 
     @ExceptionHandler(value = RecordNotFoundException.class)
-    public ResponseEntity<Object> exception(RecordNotFoundException exception){
+    public ResponseEntity<Object> exception(RecordNotFoundException exception) {
 
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
@@ -22,6 +22,7 @@ public class ExceptionController {
 
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(value = FileAlreadyExistsException.class)
     public ResponseEntity<Object> exception(FileAlreadyExistsException exception) {
 

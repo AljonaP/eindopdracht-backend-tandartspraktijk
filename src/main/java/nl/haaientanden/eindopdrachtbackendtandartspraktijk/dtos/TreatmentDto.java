@@ -12,7 +12,11 @@ public class TreatmentDto {
     @JsonSerialize
     private Invoice invoice;
 
-    public TreatmentDto(Long id, String treatmentCode, String treatmentDescription, Double treatmentRate) {
+    public TreatmentDto(Long id,
+                        String treatmentCode,
+                        String treatmentDescription,
+                        Double treatmentRate) {
+
         this.id = id;
         this.treatmentCode = treatmentCode;
         this.treatmentDescription = treatmentDescription;
