@@ -52,6 +52,7 @@ public class TreatmentService {
     }
 
     public TreatmentDto updateTreatment(Long id, TreatmentInputDto inputDto) {
+
         if (treatmentRepository.findById(id).isPresent()) {
             Treatment treatment = treatmentRepository.findById(id).get();
             Treatment treatment1 = transferToTreatment(inputDto);
