@@ -7,7 +7,6 @@ import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -16,9 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.TreatmentService.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -33,8 +34,9 @@ class TreatmentServiceTest {
     TreatmentInputDto treatmentInputDto1;
     TreatmentInputDto treatmentInputDto2;
     TreatmentInputDto treatmentInputDto3;
-
+    List<Treatment> treatments;
     Treatment newTreatment;
+
     @Captor
     ArgumentCaptor<Treatment> captor;
     Treatment treatment1;
@@ -52,6 +54,10 @@ class TreatmentServiceTest {
         treatmentInputDto2 = new TreatmentInputDto("C56", "Treatment description 2", 16.22);
         treatmentInputDto3 = new TreatmentInputDto("C57", "Treatment description 3", 17.22);
         newTreatment = new Treatment();
+        treatments = new ArrayList<>();
+        treatments.add(treatment1);
+        treatments.add(treatment2);
+        treatments.add(treatment3);
     }
 
     @AfterEach
@@ -137,10 +143,7 @@ class TreatmentServiceTest {
 
     @Test
     void testTransferToTreatment() {
-
-        newTreatment.setTreatmentCode(treatmentInputDto3.getTreatmentCode());
-        newTreatment.setTreatmentDescription(treatmentInputDto3.getTreatmentDescription());
-        newTreatment.setTreatmentRate(treatmentInputDto3.getTreatmentRate());
+        Treatment newTreatment = transferToTreatment(treatmentInputDto3);
 
         assertEquals(treatmentInputDto3.getTreatmentCode(), newTreatment.getTreatmentCode());
         assertEquals(treatmentInputDto3.getTreatmentDescription(), newTreatment.getTreatmentDescription());
@@ -148,12 +151,32 @@ class TreatmentServiceTest {
     }
 
     @Test
-    @Disabled
-    void transferToDto() {
+    void testTransferToDto() {
+        TreatmentDto newTreatmentDto = transferToDto(treatment1);
+
+        assertEquals(treatment1.getId(), newTreatmentDto.getId());
+        assertEquals(treatment1.getTreatmentCode(), newTreatmentDto.getTreatmentCode());
+        assertEquals(treatment1.getTreatmentDescription(), newTreatmentDto.getTreatmentDescription());
+        assertEquals(treatment1.getTreatmentRate(), newTreatmentDto.getTreatmentRate());
     }
 
     @Test
-    @Disabled
-    void transferTreatmentListToDtoList() {
+    void testTransferTreatmentListToDtoList() {
+        List<TreatmentDto> newTreatmentDtoList = transferTreatmentListToDtoList(treatments);
+
+        assertEquals(treatments.get(0).getId(), newTreatmentDtoList.get(0).getId());
+        assertEquals(treatments.get(0).getTreatmentCode(), newTreatmentDtoList.get(0).getTreatmentCode());
+        assertEquals(treatments.get(0).getTreatmentDescription(), newTreatmentDtoList.get(0).getTreatmentDescription());
+        assertEquals(treatments.get(0).getTreatmentRate(), newTreatmentDtoList.get(0).getTreatmentRate());
+
+        assertEquals(treatments.get(1).getId(), newTreatmentDtoList.get(1).getId());
+        assertEquals(treatments.get(1).getTreatmentCode(), newTreatmentDtoList.get(1).getTreatmentCode());
+        assertEquals(treatments.get(1).getTreatmentDescription(), newTreatmentDtoList.get(1).getTreatmentDescription());
+        assertEquals(treatments.get(1).getTreatmentRate(), newTreatmentDtoList.get(1).getTreatmentRate());
+
+        assertEquals(treatments.get(2).getId(), newTreatmentDtoList.get(2).getId());
+        assertEquals(treatments.get(2).getTreatmentCode(), newTreatmentDtoList.get(2).getTreatmentCode());
+        assertEquals(treatments.get(2).getTreatmentDescription(), newTreatmentDtoList.get(2).getTreatmentDescription());
+        assertEquals(treatments.get(2).getTreatmentRate(), newTreatmentDtoList.get(2).getTreatmentRate());
     }
 }

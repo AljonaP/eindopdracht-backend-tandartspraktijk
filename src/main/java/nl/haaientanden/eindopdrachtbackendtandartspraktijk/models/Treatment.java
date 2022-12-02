@@ -82,5 +82,7 @@ public class Treatment {
     public int hashCode() {
         return Objects.hash(id, treatmentCode, treatmentDescription, treatmentRate, invoice);
     }
+
+
 }
 

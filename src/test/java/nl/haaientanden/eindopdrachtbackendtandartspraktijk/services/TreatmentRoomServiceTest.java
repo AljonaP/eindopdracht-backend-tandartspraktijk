@@ -1,16 +1,12 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.services;
 
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentRoomInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.exceptions.RecordNotFoundException;
-import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.Treatment;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.models.TreatmentRoom;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.repositories.TreatmentRoomRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -22,6 +18,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.TreatmentRoomService.transferToDto;
+import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.services.TreatmentRoomService.transferToTreatmentRoom;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -38,7 +36,6 @@ class TreatmentRoomServiceTest {
     TreatmentRoomInputDto treatmentRoomInputDto1;
     TreatmentRoomInputDto treatmentRoomInputDto2;
     TreatmentRoomInputDto treatmentRoomInputDto3;
-
     TreatmentRoom newTreatmentRoom;
 
     @Captor
@@ -136,12 +133,19 @@ class TreatmentRoomServiceTest {
     }
 
     @Test
-    @Disabled
     void testTransferToTreatmentRoom() {
+        TreatmentRoom newTreatmentRoom = transferToTreatmentRoom(treatmentRoomInputDto2);
+
+        assertEquals(treatmentRoomInputDto2.getRoomNumber(), newTreatmentRoom.getRoomNumber());
+        assertEquals(treatmentRoomInputDto2.getRoomColor(), newTreatmentRoom.getRoomColor());
     }
 
     @Test
-    @Disabled
     void testTransferToDto() {
+        TreatmentRoomDto newTreatmentRoomDto = transferToDto(treatmentRoom3);
+
+        assertEquals(treatmentRoom3.getId(), newTreatmentRoomDto.getId());
+        assertEquals(treatmentRoom3.getRoomNumber(), newTreatmentRoomDto.getRoomNumber());
+        assertEquals(treatmentRoom3.getRoomColor(), newTreatmentRoomDto.getRoomColor());
     }
 }
