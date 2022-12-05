@@ -52,14 +52,20 @@ public class TreatmentService {
     }
 
     public TreatmentDto updateTreatment(Long id, TreatmentInputDto inputDto) {
+
         if (treatmentRepository.findById(id).isPresent()) {
             Treatment treatment = treatmentRepository.findById(id).get();
             Treatment treatment1 = transferToTreatment(inputDto);
-            treatment1.setTreatmentCode(treatment.getTreatmentCode());
+//            treatment1.setTreatmentCode(treatment.getTreatmentCode());
+            treatment.setTreatmentCode(treatment1.getTreatmentCode());
+            treatment.setTreatmentDescription(treatment1.getTreatmentDescription());
+            treatment.setTreatmentRate(treatment1.getTreatmentRate());
 
-            treatmentRepository.save(treatment1);
+//            treatmentRepository.save(treatment1);
+            treatmentRepository.save(treatment);
 
-            return transferToDto(treatment1);
+//            return transferToDto(treatment1);
+            return transferToDto(treatment);
         } else {
             throw new RecordNotFoundException("Treatment isn't found.");
         }

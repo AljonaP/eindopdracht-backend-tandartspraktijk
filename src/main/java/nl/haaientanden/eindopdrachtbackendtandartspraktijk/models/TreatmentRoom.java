@@ -1,6 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "treatment_rooms")
@@ -56,5 +57,18 @@ public class TreatmentRoom {
 
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TreatmentRoom that = (TreatmentRoom) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getRoomNumber(), that.getRoomNumber()) && Objects.equals(getRoomColor(), that.getRoomColor()) && Objects.equals(getAppointment(), that.getAppointment());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getRoomNumber(), getRoomColor(), getAppointment());
     }
 }

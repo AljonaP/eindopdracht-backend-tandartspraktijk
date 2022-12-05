@@ -1,9 +1,5 @@
 INSERT INTO roles (rolename) VALUES ('ADMIN'), ('TANDARTS'), ('PATIENT');
 
--- INSERT INTO users (username, password) VALUES ('piet', '$2a$10$mHk5rO1caWXQ3hB6JcPFhuqNzX2xAcQ.ypOvPR7Sh0357zHuFgKDe');
--- INSERT INTO users_roles (users_username, roles_rolename) VALUES ('piet', 'TANDARTS');
--- INSERT INTO users (username, password, roles) VALUES ('henk', 'dGFuZGVuMDI=', ['ADMIN']);
-
 INSERT INTO treatments (id, treatment_code, treatment_description, treatment_rate) VALUES (1001, 'C11', 'Periodieke controle', 22.91);
 INSERT INTO treatments (id, treatment_code, treatment_description, treatment_rate) VALUES (1002, 'C13', 'Probleemgericht consult', 22.91);
 INSERT INTO treatments (id, treatment_code, treatment_description, treatment_rate) VALUES (1003, 'C91', 'Pocketregistratie', 36.18);

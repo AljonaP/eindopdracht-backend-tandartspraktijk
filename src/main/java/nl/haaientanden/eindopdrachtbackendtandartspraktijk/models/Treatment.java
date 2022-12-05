@@ -1,6 +1,7 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "treatments")
@@ -68,5 +69,20 @@ public class Treatment {
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Treatment treatment = (Treatment) o;
+        return Objects.equals(id, treatment.id) && Objects.equals(treatmentCode, treatment.treatmentCode) && Objects.equals(treatmentDescription, treatment.treatmentDescription) && Objects.equals(treatmentRate, treatment.treatmentRate) && Objects.equals(invoice, treatment.invoice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, treatmentCode, treatmentDescription, treatmentRate, invoice);
+    }
+
+
 }
 
