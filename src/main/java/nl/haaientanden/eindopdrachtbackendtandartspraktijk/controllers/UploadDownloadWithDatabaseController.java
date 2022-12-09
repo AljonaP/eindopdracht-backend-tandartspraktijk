@@ -18,17 +18,14 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/haaientanden")
 public class UploadDownloadWithDatabaseController {
-
     private final DatabaseService databaseService;
 
     public UploadDownloadWithDatabaseController(DatabaseService databaseService) {
-
         this.databaseService = databaseService;
     }
 
     @PostMapping("/single/uploadDb")
     public FileUploadResponse singleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
-
         FileDocument fileDocument = databaseService.uploadFileDocument(file);
         String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("haaientanden/downloadFromDB/").path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
         String contentType = file.getContentType();
@@ -38,13 +35,11 @@ public class UploadDownloadWithDatabaseController {
 
     @GetMapping("/downloadFromDB/{fileName}")
     ResponseEntity<byte[]> downLoadSingleFile(@PathVariable String fileName, HttpServletRequest request) {
-
         return databaseService.singleFileDownload(fileName, request);
     }
 
     @PostMapping("/multiple/upload/db")
     List<FileUploadResponse> multipleUpload(@RequestParam("files") MultipartFile[] files) {
-
         if (files.length > 7) {
             throw new RuntimeException("to many files selected");
         }
@@ -54,7 +49,6 @@ public class UploadDownloadWithDatabaseController {
 
     @GetMapping("/getAll/db")
     public Collection<FileDocument> getAllFromDB() {
-
         return databaseService.getALlFromDB();
     }
 }

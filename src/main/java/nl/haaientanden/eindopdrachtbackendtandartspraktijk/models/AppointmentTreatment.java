@@ -4,20 +4,16 @@ import javax.persistence.*;
 
 @Entity
 public class AppointmentTreatment {
-
     @EmbeddedId
     private AppointmentTreatmentKey id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("appointmentId")
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;
-
     @ManyToOne
     @MapsId("treatmentId")
     @JoinColumn(name = "treatment_id")
     private Treatment treatment;
-
 
     public AppointmentTreatmentKey getId() {
         return id;

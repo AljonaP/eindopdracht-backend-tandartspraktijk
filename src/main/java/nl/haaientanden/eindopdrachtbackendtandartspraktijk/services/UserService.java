@@ -19,7 +19,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     public final UserRepository userRepository;
     private final PasswordEncoder encoder;
     public final RoleRepository roleRepository;
@@ -27,7 +26,6 @@ public class UserService {
     public UserService(UserRepository userRepository,
                        PasswordEncoder encoder,
                        RoleRepository roleRepository) {
-
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.roleRepository = roleRepository;
@@ -37,6 +35,7 @@ public class UserService {
         if (userRepository.findById(userDto.getUsername()).isEmpty()) {
             User user = transferToUser(userDto);
             userRepository.save(transferToUser(userDto));
+
             return transferToDto(user);
         } else {
             throw new BadRequestException("Entered username already exist. Try another username.");
@@ -53,6 +52,7 @@ public class UserService {
         if (userRepository.findById(username).isPresent()) {
             if (username.equals(authentication.getName())) {
                 User user = userRepository.findById(username).get();
+
                 return transferToDto(user);
             }
 
@@ -86,6 +86,7 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(encoder.encode(userDto.password));
         List<Role> userRoles = new ArrayList<>();
+
         for (String rolename : userDto.roles) {
             if (roleRepository.findById(rolename).isPresent()) {
                 Optional<Role> optionalRole = roleRepository.findById(rolename);
@@ -101,11 +102,11 @@ public class UserService {
 
     public static UserDto transferToDto(User user) {
         UserDto userDto = new UserDto();
-
         userDto.setUsername(user.getUsername());
         userDto.setPassword(user.getPassword());
 
         List<String> userRoles = new ArrayList<>();
+
         for (Role role : user.getRoles()) {
             userRoles.add(role.getRolename());
         }

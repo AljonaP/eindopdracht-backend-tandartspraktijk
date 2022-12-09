@@ -14,16 +14,13 @@ import java.util.List;
 
 @Service
 public class TreatmentService {
-
     private final TreatmentRepository treatmentRepository;
 
     public TreatmentService(TreatmentRepository treatmentRepository) {
-
         this.treatmentRepository = treatmentRepository;
     }
 
     public TreatmentDto saveTreatment(TreatmentInputDto dto) {
-
         Treatment treatment = transferToTreatment(dto);
         treatmentRepository.save(treatment);
 
@@ -31,7 +28,6 @@ public class TreatmentService {
     }
 
     public List<TreatmentDto> getTreatments() {
-
         List<Treatment> treatments = treatmentRepository.findAll();
         List<TreatmentDto> dtos = new ArrayList<>();
         for (Treatment treatment : treatments) {
@@ -42,9 +38,9 @@ public class TreatmentService {
     }
 
     public TreatmentDto getTreatmentById(Long id) {
-
         if (treatmentRepository.findById(id).isPresent()) {
             Treatment treatment = treatmentRepository.findById(id).get();
+
             return transferToDto(treatment);
         } else {
             throw new RecordNotFoundException("The entered treatment Id isn't correct or doesn't exist. Search again with another treatment Id.");
@@ -52,19 +48,15 @@ public class TreatmentService {
     }
 
     public TreatmentDto updateTreatment(Long id, TreatmentInputDto inputDto) {
-
         if (treatmentRepository.findById(id).isPresent()) {
             Treatment treatment = treatmentRepository.findById(id).get();
             Treatment treatment1 = transferToTreatment(inputDto);
-//            treatment1.setTreatmentCode(treatment.getTreatmentCode());
             treatment.setTreatmentCode(treatment1.getTreatmentCode());
             treatment.setTreatmentDescription(treatment1.getTreatmentDescription());
             treatment.setTreatmentRate(treatment1.getTreatmentRate());
 
-//            treatmentRepository.save(treatment1);
             treatmentRepository.save(treatment);
 
-//            return transferToDto(treatment1);
             return transferToDto(treatment);
         } else {
             throw new RecordNotFoundException("Treatment isn't found.");
@@ -72,12 +64,10 @@ public class TreatmentService {
     }
 
     public void deleteTreatmentById(@RequestBody Long id) {
-
         treatmentRepository.deleteById(id);
     }
 
     public static Treatment transferToTreatment(TreatmentInputDto dto) {
-
         var treatment = new Treatment();
 
         treatment.setTreatmentCode(dto.getTreatmentCode());
@@ -88,7 +78,6 @@ public class TreatmentService {
     }
 
     public static TreatmentDto transferToDto(Treatment treatment) {
-
         TreatmentDto dto = new TreatmentDto();
 
         dto.setId(treatment.getId());
@@ -101,7 +90,6 @@ public class TreatmentService {
 
 
     public static List<TreatmentDto> transferTreatmentListToDtoList(List<Treatment> treatments) {
-
         List<TreatmentDto> treatmentDtoList = new ArrayList<>();
 
         for (Treatment treatment : treatments) {

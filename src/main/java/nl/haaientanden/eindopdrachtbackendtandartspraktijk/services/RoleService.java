@@ -10,18 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class RoleService {
     private final RoleRepository roleRepository;
 
     public RoleService(RoleRepository roleRepository) {
-
         this.roleRepository = roleRepository;
     }
 
     public RoleDto saveRole(RoleDto roleDto) {
-
         if (roleRepository.findById(roleDto.getRolename()).isEmpty()) {
             Role role = transferToRole(roleDto);
             roleRepository.save(role);
@@ -33,7 +30,6 @@ public class RoleService {
     }
 
     public List<RoleDto> getRoles() {
-
         List<Role> roles = roleRepository.findAll();
         List<RoleDto> roleDtos = new ArrayList<>();
 
@@ -45,12 +41,10 @@ public class RoleService {
     }
 
     public void deleteRoleByIdRolename(@RequestBody String rolename) {
-
         roleRepository.deleteById(rolename);
     }
 
     public static Role transferToRole(RoleDto roleDto) {
-
         var role = new Role();
         String rolename = role.getRolename();
         role.setRolename(roleDto.getRolename());
@@ -59,7 +53,6 @@ public class RoleService {
     }
 
     public static RoleDto transferToDto(Role role) {
-
         RoleDto roleDto = new RoleDto();
         roleDto.setRolename(role.getRolename());
 

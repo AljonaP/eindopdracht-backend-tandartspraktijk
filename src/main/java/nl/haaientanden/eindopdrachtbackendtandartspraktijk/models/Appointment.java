@@ -13,17 +13,14 @@ import java.util.Collection;
 @Entity
 @Table(name = "appointments")
 public class Appointment {
-
     @Id
     @GeneratedValue
     private Long id;
     private String nameDentist;
     private String surnameDentist;
     private LocalDateTime appointmentDateTime;
-
     @OneToOne(cascade = CascadeType.ALL)
     TreatmentRoom treatmentRoom;
-
     @OneToOne(mappedBy = "appointment")
     Invoice invoice;
     @ManyToOne(fetch = FetchType.EAGER)

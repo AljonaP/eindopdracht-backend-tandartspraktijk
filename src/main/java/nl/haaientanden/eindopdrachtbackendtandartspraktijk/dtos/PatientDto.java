@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class PatientDto {
-
     private Long id;
     private String namePatient;
     private String surnamePatient;
@@ -29,7 +28,6 @@ public class PatientDto {
                       String email,
                       String phoneNumber,
                       Integer reimburseByInsurancePercentage) {
-
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;
@@ -51,7 +49,6 @@ public class PatientDto {
                       String phoneNumber,
                       Integer reimburseByInsurancePercentage,
                       List<AppointmentDto> appointmentDto) {
-
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;

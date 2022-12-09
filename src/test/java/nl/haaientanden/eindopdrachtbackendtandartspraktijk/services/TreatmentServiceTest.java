@@ -46,7 +46,6 @@ class TreatmentServiceTest {
 
     @BeforeEach
     void setUp() {
-
         treatment1 = new Treatment(1L, "C55", "Treatment description 1", 15.22);
         treatment2 = new Treatment(2L, "C56", "Treatment description 2", 16.22);
         treatment3 = new Treatment(3L, "C57", "Treatment description 3", 17.22);
@@ -66,7 +65,6 @@ class TreatmentServiceTest {
 
     @Test
     void testSaveTreatment() {
-
         when(mockTreatmentRepository.save(any(Treatment.class))).thenReturn(treatment1);
 
         treatmentService.saveTreatment(treatmentInputDto1);

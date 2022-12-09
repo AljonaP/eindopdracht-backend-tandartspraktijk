@@ -1,7 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos;
 
 public class TreatmentRoomDto {
-
     private Long id;
     private Integer roomNumber;
     private String roomColor;

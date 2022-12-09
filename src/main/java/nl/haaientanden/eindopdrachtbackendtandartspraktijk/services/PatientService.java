@@ -15,19 +15,15 @@ import java.util.List;
 
 import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityMethodes.checkPostcode;
 
-
 @Service
 public class PatientService {
-
     private final PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {
-
         this.patientRepository = patientRepository;
     }
 
     public PatientDto savePatient(PatientInputDto dto) {
-
         Patient patient = transferToPatient(dto);
         patientRepository.save(patient);
 
@@ -35,7 +31,6 @@ public class PatientService {
     }
 
     public List<PatientDto> getPatients() {
-
         List<Patient> patients = patientRepository.findAll();
         List<PatientDto> dtos = new ArrayList<>();
 
@@ -57,7 +52,6 @@ public class PatientService {
     }
 
     public PatientDto updatePatient(Long id, PatientInputDto inputDto) {
-
         if (patientRepository.findById(id).isPresent()) {
             Patient patient = patientRepository.findById(id).get();
             Patient patient1 = transferToPatient(inputDto);
@@ -72,12 +66,10 @@ public class PatientService {
     }
 
     public void deletePatientById(@RequestBody Long id) {
-
         patientRepository.deleteById(id);
     }
 
     public static Patient transferToPatient(PatientInputDto dto) {
-
         var patient = new Patient();
         String zipCode = dto.getZipCode();
         String inputPhoneNumber = dto.getPhoneNumber();
@@ -101,7 +93,6 @@ public class PatientService {
     }
 
     public static PatientDto transferToDto(Patient patient) {
-
         PatientDto dto = new PatientDto();
         String zipCode = patient.getZipCode();
         String inputPhoneNumber = patient.getPhoneNumber();
@@ -131,7 +122,6 @@ public class PatientService {
     }
 
     public static boolean validPhoneNumber(String inputPhoneNumber) {
-
         return inputPhoneNumber.charAt(0) == '0' && inputPhoneNumber.length() == 10 && inputPhoneNumber.matches("^[0]([0-9]{1,9}$)");
     }
 }

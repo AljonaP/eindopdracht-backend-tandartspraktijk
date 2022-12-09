@@ -16,21 +16,17 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 @RestController
 @RequestMapping("/haaientanden/users")
 public class UserController {
-
     private final UserRepository userRepository;
     private final UserService userService;
 
     public UserController(UserRepository userRepository, UserService userService) {
-
         this.userRepository = userRepository;
         this.userService = userService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
-
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
         }
         UserDto dto = userService.saveUser(userDto);
@@ -40,7 +36,6 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<List<UserDto>> getAllUsers() {
-
         List<UserDto> dtos = userService.getUsers();
 
         return ResponseEntity.ok().body(dtos);
@@ -48,7 +43,6 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<Object> getUser(@PathVariable(name = "username") String username) {
-
         UserDto dto = userService.getUserById(username);
 
         return ResponseEntity.ok(dto);
@@ -56,7 +50,6 @@ public class UserController {
 
     @PutMapping("/{username}")
     public ResponseEntity<Object> updateUser(@PathVariable(name = "username") String username, @RequestBody UserDto newUser) {
-
         UserDto dto = userService.updateUser(username, newUser);
 
         return ResponseEntity.ok().body(dto);
@@ -64,7 +57,6 @@ public class UserController {
 
     @DeleteMapping("/{username}")
     public void deleteUser(@PathVariable(name = "username") String username) {
-
         userService.deleteUserByIdUsername(username);
     }
 }

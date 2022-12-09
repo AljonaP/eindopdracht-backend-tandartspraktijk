@@ -4,7 +4,6 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class InvoiceInputDto {
-
     @PastOrPresent
     private LocalDate invoiceDate;
     @NotBlank
@@ -15,7 +14,6 @@ public class InvoiceInputDto {
 
     public InvoiceInputDto(LocalDate invoiceDate,
                            String invoiceNumber) {
-
         this.invoiceDate = invoiceDate;
         this.invoiceNumber = invoiceNumber;
     }

@@ -17,19 +17,16 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 @RestController
 @RequestMapping("/haaientanden/patienten")
 public class PatientController {
-
     private final PatientRepository patientRepository;
     private final PatientService patientService;
 
     public PatientController(PatientRepository patientRepository, PatientService patientService) {
-
         this.patientRepository = patientRepository;
         this.patientService = patientService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addPatient(@Valid @RequestBody PatientInputDto patientInputDto, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
 
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
@@ -41,7 +38,6 @@ public class PatientController {
 
     @GetMapping("")
     public ResponseEntity<List<PatientDto>> getAllPatients() {
-
         List<PatientDto> dtos = patientService.getPatients();
 
         return ResponseEntity.ok().body(dtos);
@@ -49,7 +45,6 @@ public class PatientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getPatient(@PathVariable(name = "id") Long id) {
-
         PatientDto dto = patientService.getPatientById(id);
 
         return ResponseEntity.ok(dto);
@@ -57,7 +52,6 @@ public class PatientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updatePatient(@PathVariable(name = "id") Long id, @RequestBody PatientInputDto newPatient) {
-
         PatientDto dto = patientService.updatePatient(id, newPatient);
 
         return ResponseEntity.ok().body(dto);

@@ -16,7 +16,6 @@ public class TreatmentDto {
                         String treatmentCode,
                         String treatmentDescription,
                         Double treatmentRate) {
-
         this.id = id;
         this.treatmentCode = treatmentCode;
         this.treatmentDescription = treatmentDescription;

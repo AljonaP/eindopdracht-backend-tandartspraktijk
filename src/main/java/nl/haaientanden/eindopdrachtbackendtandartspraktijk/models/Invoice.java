@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name = "invoices")
 public class Invoice {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -25,16 +24,15 @@ public class Invoice {
     private Double totalInvoiceAmount;
     private Double totalReimbursedByInsuranceCompanyAmount;
     private Double totalInvoiceAmountToPayByPatient;
-
     @OneToOne(cascade = CascadeType.ALL)
     Appointment appointment;
-
     @OneToMany(mappedBy = "invoice")
     @JsonIgnore
     private List<Treatment> treatments;
 
     public Invoice() {
     }
+
     public Invoice(Long id,
                    LocalDate invoiceDate,
                    String invoiceNumber) {
@@ -52,7 +50,6 @@ public class Invoice {
         this.totalInvoiceAmount = totalInvoiceAmount;
         this.totalReimbursedByInsuranceCompanyAmount = totalReimbursedByInsuranceCompanyAmount;
         this.totalInvoiceAmountToPayByPatient = totalInvoiceAmountToPayByPatient;
-
     }
 
     public Long getId() {

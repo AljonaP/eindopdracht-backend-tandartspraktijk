@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @Service
 public class AppointmentService {
-
     private final AppointmentRepository appointmentRepository;
     private final TreatmentRoomRepository treatmentRoomRepository;
     private final TreatmentRoomService treatmentRoomService;
@@ -33,7 +32,6 @@ public class AppointmentService {
                               TreatmentRoomService treatmentRoomService,
                               PatientRepository patientRepository,
                               PatientService patientService) {
-
         this.appointmentRepository = appointmentRepository;
         this.treatmentRoomRepository = treatmentRoomRepository;
         this.treatmentRoomService = treatmentRoomService;
@@ -42,7 +40,6 @@ public class AppointmentService {
     }
 
     public AppointmentDto saveAppointment(AppointmentInputDto dto) {
-
         Appointment appointment = transferToAppointment(dto);
         appointmentRepository.save(appointment);
 
@@ -50,7 +47,6 @@ public class AppointmentService {
     }
 
     public List<AppointmentDto> getAppointments() {
-
         List<Appointment> appointments = appointmentRepository.findAll();
         List<AppointmentDto> dtos = new ArrayList<>();
         for (Appointment appointment : appointments) {
@@ -61,7 +57,6 @@ public class AppointmentService {
     }
 
     public AppointmentDto getAppointmentById(Long id) {
-
         if (appointmentRepository.findById(id).isPresent()) {
             Appointment appointment = appointmentRepository.findById(id).get();
 
@@ -72,7 +67,6 @@ public class AppointmentService {
     }
 
     public AppointmentDto updateAppointment(Long id, AppointmentInputDto inputDto) {
-
         if (appointmentRepository.findById(id).isPresent()) {
             Appointment appointment = appointmentRepository.findById(id).get();
             Appointment appointment1 = transferToAppointment(inputDto);
@@ -87,12 +81,10 @@ public class AppointmentService {
     }
 
     public void deleteAppointmentById(@RequestBody Long id) {
-
         appointmentRepository.deleteById(id);
     }
 
     public static Appointment transferToAppointment(AppointmentInputDto dto) {
-
         var appointment = new Appointment();
 
         appointment.setNameDentist(dto.getNameDentist());
@@ -103,17 +95,15 @@ public class AppointmentService {
     }
 
     public static AppointmentDto transferToDto(Appointment appointment) {
-
         AppointmentDto dto = new AppointmentDto();
 
         if (!(appointment.getTreatmentRoom() == null)) {
-
             TreatmentRoom treatmentRoom = appointment.getTreatmentRoom();
             TreatmentRoomDto treatmentRoomDto = TreatmentRoomService.transferToDto(treatmentRoom);
+
             dto.setTreatmentRoomDto(treatmentRoomDto);
         }
         if (!(appointment.getPatient() == null)) {
-
             Patient patient = appointment.getPatient();
             patient.setSetAppointment(false);
 
@@ -129,12 +119,10 @@ public class AppointmentService {
     }
 
     public AppointmentDto assignTreatmentRoomToAppointment(Long appointmentId, Long treatmentRoomId) {
-
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
         Optional<TreatmentRoom> optionalTreatmentRoom = treatmentRoomRepository.findById(treatmentRoomId);
 
         if (optionalAppointment.isPresent() && optionalTreatmentRoom.isPresent()) {
-
             Appointment appointment = optionalAppointment.get();
             TreatmentRoom treatmentRoom = optionalTreatmentRoom.get();
 
@@ -146,19 +134,16 @@ public class AppointmentService {
             } else {
                 throw new RuntimeException("There is another room already connected to this appointment or chosen room Id is already connected to this or another appointment");
             }
-
         } else {
             throw new RuntimeException("The requested appointment isn't found");
         }
     }
 
     public AppointmentDto assignPatientToAppointment(Long appointmentId, Long patientId) {
-
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
         Optional<Patient> optionalPatient = patientRepository.findById(patientId);
 
         if (optionalAppointment.isPresent() && optionalPatient.isPresent()) {
-
             Appointment appointment = optionalAppointment.get();
             Patient patient = optionalPatient.get();
 
@@ -177,7 +162,6 @@ public class AppointmentService {
 
 
     public ArrayList<Long> getConnectedToAppointmentTreatmentRoomIds() {
-
         List<Appointment> allAppointments = appointmentRepository.findAll();
         ArrayList<Long> connectedTreatmentRoomIds = new ArrayList<>();
 
@@ -191,7 +175,6 @@ public class AppointmentService {
     }
 
     public List<AppointmentDto> getAllAppointmentsBySurnameDentist(String surnameDentist) {
-
         List<Appointment> appointmentList;
         appointmentList = appointmentRepository.findAllAppointmentsBySurnameDentistEqualsIgnoreCase(surnameDentist);
 
@@ -199,7 +182,6 @@ public class AppointmentService {
     }
 
     public static List<AppointmentDto> transferAppointmentListToDtoList(List<Appointment> appointments) {
-
         List<AppointmentDto> appointmentDtoList = new ArrayList<>();
 
         for (Appointment appointment : appointments) {
