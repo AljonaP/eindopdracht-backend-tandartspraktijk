@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class InvoiceService {
-
     private final InvoiceRepository invoiceRepository;
     private final AppointmentRepository appointmentRepository;
     private final AppointmentService appointmentService;
@@ -29,7 +28,6 @@ public class InvoiceService {
                           AppointmentService appointmentService,
                           AppointmentTreatmentRepository appointmentTreatmentRepository,
                           AppointmentTreatmentService appointmentTreatmentService) {
-
         this.invoiceRepository = invoiceRepository;
         this.appointmentRepository = appointmentRepository;
         this.appointmentService = appointmentService;
@@ -38,9 +36,9 @@ public class InvoiceService {
     }
 
     public InvoiceDto saveInvoice(InvoiceInputDto dto) {
-
         Invoice invoice = transferToInvoice(dto);
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(dto.getAppointmentId());
+
         if (appointmentOptional.isPresent()) {
             Appointment appointment = appointmentOptional.get();
             invoice.setAppointment(appointment);
@@ -48,9 +46,9 @@ public class InvoiceService {
             Collection<AppointmentTreatment> appointmentTreatmentCollection = appointment.getAppointmentTreatment();
             List<Treatment> treatmentList = new ArrayList<>();
             Double totalAmount = 0.0;
+
             for (AppointmentTreatment appointmentTreatment : appointmentTreatmentCollection) {
                 Treatment treatment = appointmentTreatment.getTreatment();
-
                 treatmentList.add(treatment);
                 totalAmount += treatment.getTreatmentRate();
                 invoice.setTreatments(treatmentList);
@@ -73,9 +71,9 @@ public class InvoiceService {
     }
 
     public List<InvoiceDto> getInvoices() {
-
         List<Invoice> invoices = invoiceRepository.findAll();
         List<InvoiceDto> dtos = new ArrayList<>();
+
         for (Invoice invoice : invoices) {
             dtos.add(transferToDto(invoice));
         }
@@ -84,7 +82,6 @@ public class InvoiceService {
     }
 
     public InvoiceDto getInvoiceById(Long id) {
-
         if (invoiceRepository.findById(id).isPresent()) {
             Invoice invoice = invoiceRepository.findById(id).get();
 
@@ -95,12 +92,11 @@ public class InvoiceService {
     }
 
     public InvoiceDto updateInvoice(Long id, InvoiceInputDto inputDto) {
-
         if (invoiceRepository.findById(id).isPresent()) {
             Invoice invoice = invoiceRepository.findById(id).get();
             Invoice invoice1 = transferToInvoice(inputDto);
-
             Optional<Appointment> appointmentOptional = appointmentRepository.findById(inputDto.getAppointmentId());
+
             if (appointmentOptional.isPresent()) {
                 Appointment appointment = appointmentOptional.get();
                 invoice1.setAppointment(appointment);
@@ -127,7 +123,6 @@ public class InvoiceService {
             } else {
                 throw new RecordNotFoundException("Appointment isn't found.");
             }
-
             invoice1.setId(invoice.getId());
 
             invoiceRepository.save(invoice1);
@@ -139,12 +134,10 @@ public class InvoiceService {
     }
 
     public void deleteInvoiceById(@RequestBody Long id) {
-
         invoiceRepository.deleteById(id);
     }
 
     public static Invoice transferToInvoice(InvoiceInputDto dto) {
-
         var invoice = new Invoice();
 
         invoice.setInvoiceDate(dto.getInvoiceDate());
@@ -154,7 +147,6 @@ public class InvoiceService {
     }
 
     public static InvoiceDto transferToDto(Invoice invoice) {
-
         InvoiceDto dto = new InvoiceDto();
 
         dto.setId(invoice.getId());

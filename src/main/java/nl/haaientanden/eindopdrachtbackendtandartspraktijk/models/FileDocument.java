@@ -7,13 +7,10 @@ import javax.persistence.Lob;
 
 @Entity
 public class FileDocument {
-
     @Id
     @GeneratedValue
     private Long id;
-
     private String fileName;
-
     @Lob
     private byte[] docFile;
 

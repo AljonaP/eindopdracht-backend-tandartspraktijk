@@ -53,11 +53,9 @@ public class TreatmentControllerTest {
     Treatment treatment2;
     TreatmentDto treatmentDto1;
     TreatmentDto treatmentDto2;
-
     TreatmentInputDto treatmentInputDto1;
     TreatmentInputDto treatmentInputDto2;
     TreatmentInputDto treatmentInputDto3;
-
 
     @BeforeEach
     void setUp() {

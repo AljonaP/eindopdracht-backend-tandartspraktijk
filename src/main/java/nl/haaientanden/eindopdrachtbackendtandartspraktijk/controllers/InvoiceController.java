@@ -17,19 +17,16 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 @RestController
 @RequestMapping("/haaientanden/facturen")
 public class InvoiceController {
-
     private final InvoiceRepository invoiceRepository;
     private final InvoiceService invoiceService;
 
     public InvoiceController(InvoiceRepository invoiceRepository, InvoiceService invoiceService) {
-
         this.invoiceRepository = invoiceRepository;
         this.invoiceService = invoiceService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addInvoice(@Valid @RequestBody InvoiceInputDto invoiceInputDto, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
 
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
@@ -41,7 +38,6 @@ public class InvoiceController {
 
     @GetMapping("")
     public ResponseEntity<List<InvoiceDto>> getAllInvoices() {
-
         List<InvoiceDto> dtos = invoiceService.getInvoices();
 
         return ResponseEntity.ok().body(dtos);
@@ -49,7 +45,6 @@ public class InvoiceController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getInvoice(@PathVariable(name = "id") Long id) {
-
         InvoiceDto dto = invoiceService.getInvoiceById(id);
 
         return ResponseEntity.ok(dto);
@@ -57,7 +52,6 @@ public class InvoiceController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateInvoice(@PathVariable(name = "id") Long id, @RequestBody InvoiceInputDto newInvoice) {
-
         InvoiceDto dto = invoiceService.updateInvoice(id, newInvoice);
 
         return ResponseEntity.ok().body(dto);
@@ -65,7 +59,6 @@ public class InvoiceController {
 
     @DeleteMapping("/{id}")
     public void deleteInvoice(@PathVariable(name = "id") Long id) {
-
         invoiceService.deleteInvoiceById(id);
     }
 }

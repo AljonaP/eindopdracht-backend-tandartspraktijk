@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name = "patients")
 public class Patient {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -21,10 +20,8 @@ public class Patient {
     private String email;
     private String phoneNumber;
     private Integer reimburseByInsurancePercentage;
-
     @Transient
     private boolean setAppointment = true;
-
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
     List<Appointment> appointments;
@@ -38,7 +35,6 @@ public class Patient {
                    String email,
                    String phoneNumber,
                    Integer reimburseByInsurancePercentage) {
-
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;

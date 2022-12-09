@@ -18,13 +18,11 @@ import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
 
     public JwtRequestFilter(JwtService jwtService,
                             UserDetailsService udService) {
-
         this.jwtService = jwtService;
         this.userDetailsService = udService;
     }
@@ -48,6 +46,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
             if (jwtService.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken
                         usernamePasswordAuthenticationToken = new

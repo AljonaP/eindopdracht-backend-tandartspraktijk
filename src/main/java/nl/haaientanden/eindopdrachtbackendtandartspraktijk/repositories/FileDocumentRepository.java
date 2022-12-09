@@ -8,6 +8,5 @@ import javax.transaction.Transactional;
 @Transactional
 public interface FileDocumentRepository extends JpaRepository<FileDocument, Long> {
     FileDocument findByFileName(String fileName);
-
     Boolean existsByFileName(String fileName);
 }

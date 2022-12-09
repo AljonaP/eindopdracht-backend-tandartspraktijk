@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class InvoiceDto {
-
     private Long id;
     private LocalDate invoiceDate;
     private String invoiceNumber;
@@ -21,7 +20,6 @@ public class InvoiceDto {
                       Double totalReimbursedByInsuranceCompanyAmount,
                       Double totalInvoiceAmountToPayByPatient,
                       AppointmentDto appointmentDto) {
-
         this.id = id;
         this.invoiceNumber = invoiceNumber;
         this.invoiceDate = invoiceDate;
@@ -39,7 +37,6 @@ public class InvoiceDto {
                    Double totalInvoiceAmountToPayByPatient,
                    AppointmentDto appointmentDto,
                    List<TreatmentDto> treatmentDtos) {
-
         this.id = id;
         this.invoiceNumber = invoiceNumber;
         this.invoiceDate = invoiceDate;

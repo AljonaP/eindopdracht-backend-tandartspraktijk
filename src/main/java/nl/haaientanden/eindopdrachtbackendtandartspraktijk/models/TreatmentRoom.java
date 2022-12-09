@@ -6,7 +6,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "treatment_rooms")
 public class TreatmentRoom {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -18,7 +17,6 @@ public class TreatmentRoom {
     public TreatmentRoom(Long id,
                          Integer roomNumber,
                          String roomColor) {
-
         this.id = id;
         this.roomNumber = roomNumber;
         this.roomColor = roomColor;

@@ -26,7 +26,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TreatmentRoomServiceTest {
-
     @Mock
     TreatmentRoomRepository mockTreatmentRoomRepository;
 
@@ -46,7 +45,6 @@ class TreatmentRoomServiceTest {
 
     @BeforeEach
     void setUp() {
-
         treatmentRoom1 = new TreatmentRoom(1L, 1, "orange");
         treatmentRoom2 = new TreatmentRoom(2L, 2, "blue");
         treatmentRoom3 = new TreatmentRoom(3L, 3, "yellow");
@@ -62,7 +60,6 @@ class TreatmentRoomServiceTest {
 
     @Test
     void testSaveTreatmentRoom() {
-
         when(mockTreatmentRoomRepository.save(any(TreatmentRoom.class))).thenReturn(treatmentRoom1);
 
         treatmentRoomService.saveTreatmentRoom(treatmentRoomInputDto1);
@@ -89,7 +86,6 @@ class TreatmentRoomServiceTest {
         assertEquals(treatmentRooms.get(2).getId(), dtos.get(2).getId());
         assertEquals(treatmentRooms.get(2).getRoomNumber(), dtos.get(2).getRoomNumber());
         assertEquals(treatmentRooms.get(2).getRoomColor(), dtos.get(2).getRoomColor());
-
     }
 
     @Test

@@ -6,7 +6,6 @@ import java.util.Objects;
 
 @Embeddable
 public class AppointmentTreatmentKey implements Serializable {
-
     private Long appointmentId;
     private Long treatmentId;
 
@@ -14,7 +13,6 @@ public class AppointmentTreatmentKey implements Serializable {
     }
 
     public AppointmentTreatmentKey(Long appointmentId, Long treatmentId) {
-
         this.appointmentId = appointmentId;
         this.treatmentId = treatmentId;
     }

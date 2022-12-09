@@ -17,7 +17,6 @@ import java.util.HashSet;
 
 @Service
 public class AppointmentTreatmentService {
-
     private final AppointmentRepository appointmentRepository;
     private final TreatmentRepository treatmentRepository;
     private final AppointmentTreatmentRepository appointmentTreatmentRepository;
@@ -25,14 +24,12 @@ public class AppointmentTreatmentService {
     public AppointmentTreatmentService(AppointmentRepository appointmentRepository,
                                        TreatmentRepository treatmentRepository,
                                        AppointmentTreatmentRepository appointmentTreatmentRepository) {
-
         this.appointmentRepository = appointmentRepository;
         this.treatmentRepository = treatmentRepository;
         this.appointmentTreatmentRepository = appointmentTreatmentRepository;
     }
 
     public AppointmentTreatmentKey addAppointmentTreatment(Long appointmentId, Long treatmentId) {
-
         var appointmentTreatment = new AppointmentTreatment();
 
         if (!appointmentRepository.existsById(appointmentId)) {
@@ -46,6 +43,7 @@ public class AppointmentTreatmentService {
         Treatment treatment = treatmentRepository.findById(treatmentId).orElse(null);
         appointmentTreatment.setAppointment(appointment);
         appointmentTreatment.setTreatment(treatment);
+
         AppointmentTreatmentKey id = new AppointmentTreatmentKey(appointmentId, treatmentId);
         appointmentTreatment.setId(id);
         appointmentTreatmentRepository.save(appointmentTreatment);
@@ -54,13 +52,11 @@ public class AppointmentTreatmentService {
     }
 
     public Collection<AppointmentDto> getAppointmentTreatmentsByTreatmentId(Long treatmentId) {
-
         Collection<AppointmentDto> dtos = new HashSet<>();
         Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByTreatmentId(treatmentId);
 
         for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
             Appointment appointment = appointmentTreatment.getAppointment();
-
             var dto = new AppointmentDto();
 
             dto.setId(appointment.getId());
@@ -75,13 +71,11 @@ public class AppointmentTreatmentService {
     }
 
     public Collection<TreatmentDto> getAppointmentTreatmentByAppointmentId(Long appointmentId) {
-
         Collection<TreatmentDto> dtos = new HashSet<>();
         Collection<AppointmentTreatment> appointmentTreatments = appointmentTreatmentRepository.findAllByAppointmentId(appointmentId);
 
         for (AppointmentTreatment appointmentTreatment : appointmentTreatments) {
             Treatment treatment = appointmentTreatment.getTreatment();
-
             var dto = new TreatmentDto();
 
             dto.setId(treatment.getId());

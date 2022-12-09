@@ -7,14 +7,12 @@ public class TreatmentRoomInputDto {
     @Min(value = 1)
     @Max(value = 99)
     private Integer roomNumber;
-
     @NotBlank
     @Size(min = 3, max = 25)
     private String roomColor;
 
     public TreatmentRoomInputDto(Integer roomNumber,
                                  String roomColor) {
-
         this.roomNumber = roomNumber;
         this.roomColor = roomColor;
     }

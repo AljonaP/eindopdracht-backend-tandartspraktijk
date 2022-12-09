@@ -21,22 +21,17 @@ import java.util.*;
 
 @Service
 public class DatabaseService {
-
     private final FileDocumentRepository fileDocumentRepository;
 
     public DatabaseService(FileDocumentRepository fileDocumentRepository) {
-
         this.fileDocumentRepository = fileDocumentRepository;
     }
 
-
     public Collection<FileDocument> getALlFromDB() {
-
         return fileDocumentRepository.findAll();
     }
 
     public FileDocument uploadFileDocument(MultipartFile file) throws IOException {
-
         String name = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
         if (!(fileDocumentRepository.existsByFileName(name))) {
@@ -48,12 +43,10 @@ public class DatabaseService {
 
             return fileDocument;
         }
-
         throw new RuntimeException("The file is already exist in the Database.");
     }
 
     public ResponseEntity<byte[]> singleFileDownload(String fileName, HttpServletRequest request) {
-
         FileDocument document = fileDocumentRepository.findByFileName(fileName);
         String mimeType = request.getServletContext().getMimeType(document.getFileName());
 
@@ -61,7 +54,6 @@ public class DatabaseService {
     }
 
     public List<FileUploadResponse> createMultipleUpload(MultipartFile[] files) {
-
         List<FileUploadResponse> uploadResponseList = new ArrayList<>();
         Arrays.stream(files).forEach(file -> {
 
@@ -89,9 +81,9 @@ public class DatabaseService {
     }
 
     public Resource downLoadFileDatabase(String fileName) {
-
         String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFromDB/").path(fileName).toUriString();
         Resource resource;
+
         try {
             resource = new UrlResource(url);
         } catch (MalformedURLException e) {

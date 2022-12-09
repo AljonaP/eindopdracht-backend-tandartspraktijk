@@ -4,32 +4,24 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class PatientInputDto {
-
     @NotBlank(message = "Veld verplicht invullen")
     @Size(min=1, max=30)
     private String namePatient;
-
     @NotBlank(message = "Veld verplicht invullen")
     @Size(min=1, max=30)
     private String surnamePatient;
-
     @Past
     private LocalDate dob;
-
     @NotBlank
     @Size(min=6, max=6)
     private String zipCode;
-
     @NotNull
     private Integer homeNumber;
-
     @Email
     private String email;
-
     @NotNull
     @Size(min = 10, max = 10)
     private String phoneNumber;
-
     @NotNull
     private Integer reimburseByInsurancePercentage;
 
@@ -41,7 +33,6 @@ public class PatientInputDto {
                            String email,
                            String phoneNumber,
                            Integer reimburseByInsurancePercentage) {
-
         this.namePatient = namePatient;
         this.surnamePatient = surnamePatient;
         this.dob = dob;
@@ -50,7 +41,6 @@ public class PatientInputDto {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.reimburseByInsurancePercentage = reimburseByInsurancePercentage;
-
     }
 
     public PatientInputDto() {

@@ -19,19 +19,16 @@ import static nl.haaientanden.eindopdrachtbackendtandartspraktijk.utils.UtilityM
 @RestController
 @RequestMapping("/haaientanden/afspraken")
 public class AppointmentController {
-
     private final AppointmentRepository appointmentRepository;
     private final AppointmentService appointmentService;
 
     public AppointmentController(AppointmentRepository appointmentRepository, AppointmentService appointmentService) {
-
         this.appointmentRepository = appointmentRepository;
         this.appointmentService = appointmentService;
     }
 
     @PostMapping("")
     public ResponseEntity<Object> addAppointment(@Valid @RequestBody AppointmentInputDto appointmentInputDto, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
 
             return new ResponseEntity<>(getErrorMessage(bindingResult), HttpStatus.BAD_REQUEST);
@@ -43,13 +40,11 @@ public class AppointmentController {
 
     @GetMapping("")
     public ResponseEntity<List<AppointmentDto>> getAllAppointments() {
-
         return ResponseEntity.ok().body(appointmentService.getAppointments());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getAppointment(@PathVariable(name = "id") Long id) {
-
         AppointmentDto dto = appointmentService.getAppointmentById(id);
 
         return ResponseEntity.ok(dto);
@@ -57,7 +52,6 @@ public class AppointmentController {
 
     @GetMapping("/tandartsen/{surnameDentist}")
     public ResponseEntity<List<AppointmentDto>> getAllAppointmentsBySurnameDentist(@PathVariable(name = "surnameDentist") String surnameDentist) {
-
         List<AppointmentDto> dtos;
         dtos = appointmentService.getAllAppointmentsBySurnameDentist(surnameDentist);
 
@@ -70,7 +64,6 @@ public class AppointmentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateAppointment(@PathVariable(name = "id") Long id, @RequestBody AppointmentInputDto newAppointment) {
-
         AppointmentDto dto = appointmentService.updateAppointment(id, newAppointment);
 
         return ResponseEntity.ok().body(dto);
@@ -78,7 +71,6 @@ public class AppointmentController {
 
     @PutMapping("/{appointmentId}/behandelkamers/{treatmentRoomId}")
     public ResponseEntity<Object> assignTreatmentRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long treatmentRoomId) {
-
         AppointmentDto appointmentDto = appointmentService.assignTreatmentRoomToAppointment(appointmentId, treatmentRoomId);
 
         return ResponseEntity.ok(appointmentDto);
@@ -86,7 +78,6 @@ public class AppointmentController {
 
     @PutMapping("/{appointmentId}/patienten/{patientId}")
     public ResponseEntity<Object> assignPatientToAppointment(@PathVariable Long appointmentId, @PathVariable Long patientId) {
-
         AppointmentDto appointmentDto = appointmentService.assignPatientToAppointment(appointmentId, patientId);
 
         return ResponseEntity.ok(appointmentDto);
@@ -94,7 +85,6 @@ public class AppointmentController {
 
     @DeleteMapping("/{id}")
     public void deleteAppointment(@PathVariable(name = "id") Long id) {
-
         appointmentService.deleteAppointmentById(id);
     }
 }

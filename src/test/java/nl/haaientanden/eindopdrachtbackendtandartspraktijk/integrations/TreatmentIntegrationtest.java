@@ -1,5 +1,6 @@
 package nl.haaientanden.eindopdrachtbackendtandartspraktijk.integrations;
 
+import nl.haaientanden.eindopdrachtbackendtandartspraktijk.controllers.TreatmentControllerTest;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.dtos.TreatmentInputDto;
 import nl.haaientanden.eindopdrachtbackendtandartspraktijk.filter.JwtRequestFilter;

@@ -8,18 +8,15 @@ public class AppointmentInputDto {
     @NotBlank(message = "Veld verplicht invullen")
     @Size(min=1, max=30)
     private String nameDentist;
-
     @NotBlank(message = "Veld verplicht invullen")
     @Size(min=1, max=30)
     private String surnameDentist;
-
    @NotNull
     private LocalDateTime appointmentDateTime;
 
     public AppointmentInputDto(String nameDentist,
                                String surnameDentist,
                                LocalDateTime appointmentDateTime) {
-
         this.nameDentist = nameDentist;
         this.surnameDentist = surnameDentist;
         this.appointmentDateTime = appointmentDateTime;
